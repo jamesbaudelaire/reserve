@@ -8,6 +8,12 @@ import { Business } from "./business";
 
 import { createGlobalStyle } from "styled-components";
 
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { Reducers } from "./redux/reducers";
+
+const store = createStore(Reducers);
+
 const GS = createGlobalStyle`
 
 `;
@@ -32,4 +38,9 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);

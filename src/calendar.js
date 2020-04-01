@@ -1,6 +1,8 @@
 import React, { useState, useLayoutEffect } from "react";
 
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { setDay } from "./redux/actions";
 
 export const CalendarData = {
   months: [
@@ -17,7 +19,6 @@ export const CalendarData = {
     "nov",
     "dec"
   ],
-  // days: ["s", "m", "t", "w", "t", "f", "s"],
   days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
 };
 
@@ -124,14 +125,31 @@ export const CalendarUI = () => {
   const [daynum, setDaynum] = useState(null);
   const [dayname, setDayname] = useState(null);
 
+  const dispatch = useDispatch();
+
   let Today = () => {
     clearSelected();
 
     let today = new Date();
-    setYear(today.getFullYear());
-    setMonth(today.getMonth());
-    setDaynum(today.getDate());
-    setDayname(CalendarData.days[today.getDay()]);
+    let year = today.getFullYear();
+    let month = today.getMonth();
+    let number = today.getDate();
+    let name = CalendarData.days[today.getDay()];
+
+    setYear(year);
+    setMonth(month);
+    setDaynum(number);
+    setDayname(name);
+
+    let day = {
+      year,
+      month: CalendarData.months[month],
+      number,
+      name
+    };
+
+    console.log(day);
+    dispatch(setDay(day));
   };
 
   useLayoutEffect(() => {
@@ -224,7 +242,14 @@ export const CalendarUI = () => {
                   let monthname = CalendarData.months[month];
                   setDaynum(null);
                   if (day) {
-                    console.log(day, monthname, dayname, year);
+                    dispatch(
+                      setDay({
+                        year,
+                        month: monthname,
+                        number: day,
+                        name: dayname
+                      })
+                    );
                     selectDay(day, dayname);
                   }
                 }}

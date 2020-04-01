@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { CalendarUI } from "./calendar";
 
 import { data } from "./data";
+import { useSelector } from "react-redux";
 
 const S = styled.div`
   .logo {
@@ -83,22 +84,22 @@ let getConfirmedTotal = x => {
   return n;
 };
 
-let selectedDay = {
-  year: 2020,
-  month: "mar",
-  number: 1,
-  name: "mon"
-};
-
 export const Business = () => {
   let { business } = useParams();
 
+  const day = useSelector(s => s.day);
+
   let url = `https://randomuser.me/api/portraits/men/75.jpg`;
 
-  let reservations =
-    data[business].year[selectedDay.year][selectedDay.month][
-      selectedDay.number
-    ];
+  let reservations = [];
+
+  if (data[business].year[day.year]) {
+    if (data[business].year[day.year][day.month]) {
+      if (data[business].year[day.year][day.month][day.number]) {
+        reservations = data[business].year[day.year][day.month][day.number];
+      }
+    }
+  }
 
   let hours = [...new Set(reservations.map(r => r.time.hour))].sort((a, b) =>
     a > b ? 1 : -1
@@ -117,9 +118,9 @@ export const Business = () => {
       {<CalendarUI />}
 
       <div className="today">
-        <div className="day">{selectedDay.name}</div>
-        <div className="month">{selectedDay.month}</div>
-        <div className="number">{selectedDay.number}</div>
+        <div className="day">{day.name}</div>
+        <div className="month">{day.month}</div>
+        <div className="number">{day.number}</div>
       </div>
 
       <img alt="logo" src={url} className="logo" />
