@@ -4,3 +4,10 @@ export const setDay = x => {
     data: x
   };
 };
+
+export const getData = x => {
+  return {
+    type: "get",
+    data: x
+  };
+};

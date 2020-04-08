@@ -1,5 +1,6 @@
 export const data = {
   rialto: {
+    name: "The Rialto Restaurant",
     year: {
       2020: {
         apr: {

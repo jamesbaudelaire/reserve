@@ -148,7 +148,6 @@ export const CalendarUI = () => {
       name
     };
 
-    console.log(day);
     dispatch(setDay(day));
   };
 

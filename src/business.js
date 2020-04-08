@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 import { CalendarUI } from "./calendar";
 
-import { data } from "./data";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getData } from "./redux/actions";
 
 const S = styled.div`
   .logo {
@@ -37,6 +37,10 @@ const S = styled.div`
 
   .name {
     margin: 10px;
+  }
+
+  .add {
+    font-size: 30px;
   }
 `;
 
@@ -87,16 +91,26 @@ let getConfirmedTotal = x => {
 export const Business = () => {
   let { business } = useParams();
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getData(business));
+  }, []);
+
+  const data = useSelector(s => s.data);
+
   const day = useSelector(s => s.day);
 
   let url = `https://randomuser.me/api/portraits/men/75.jpg`;
 
   let reservations = [];
 
-  if (data[business].year[day.year]) {
-    if (data[business].year[day.year][day.month]) {
-      if (data[business].year[day.year][day.month][day.number]) {
-        reservations = data[business].year[day.year][day.month][day.number];
+  if (data.year) {
+    if (data.year[day.year]) {
+      if (data.year[day.year][day.month]) {
+        if (data.year[day.year][day.month][day.number]) {
+          reservations = data.year[day.year][day.month][day.number];
+        }
       }
     }
   }
@@ -110,6 +124,8 @@ export const Business = () => {
       .filter(r => r.time.hour === h)
       .sort((a, b) => (a.time.minutes > b.time.minutes ? 1 : -1));
   };
+
+  const [addReservation, setAddReservation] = useState(false);
 
   return (
     <S>
@@ -152,6 +168,17 @@ export const Business = () => {
           ))}
         </div>
       ))}
+
+      <i
+        className="material-icons-round add"
+        onClick={() => {
+          setAddReservation(true);
+        }}
+      >
+        add
+      </i>
+
+      {addReservation && <div>add reservation</div>}
     </S>
   );
 };
