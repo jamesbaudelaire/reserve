@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { setDay } from "./redux/actions";
+import { setDay } from "../redux/actions";
 
 export const CalendarData = {
   months: [

@@ -35,7 +35,7 @@ export const data = {
         phone: ";wls;",
         email: "email",
         notes: "notes",
-        confirmed: false,
+        confirmed: true,
         id: 431341
       }
     ]

@@ -16,8 +16,16 @@ const dayReducer = (state = day, action) => {
 const dataReducer = (state = {}, action) => {
   switch (action.type) {
     case "get":
-      return data[action.data];
-
+      let business = data[action.data];
+      if (business) {
+        return business;
+      } else {
+        return state;
+      }
+    case "add":
+      let x = state;
+      x.reservations.push(action.data);
+      return { ...state, x };
     default:
       return state;
   }
