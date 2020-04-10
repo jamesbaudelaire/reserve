@@ -11,3 +11,10 @@ export const getData = x => {
     data: x
   };
 };
+
+export const addReservation = x => {
+  return {
+    type: "add",
+    data: x
+  };
+};

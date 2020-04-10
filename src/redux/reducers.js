@@ -17,6 +17,7 @@ const dataReducer = (state = {}, action) => {
   switch (action.type) {
     case "get":
       return data[action.data];
+
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { CalendarUI } from "./calendar";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getData } from "./redux/actions";
+import { getData, addReservation } from "./redux/actions";
 
 const S = styled.div`
   .logo {
@@ -71,7 +71,7 @@ let getMinutes = m => {
 let getTotal = x => {
   let n = 0;
 
-  x.forEach(r => (n += r.number));
+  x.forEach(r => (n += r.people));
 
   return n;
 };
@@ -95,7 +95,7 @@ export const Business = () => {
 
   useEffect(() => {
     dispatch(getData(business));
-  }, []);
+  });
 
   const data = useSelector(s => s.data);
 
@@ -105,14 +105,10 @@ export const Business = () => {
 
   let reservations = [];
 
-  if (data.year) {
-    if (data.year[day.year]) {
-      if (data.year[day.year][day.month]) {
-        if (data.year[day.year][day.month][day.number]) {
-          reservations = data.year[day.year][day.month][day.number];
-        }
-      }
-    }
+  if (data.reservations) {
+    reservations = data.reservations.filter(r =>
+      ["year", "month", "number"].every(x => r.date[x] === day[x])
+    );
   }
 
   let hours = [...new Set(reservations.map(r => r.time.hour))].sort((a, b) =>
@@ -125,11 +121,13 @@ export const Business = () => {
       .sort((a, b) => (a.time.minutes > b.time.minutes ? 1 : -1));
   };
 
-  const [addReservation, setAddReservation] = useState(false);
+  console.log(reservations);
+
+  const [addReservationUI, setAddReservationUI] = useState(true);
 
   return (
     <S>
-      {business}
+      {data.name}
 
       {<CalendarUI />}
 
@@ -163,7 +161,7 @@ export const Business = () => {
 
               <span className="name">{r.name}</span>
 
-              <span className="name">{r.number}</span>
+              <span className="name">{r.people}</span>
             </div>
           ))}
         </div>
@@ -172,13 +170,25 @@ export const Business = () => {
       <i
         className="material-icons-round add"
         onClick={() => {
-          setAddReservation(true);
+          setAddReservationUI(true);
         }}
       >
         add
       </i>
 
-      {addReservation && <div>add reservation</div>}
+      {addReservationUI && (
+        <div>
+          <button
+            onClick={() => {
+              let reservation = {};
+
+              dispatch(addReservation(reservation));
+            }}
+          >
+            test
+          </button>
+        </div>
+      )}
     </S>
   );
 };
