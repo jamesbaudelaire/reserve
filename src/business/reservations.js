@@ -78,7 +78,7 @@ let getConfirmedTotal = x => {
   return n;
 };
 
-export const Reservation = () => {
+export const Reservations = () => {
   const dispatch = useDispatch();
 
   const data = useSelector(s => s.data);
@@ -102,6 +102,7 @@ export const Reservation = () => {
   };
 
   const [addReservationUI, setAddReservationUI] = useState(true);
+  const [reservation, setReservation] = useState(null);
 
   return (
     <S>
@@ -132,6 +133,11 @@ export const Reservation = () => {
               className={`reservation ${r.confirmed &&
                 "confirmed-reservation"}`}
               key={r.id}
+              id={r.id}
+              onClick={() => {
+                setReservation(reservations.find(x => x.id == r.id));
+                setAddReservationUI(true);
+              }}
             >
               <span className="minutes">{`${getHour(h)}:${getMinutes(
                 r.time.minutes
@@ -154,7 +160,12 @@ export const Reservation = () => {
       </i>
 
       {addReservationUI && (
-        <ReservationForm setui={setAddReservationUI} ui={addReservationUI} />
+        <ReservationForm
+          setui={setAddReservationUI}
+          ui={addReservationUI}
+          reservation={reservation}
+          setReservation={setReservation}
+        />
       )}
     </S>
   );

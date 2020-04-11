@@ -24,6 +24,7 @@ const dataReducer = (state = {}, action) => {
       }
     case "add":
       let x = state;
+      console.log(action.data);
       x.reservations.push(action.data);
       return { ...state, x };
     default:

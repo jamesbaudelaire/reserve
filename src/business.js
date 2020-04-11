@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getData } from "./redux/actions";
-import { Reservation } from "./business/reservation";
+import { Reservations } from "./business/reservations";
 
 const S = styled.div`
   .logo {
@@ -42,7 +42,7 @@ export const Business = () => {
 
           <img alt="logo" src={url} className="logo" />
 
-          <Reservation />
+          <Reservations />
         </>
       ) : (
         "Business not found!"
