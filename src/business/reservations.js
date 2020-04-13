@@ -35,6 +35,10 @@ const S = styled.div`
 `;
 
 let getHour = h => {
+if(h===12||h===0){
+  return 12
+}
+
   if (h < 12) {
     return `${h}`;
   } else {

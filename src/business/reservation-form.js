@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
-import { CalendarUI } from "./calendar";
-
 import { useDispatch, useSelector } from "react-redux";
 import { addReservation } from "../redux/actions";
 
@@ -63,12 +61,16 @@ const S = styled.div`
   }
 `;
 
+let convertSingle=(x)=>{
+if(x<10){
+  return `0${x}`
+}else{
+  return x
+}
+}
+
 export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(reservation);
-  }, [reservation]);
 
   const day = useSelector(s => s.day);
 
@@ -92,6 +94,29 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
     { input: "notes", type: "text" }
   ];
 
+  useEffect(() => {
+    if (reservation) {
+      inputs.forEach(x => {
+        document.getElementById(x.input).value = reservation[x.input];
+      });
+
+      document.getElementById("confirmed").checked = reservation.confirmed;
+      document.getElementById('time').value=`${convertSingle(reservation.time.hour)}:${convertSingle(reservation.time.minutes)}`
+    }
+  }, [reservation]);
+
+
+let convertTime=(x)=>{
+
+let time={}
+
+time.hour=parseInt(x.substring(0,2))
+
+time.minutes=parseInt(x.substring(3,5))
+
+return time
+}
+
   let newReservation = () => {
     let r = {};
 
@@ -107,11 +132,6 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
       number: day.number
     };
 
-    r.time = {
-      hour: 23,
-      minutes: 21
-    };
-
     r.confirmed = document.getElementById("confirmed").checked;
 
     if (reservation) {
@@ -120,8 +140,12 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
       r.id = ID();
     }
 
+r.time=convertTime(document.getElementById('time').value)
+
     return r;
   };
+
+
 
   return (
     <S>
@@ -142,6 +166,9 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
             <span />
           </label>
         </div>
+
+        <input type="time" id="time"/>
+
       </div>
 
       <div className="reservation-form">

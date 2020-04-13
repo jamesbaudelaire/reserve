@@ -24,7 +24,11 @@ const dataReducer = (state = {}, action) => {
       }
     case "add":
       let x = state;
-      console.log(action.data);
+
+      if (x.reservations.find(r => r.id === action.data.id)) {
+        x.reservations = x.reservations.filter(r => r.id !== action.data.id);
+      }
+
       x.reservations.push(action.data);
       return { ...state, x };
     default:

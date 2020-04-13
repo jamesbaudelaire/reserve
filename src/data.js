@@ -6,10 +6,10 @@ export const data = {
         date: {
           year: 2020,
           month: "apr",
-          number: 10
+          number: 13
         },
         time: {
-          hour: 20,
+          hour: 1,
           minutes: 20
         },
         name: "john",
@@ -24,7 +24,7 @@ export const data = {
         date: {
           year: 2020,
           month: "apr",
-          number: 9
+          number: 13
         },
         time: {
           hour: 20,
