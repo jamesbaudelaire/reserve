@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { ReservationForm } from "./reservation-form";
 
+import { arrived } from "../redux/actions";
+
 const S = styled.div`
   .reservation {
     background: grey;
@@ -32,12 +34,19 @@ const S = styled.div`
   .reservation-form {
     background: grey;
   }
+
+  .edit-reservation {
+    cursor: pointer;
+  }
+  .selected-reservation {
+    border: 2px solid red;
+  }
 `;
 
 let getHour = h => {
-if(h===12||h===0){
-  return 12
-}
+  if (h === 12 || h === 0) {
+    return 12;
+  }
 
   if (h < 12) {
     return `${h}`;
@@ -105,17 +114,21 @@ export const Reservations = () => {
       .sort((a, b) => (a.time.minutes > b.time.minutes ? 1 : -1));
   };
 
-  const [addReservationUI, setAddReservationUI] = useState(true);
+  const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservation, setReservation] = useState(null);
+
+  let selectReservation = id => {
+    let x = document.querySelector(".selected-reservation");
+    if (x) {
+      x.classList.remove("selected-reservation");
+    }
+    if (id) {
+      document.getElementById(id).classList.add("selected-reservation");
+    }
+  };
 
   return (
     <S>
-      <div className="today">
-        <div className="day">{day.name}</div>
-        <div className="month">{day.month}</div>
-        <div className="number">{day.number}</div>
-      </div>
-
       {<CalendarUI />}
 
       {hours.map(h => (
@@ -138,37 +151,52 @@ export const Reservations = () => {
                 "confirmed-reservation"}`}
               key={r.id}
               id={r.id}
-              onClick={() => {
-                setReservation(reservations.find(x => x.id == r.id));
-                setAddReservationUI(true);
-              }}
             >
+              <i
+                className="material-icons-round arrived"
+                onClick={() => {
+                  dispatch(arrived(r.id));
+                }}
+              >
+                {r.arrived ? "check_box" : "check_box_outline_blank"}
+              </i>
+
               <span className="minutes">{`${getHour(h)}:${getMinutes(
                 r.time.minutes
               )}`}</span>
 
               <span className="name">{r.name}</span>
               <span className="name">{r.people}</span>
+              <i
+                className="material-icons-round edit-reservation"
+                onClick={() => {
+                  setReservation(reservations.find(x => x.id == r.id));
+                  setAddReservationUI(true);
+                }}
+              >
+                edit
+              </i>
             </div>
           ))}
         </div>
       ))}
 
-      <i
-        className="material-icons-round add-reservation"
-        onClick={() => {
-          setAddReservationUI(true);
-        }}
-      >
-        add
-      </i>
-
-      {addReservationUI && (
+      {!addReservationUI ? (
+        <i
+          className="material-icons-round add-reservation"
+          onClick={() => {
+            setAddReservationUI(true);
+          }}
+        >
+          add
+        </i>
+      ) : (
         <ReservationForm
           setui={setAddReservationUI}
           ui={addReservationUI}
           reservation={reservation}
           setReservation={setReservation}
+          selectReservation={selectReservation}
         />
       )}
     </S>

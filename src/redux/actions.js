@@ -18,3 +18,10 @@ export const addReservation = x => {
     data: x
   };
 };
+
+export const arrived = x => {
+  return {
+    type: "arrived",
+    data: x
+  };
+};

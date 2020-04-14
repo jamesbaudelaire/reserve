@@ -61,15 +61,15 @@ const S = styled.div`
   }
 `;
 
-let convertSingle=(x)=>{
-if(x<10){
-  return `0${x}`
-}else{
-  return x
-}
-}
+let convertSingle = x => {
+  if (x < 10) {
+    return `0${x}`;
+  } else {
+    return x;
+  }
+};
 
-export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
+export const ReservationForm = ({ ui, setui, reservation, setReservation,selectReservation }) => {
   const dispatch = useDispatch();
 
   const day = useSelector(s => s.day);
@@ -95,27 +95,36 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation }) => {
   ];
 
   useEffect(() => {
+
     if (reservation) {
       inputs.forEach(x => {
         document.getElementById(x.input).value = reservation[x.input];
       });
 
       document.getElementById("confirmed").checked = reservation.confirmed;
-      document.getElementById('time').value=`${convertSingle(reservation.time.hour)}:${convertSingle(reservation.time.minutes)}`
+      document.getElementById("time").value = `${convertSingle(
+        reservation.time.hour
+      )}:${convertSingle(reservation.time.minutes)}`;
+    
+      selectReservation(reservation.id)
+
     }
+
   }, [reservation]);
 
 
-let convertTime=(x)=>{
+  
+  
 
-let time={}
+  let convertTime = x => {
+    let time = {};
 
-time.hour=parseInt(x.substring(0,2))
+    time.hour = parseInt(x.substring(0, 2));
 
-time.minutes=parseInt(x.substring(3,5))
+    time.minutes = parseInt(x.substring(3, 5));
 
-return time
-}
+    return time;
+  };
 
   let newReservation = () => {
     let r = {};
@@ -140,12 +149,16 @@ return time
       r.id = ID();
     }
 
-r.time=convertTime(document.getElementById('time').value)
+    r.time = convertTime(document.getElementById("time").value);
 
     return r;
   };
 
-
+let resetui=()=>{
+  setui(false);
+  setReservation(null);
+  selectReservation()
+}
 
   return (
     <S>
@@ -167,21 +180,16 @@ r.time=convertTime(document.getElementById('time').value)
           </label>
         </div>
 
-        <input type="time" id="time"/>
-
+        <input type="time" id="time" />
       </div>
 
       <div className="reservation-form">
         <button
           onClick={() => {
-            if (
-              newReservation().people > 0 &&
-              newReservation().name &&
-              newReservation().phone
-            ) {
+            if (newReservation().people > 0) {
               dispatch(addReservation(newReservation()));
-              setui(false);
-              setReservation(null);
+              resetui()
+             
             }
           }}
         >
@@ -189,8 +197,7 @@ r.time=convertTime(document.getElementById('time').value)
         </button>
         <button
           onClick={() => {
-            setui(false);
-            setReservation(null);
+           resetui()
           }}
         >
           cancel

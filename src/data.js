@@ -18,13 +18,14 @@ export const data = {
         email: "email",
         notes: "notes",
         confirmed: false,
+        arrived: false,
         id: 123214
       },
       {
         date: {
           year: 2020,
           month: "apr",
-          number: 13
+          number: 14
         },
         time: {
           hour: 20,
@@ -36,6 +37,7 @@ export const data = {
         email: "email",
         notes: "notes",
         confirmed: true,
+        arrived: true,
         id: 431341
       }
     ]

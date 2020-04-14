@@ -31,6 +31,14 @@ const dataReducer = (state = {}, action) => {
 
       x.reservations.push(action.data);
       return { ...state, x };
+    case "arrived":
+      let y = state;
+      y.reservations.forEach(r => {
+        if (r.id === action.data) {
+          r.arrived = !r.arrived;
+        }
+      });
+      return { ...state, y };
     default:
       return state;
   }
