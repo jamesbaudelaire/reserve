@@ -5,23 +5,10 @@ export const setDay = x => {
   };
 };
 
-// export const getData = x => {
-//   return {
-//     type: "get",
-//     data: x
-//   };
-// };
-
 export const setReservations = x => {
   return {
     type: "setReservations",
     data: x
-  };
-};
-
-export const getReservations = () => {
-  return {
-    type: "getReservations"
   };
 };
 

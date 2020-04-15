@@ -98,8 +98,6 @@ export const Reservations = () => {
 
   let reservations = reservationsData;
 
-  console.log(reservations);
-
   if (reservations) {
     reservations = reservations.filter(r =>
       ["year", "month", "number"].every(x => r.date[x] === day[x])
@@ -184,6 +182,7 @@ export const Reservations = () => {
                   dispatch(arrived(r.id));
                 }}
               >
+                {console.log(r.arrived)}
                 {r.arrived ? "check_box" : "check_box_outline_blank"}
               </i>
 

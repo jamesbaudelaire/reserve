@@ -16,8 +16,7 @@ const store = createStore(Reducers);
 
 store.subscribe(() => {
   let x = store.getState();
-  console.clear();
-  console.log(x.reservations);
+  // console.log(x.reservations);
 });
 
 const GS = createGlobalStyle`

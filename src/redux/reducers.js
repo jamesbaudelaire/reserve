@@ -11,9 +11,6 @@ const dayReducer = (state = {}, action) => {
 
 const reservationsReducer = (state = [], action) => {
   switch (action.type) {
-    case "getReservations":
-      return state;
-
     case "setReservations":
       return [...state, ...action.data];
 
@@ -21,8 +18,14 @@ const reservationsReducer = (state = [], action) => {
       if (state.find(r => r.id === action.data.id)) {
         state = state.filter(r => r.id !== action.data.id);
       }
-
       return [...state, action.data];
+
+    case "arrived":
+      let x = state.map(r =>
+        r.id === action.data ? { ...r, arrived: !r.arrived } : r
+      );
+      return x;
+
     default:
       return state;
   }

@@ -32,12 +32,6 @@ export const Business = () => {
     dispatch(setReservations(data[business].reservations));
   });
 
-  // const data = useSelector(s => s.data);
-
-  // useEffect(() => {
-  //   dispatch(getData(business));
-  // });
-
   let url = `https://randomuser.me/api/portraits/men/75.jpg`;
 
   return (
