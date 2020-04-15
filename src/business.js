@@ -5,8 +5,10 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getData } from "./redux/actions";
 import { Reservations } from "./business/reservations";
+
+import { data } from "./data";
+import { setReservations } from "./redux/actions";
 
 const S = styled.div`
   .logo {
@@ -26,17 +28,21 @@ export const Business = () => {
 
   const dispatch = useDispatch();
 
-  const data = useSelector(s => s.data);
-
   useEffect(() => {
-    dispatch(getData(business));
+    dispatch(setReservations(data[business].reservations));
   });
+
+  // const data = useSelector(s => s.data);
+
+  // useEffect(() => {
+  //   dispatch(getData(business));
+  // });
 
   let url = `https://randomuser.me/api/portraits/men/75.jpg`;
 
   return (
     <S>
-      {data.name ? (
+      {data[business].name ? (
         <>
           {data.name}
 

@@ -92,14 +92,16 @@ let getConfirmedTotal = x => {
 };
 
 export const Reservations = () => {
-  const dispatch = useDispatch();
-
-  const data = useSelector(s => s.data);
   const day = useSelector(s => s.day);
 
-  let reservations = [];
-  if (data.reservations) {
-    reservations = data.reservations.filter(r =>
+  const reservationsData = useSelector(s => s.reservations);
+
+  let reservations = reservationsData;
+
+  console.log(reservations);
+
+  if (reservations) {
+    reservations = reservations.filter(r =>
       ["year", "month", "number"].every(x => r.date[x] === day[x])
     );
   }
@@ -123,13 +125,37 @@ export const Reservations = () => {
       x.classList.remove("selected-reservation");
     }
     if (id) {
-      document.getElementById(id).classList.add("selected-reservation");
+      let el = document.getElementById(id);
+      if (el) {
+        el.classList.add("selected-reservation");
+      }
     }
   };
+
+  const dispatch = useDispatch();
 
   return (
     <S>
       {<CalendarUI />}
+
+      {!addReservationUI ? (
+        <i
+          className="material-icons-round add-reservation"
+          onClick={() => {
+            setAddReservationUI(true);
+          }}
+        >
+          add
+        </i>
+      ) : (
+        <ReservationForm
+          setui={setAddReservationUI}
+          ui={addReservationUI}
+          reservation={reservation}
+          setReservation={setReservation}
+          selectReservation={selectReservation}
+        />
+      )}
 
       {hours.map(h => (
         <div key={h}>
@@ -180,25 +206,6 @@ export const Reservations = () => {
           ))}
         </div>
       ))}
-
-      {!addReservationUI ? (
-        <i
-          className="material-icons-round add-reservation"
-          onClick={() => {
-            setAddReservationUI(true);
-          }}
-        >
-          add
-        </i>
-      ) : (
-        <ReservationForm
-          setui={setAddReservationUI}
-          ui={addReservationUI}
-          reservation={reservation}
-          setReservation={setReservation}
-          selectReservation={selectReservation}
-        />
-      )}
     </S>
   );
 };

@@ -1,44 +1,28 @@
 import { combineReducers } from "redux";
 
-import { data } from "../data";
-
-let day = {};
-
-const dayReducer = (state = day, action) => {
+const dayReducer = (state = {}, action) => {
   switch (action.type) {
-    case "set":
+    case "setDay":
       return (state = action.data);
     default:
       return state;
   }
 };
 
-const dataReducer = (state = {}, action) => {
+const reservationsReducer = (state = [], action) => {
   switch (action.type) {
-    case "get":
-      let business = data[action.data];
-      if (business) {
-        return business;
-      } else {
-        return state;
-      }
-    case "add":
-      let x = state;
+    case "getReservations":
+      return state;
 
-      if (x.reservations.find(r => r.id === action.data.id)) {
-        x.reservations = x.reservations.filter(r => r.id !== action.data.id);
+    case "setReservations":
+      return [...state, ...action.data];
+
+    case "addReservation":
+      if (state.find(r => r.id === action.data.id)) {
+        state = state.filter(r => r.id !== action.data.id);
       }
 
-      x.reservations.push(action.data);
-      return { ...state, x };
-    case "arrived":
-      let y = state;
-      y.reservations.forEach(r => {
-        if (r.id === action.data) {
-          r.arrived = !r.arrived;
-        }
-      });
-      return { ...state, y };
+      return [...state, action.data];
     default:
       return state;
   }
@@ -46,5 +30,5 @@ const dataReducer = (state = {}, action) => {
 
 export const Reducers = combineReducers({
   day: dayReducer,
-  data: dataReducer
+  reservations: reservationsReducer
 });

@@ -1,6 +1,10 @@
 export const data = {
   rialto: {
     name: "The Rialto Restaurant",
+    reservations: []
+  },
+  guest: {
+    name: "Guest Mode",
     reservations: [
       {
         date: {
@@ -14,7 +18,7 @@ export const data = {
         },
         name: "john",
         people: 2,
-        phone: "123123213213",
+        phone: "46793893",
         email: "email",
         notes: "notes",
         confirmed: false,
@@ -32,8 +36,8 @@ export const data = {
           minutes: 30
         },
         people: 2,
-        name: "wswsws",
-        phone: ";wls;",
+        name: "jane",
+        phone: "0394238553",
         email: "email",
         notes: "notes",
         confirmed: true,

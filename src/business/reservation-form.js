@@ -69,7 +69,13 @@ let convertSingle = x => {
   }
 };
 
-export const ReservationForm = ({ ui, setui, reservation, setReservation,selectReservation }) => {
+export const ReservationForm = ({
+  ui,
+  setui,
+  reservation,
+  setReservation,
+  selectReservation
+}) => {
   const dispatch = useDispatch();
 
   const day = useSelector(s => s.day);
@@ -95,7 +101,6 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation,selectR
   ];
 
   useEffect(() => {
-
     if (reservation) {
       inputs.forEach(x => {
         document.getElementById(x.input).value = reservation[x.input];
@@ -105,16 +110,10 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation,selectR
       document.getElementById("time").value = `${convertSingle(
         reservation.time.hour
       )}:${convertSingle(reservation.time.minutes)}`;
-    
-      selectReservation(reservation.id)
 
+      selectReservation(reservation.id);
     }
-
-  }, [reservation]);
-
-
-  
-  
+  });
 
   let convertTime = x => {
     let time = {};
@@ -154,11 +153,11 @@ export const ReservationForm = ({ ui, setui, reservation, setReservation,selectR
     return r;
   };
 
-let resetui=()=>{
-  setui(false);
-  setReservation(null);
-  selectReservation()
-}
+  let resetui = () => {
+    setui(false);
+    setReservation(null);
+    selectReservation();
+  };
 
   return (
     <S>
@@ -188,8 +187,7 @@ let resetui=()=>{
           onClick={() => {
             if (newReservation().people > 0) {
               dispatch(addReservation(newReservation()));
-              resetui()
-             
+              resetui();
             }
           }}
         >
@@ -197,7 +195,7 @@ let resetui=()=>{
         </button>
         <button
           onClick={() => {
-           resetui()
+            resetui();
           }}
         >
           cancel
