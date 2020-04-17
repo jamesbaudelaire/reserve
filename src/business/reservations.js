@@ -29,7 +29,16 @@ const S = styled.div`
   }
 
   .add-reservation {
-    font-size: 30px;
+    font-size: 40px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    background: white;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 100;
   }
   .reservation-form {
     background: grey;
@@ -40,6 +49,12 @@ const S = styled.div`
   }
   .selected-reservation {
     border: 2px solid red;
+  }
+
+  .calendar {
+    margin: auto;
+    display: block;
+    width: min-content;
   }
 `;
 
@@ -92,13 +107,13 @@ let getConfirmedTotal = x => {
 };
 
 export const Reservations = () => {
-  const day = useSelector(s => s.day);
+  const [day, setDay] = useState();
 
   const reservationsData = useSelector(s => s.reservations);
 
   let reservations = reservationsData;
 
-  if (reservations) {
+  if (reservations && day) {
     reservations = reservations.filter(r =>
       ["year", "month", "number"].every(x => r.date[x] === day[x])
     );
@@ -117,6 +132,12 @@ export const Reservations = () => {
   const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservation, setReservation] = useState(null);
 
+  useEffect(() => {
+    if (addReservationUI) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [addReservationUI]);
+
   let selectReservation = id => {
     let x = document.querySelector(".selected-reservation");
     if (x) {
@@ -134,27 +155,6 @@ export const Reservations = () => {
 
   return (
     <S>
-      {<CalendarUI />}
-
-      {!addReservationUI ? (
-        <i
-          className="material-icons-round add-reservation"
-          onClick={() => {
-            setAddReservationUI(true);
-          }}
-        >
-          add
-        </i>
-      ) : (
-        <ReservationForm
-          setui={setAddReservationUI}
-          ui={addReservationUI}
-          reservation={reservation}
-          setReservation={setReservation}
-          selectReservation={selectReservation}
-        />
-      )}
-
       {hours.map(h => (
         <div key={h}>
           <span className="hour">{`${getHour(h)}${getHourType(h)}`}</span>
@@ -182,7 +182,6 @@ export const Reservations = () => {
                   dispatch(arrived(r.id));
                 }}
               >
-                {console.log(r.arrived)}
                 {r.arrived ? "check_box" : "check_box_outline_blank"}
               </i>
 
@@ -205,6 +204,28 @@ export const Reservations = () => {
           ))}
         </div>
       ))}
+
+      {!addReservationUI ? (
+        <i
+          className="material-icons-round add-reservation"
+          onClick={() => {
+            setAddReservationUI(true);
+          }}
+        >
+          add
+        </i>
+      ) : (
+        <ReservationForm
+          day={day}
+          setui={setAddReservationUI}
+          ui={addReservationUI}
+          reservation={reservation}
+          setReservation={setReservation}
+          selectReservation={selectReservation}
+        />
+      )}
+
+      {<CalendarUI day={day} setDay={setDay} />}
     </S>
   );
 };

@@ -1,18 +1,9 @@
 import { combineReducers } from "redux";
 
-const dayReducer = (state = {}, action) => {
-  switch (action.type) {
-    case "setDay":
-      return (state = action.data);
-    default:
-      return state;
-  }
-};
-
 const reservationsReducer = (state = [], action) => {
   switch (action.type) {
-    case "setReservations":
-      return [...state, ...action.data];
+    case "loadReservations":
+      return [...action.data];
 
     case "addReservation":
       if (state.find(r => r.id === action.data.id)) {
@@ -32,6 +23,5 @@ const reservationsReducer = (state = [], action) => {
 };
 
 export const Reducers = combineReducers({
-  day: dayReducer,
   reservations: reservationsReducer
 });

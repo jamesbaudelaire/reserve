@@ -12,14 +12,39 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { Reducers } from "./redux/reducers";
 
+import { LS } from "./functions";
+
 const store = createStore(Reducers);
 
 store.subscribe(() => {
-  let x = store.getState();
-  // console.log(x.reservations);
+  LS.save(store.getState().reservations);
 });
 
 const GS = createGlobalStyle`
+
+:root{
+--font:'Ubuntu', sans-serif;
+--shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+}
+
+::-webkit-scrollbar {
+display: none;
+}
+
+
+body{
+  user-select:none;
+  font-family:var(--font);
+  margin:0;padding:0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  ::after {
+    content: "";
+    display: block;
+    height: 200px;
+  }
+}
+
 
 `;
 

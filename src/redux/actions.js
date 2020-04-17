@@ -1,13 +1,6 @@
-export const setDay = x => {
+export const loadReservations = x => {
   return {
-    type: "setDay",
-    data: x
-  };
-};
-
-export const setReservations = x => {
-  return {
-    type: "setReservations",
+    type: "loadReservations",
     data: x
   };
 };

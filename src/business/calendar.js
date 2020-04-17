@@ -1,8 +1,6 @@
 import React, { useState, useLayoutEffect } from "react";
 
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { setDay } from "../redux/actions";
 
 export const CalendarData = {
   months: [
@@ -37,45 +35,51 @@ export class Calendar {
 
 const S = styled.div`
   text-transform: uppercase;
-  background: grey;
   position: relative;
   user-select: none;
-  font-size: 15px;
+  font-size: 20px;
   display: inline-block;
-  text-align: center;
   .week {
     display: grid;
     grid-template-columns: repeat(7, min-content);
+    margin-bottom: 10px;
   }
   .day {
-    padding: 2px;
-    width: 30px;
+    transition: 0.3s;
+    padding: 4px;
+    width: 40px;
     cursor: pointer;
-    height: 20px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
   }
-
+  .days {
+    text-align: center;
+  }
   .selected {
     color: white;
+    background: green;
   }
 
   i {
-    font-size: 30px;
+    font-size: 40px;
     cursor: pointer;
   }
 
   .nav {
     position: absolute;
-    right: 5px;
-    top: 5px;
-  }
-  .year {
-    position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     margin: 10px;
   }
+  .year {
+    display: inline-block;
+    font-weight: bold;
+  }
   .month {
-    margin: 10px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
   }
 `;
 
@@ -119,13 +123,13 @@ let selectDay = (day, name) => {
   }
 };
 
-export const CalendarUI = () => {
+export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
   const [daynum, setDaynum] = useState(null);
   const [dayname, setDayname] = useState(null);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   let Today = () => {
     clearSelected();
@@ -148,7 +152,8 @@ export const CalendarUI = () => {
       name
     };
 
-    dispatch(setDay(day));
+    // dispatch(setDay(day));
+    setDay(day);
   };
 
   useLayoutEffect(() => {
@@ -188,7 +193,7 @@ export const CalendarUI = () => {
   };
 
   return (
-    <S>
+    <S className="calendar">
       <div className="month">{CalendarData.months[month]}</div>
 
       <div className="year">{year}</div>
@@ -241,14 +246,13 @@ export const CalendarUI = () => {
                   let monthname = CalendarData.months[month];
                   setDaynum(null);
                   if (day) {
-                    dispatch(
-                      setDay({
-                        year,
-                        month: monthname,
-                        number: day,
-                        name: dayname
-                      })
-                    );
+                    setDay({
+                      year,
+                      month: monthname,
+                      number: day,
+                      name: dayname
+                    });
+
                     selectDay(day, dayname);
                   }
                 }}

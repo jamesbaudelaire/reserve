@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { addReservation } from "../redux/actions";
 
-import { ID } from "./functions";
+import { ID } from "../functions";
 
 const S = styled.div`
   .reservation-form {
@@ -71,14 +71,13 @@ let convertSingle = x => {
 
 export const ReservationForm = ({
   ui,
+  day,
   setui,
   reservation,
   setReservation,
   selectReservation
 }) => {
   const dispatch = useDispatch();
-
-  const day = useSelector(s => s.day);
 
   let inputs = [
     {
@@ -185,7 +184,11 @@ export const ReservationForm = ({
       <div className="reservation-form">
         <button
           onClick={() => {
-            if (newReservation().people > 0) {
+            if (
+              newReservation().people > 0 &&
+              newReservation().time !== {} &&
+              newReservation().name
+            ) {
               dispatch(addReservation(newReservation()));
               resetui();
             }
