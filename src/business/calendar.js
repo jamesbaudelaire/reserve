@@ -17,7 +17,15 @@ export const CalendarData = {
     "nov",
     "dec"
   ],
-  days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+  days: [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday"
+  ]
 };
 
 export class Calendar {
@@ -37,20 +45,19 @@ const S = styled.div`
   text-transform: uppercase;
   position: relative;
   user-select: none;
-  font-size: 20px;
+  font-size: 15px;
   display: inline-block;
   .week {
     display: grid;
     grid-template-columns: repeat(7, min-content);
-    margin-bottom: 10px;
   }
   .day {
     transition: 0.3s;
     padding: 4px;
-    width: 40px;
+    width: 30px;
     cursor: pointer;
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     border-radius: 50%;
   }
   .days {
@@ -58,26 +65,24 @@ const S = styled.div`
   }
   .selected {
     color: white;
-    background: green;
-  }
-
-  i {
-    font-size: 40px;
-    cursor: pointer;
+    background: var(--theme);
   }
 
   .nav {
     position: absolute;
     right: 0;
     top: 0;
-    margin: 10px;
+    i {
+      font-size: 30px;
+      cursor: pointer;
+    }
   }
   .year {
     display: inline-block;
     font-weight: bold;
   }
   .month {
-    margin: 20px;
+    margin: 10px;
     display: inline-block;
     font-weight: bold;
   }

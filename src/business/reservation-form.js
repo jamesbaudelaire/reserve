@@ -9,11 +9,15 @@ import { ID } from "../functions";
 
 const S = styled.div`
   .reservation-form {
-    background: grey;
+    .buttons {
+      text-align: right;
+    }
   }
 
   .toggle {
     margin: 10px;
+    line-height: 20px;
+    vertical-align: middle;
     label {
       margin-left: 10px;
       position: relative;
@@ -25,7 +29,7 @@ const S = styled.div`
         width: 0;
         height: 0;
         &:checked + span {
-          background: blue;
+          background: var(--theme);
         }
         &:checked + span:before {
           transform: translateX(20px);
@@ -38,7 +42,8 @@ const S = styled.div`
         left: 0;
         right: 0;
         bottom: 0;
-        background: grey;
+        box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
+
         transition: 0.4s;
         border-radius: 20px;
         &:before {
@@ -51,6 +56,7 @@ const S = styled.div`
           background-color: white;
           transition: 0.4s;
           border-radius: 50%;
+          box-shadow: var(--shadow);
         }
       }
     }
@@ -58,6 +64,18 @@ const S = styled.div`
 
   textarea {
     resize: none;
+  }
+
+  .inputs {
+    margin: 0 20px;
+    input {
+      margin: 10px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
+      border-radius: 30px;
+      padding: 5px 10px;
+      outline: none;
+    }
   }
 `;
 
@@ -83,7 +101,7 @@ export const ReservationForm = ({
     {
       input: "name",
       type: "text",
-      limit:10
+      limit: 10
     },
     {
       input: "people",
@@ -153,58 +171,72 @@ export const ReservationForm = ({
     return r;
   };
 
+  let clearinputs = () => {
+    inputs.forEach(x => {
+      document.getElementById(x.input).value = "";
+    });
+    document.getElementById("time").value = "";
+    document.getElementById("confirmed").checked = "";
+  };
+
   let resetui = () => {
     setui(false);
     setReservation(null);
     selectReservation();
+    // clearinputs();
   };
 
   return (
     <S>
-      <div className="inputs">
-        {inputs.map(x => (
-          <input
-            id={x.input}
-            key={x.input}
-            placeholder={x.input}
-            type={x.type}
-            maxLength={x.limit}
-          />
-        ))}
+      <div className="reservation-form">
+        <div className="inputs">
+          {inputs.map(x => (
+            <input
+              id={x.input}
+              key={x.input}
+              placeholder={x.input}
+              type={x.type}
+              maxLength={x.limit}
+            />
+          ))}
 
-        <div className="toggle">
-          confirmed
-          <label>
-            <input type="checkbox" id="confirmed" />
-            <span />
-          </label>
+          <div className="toggle">
+            CONFIRMED
+            <label>
+              <input type="checkbox" id="confirmed" />
+              <span />
+            </label>
+          </div>
+
+          <input type="time" id="time" />
         </div>
 
-        <input type="time" id="time" />
-      </div>
-
-      <div className="reservation-form">
-        <button
-          onClick={() => {
-            if (
-              newReservation().people > 0 &&
-              newReservation().time !== {} &&
-              newReservation().name
-            ) {
-              dispatch(addReservation(newReservation()));
+        <div className="buttons">
+          <button
+            id="cancel-button"
+            onClick={() => {
               resetui();
-            }
-          }}
-        >
-          save
-        </button>
-        <button
-          onClick={() => {
-            resetui();
-          }}
-        >
-          cancel
-        </button>
+            }}
+          >
+            cancel
+          </button>
+
+          <button
+            id="save-button"
+            onClick={() => {
+              if (
+                newReservation().people > 0 &&
+                newReservation().time !== {} &&
+                newReservation().name
+              ) {
+                dispatch(addReservation(newReservation()));
+                resetui();
+              }
+            }}
+          >
+            save
+          </button>
+        </div>
       </div>
     </S>
   );

@@ -25,6 +25,7 @@ const GS = createGlobalStyle`
 :root{
 --font:'Ubuntu', sans-serif;
 --shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+--theme:#009624;
 
 }
 
@@ -32,17 +33,40 @@ const GS = createGlobalStyle`
 display: none;
 }
 
+body,input,button{
+  font-family:var(--font);
+}
+
+button{
+  cursor:pointer;
+  transition:.3s;
+  margin: 0 20px 20px 0;
+      background: grey;
+      padding: 5px 10px;
+      border-radius: 30px;
+      border: none;
+      color: white;
+  :focus {outline:0;}
+  &:hover{
+    background:var(--theme);
+  }
+&:active{
+  background:white;
+}
+}
+
+
+
 
 body{
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   touch-action: manipulation;
   user-select:none;
-  font-family:var(--font);
   margin:0;padding:0;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   ::after {
     content: "";
     display: block;
-    height: 200px;
+    height: 100px;
   }
 }
 
@@ -50,6 +74,67 @@ body{
 i{
   cursor:pointer;
 }
+
+.add-reservation {
+    font-size: 40px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    background: white;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 100;
+  }
+
+  .business-name {
+    position:absolute;left:90px;top:30px;
+      font-size: 30px;
+    }
+
+    .logo {
+      background-size: cover;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left:0;
+      margin: 20px;
+    }
+ 
+
+@media screen and (min-width: 700px) {
+
+.reservations-ui{
+  position:absolute;
+  top:60px;left:20px;
+}
+.reservation-form{
+  position: absolute;
+    left: 340px;
+    top: 340px;
+    width: 300px;
+}
+.add-reservation{
+  left: 340px;
+    top: 340px;
+    bottom: unset;
+    right: unset;
+}
+
+
+.calendar{
+  position: absolute;
+    left: 360px;
+    top: 60px;
+}
+
+
+}
+
+
 `;
 
 const Pages = () => {

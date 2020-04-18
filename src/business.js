@@ -13,24 +13,7 @@ import { loadReservations } from "./redux/actions";
 const S = styled.div`
   .topbar {
     position: relative;
-    height: 100px;
-
-    .name {
-      margin: 20px;
-      display: inline-block;
-      font-size: 30px;
-    }
-
-    .logo {
-      background-size: cover;
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      margin: 20px;
-    }
+    height: 60px;
   }
 `;
 
@@ -61,7 +44,7 @@ export const Business = () => {
       {name ? (
         <>
           <div className="topbar">
-            <div className="name">{name}</div>
+            <div className="business-name">{name}</div>
             <img alt="logo" src={logo} className="logo" />
           </div>
           <Reservations />
