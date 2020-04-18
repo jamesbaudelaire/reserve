@@ -34,6 +34,7 @@ display: none;
 
 
 body{
+  touch-action: manipulation;
   user-select:none;
   font-family:var(--font);
   margin:0;padding:0;
@@ -46,6 +47,9 @@ body{
 }
 
 
+i{
+  cursor:pointer;
+}
 `;
 
 const Pages = () => {

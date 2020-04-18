@@ -119,7 +119,6 @@ let selectDay = (day, name) => {
   clearSelected();
   if (day) {
     document.getElementById(`day-${day}`).classList.add("selected");
-    document.getElementById(name).classList.add("selected");
   }
 };
 

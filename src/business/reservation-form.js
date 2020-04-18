@@ -82,7 +82,8 @@ export const ReservationForm = ({
   let inputs = [
     {
       input: "name",
-      type: "text"
+      type: "text",
+      limit:10
     },
     {
       input: "people",
@@ -167,6 +168,7 @@ export const ReservationForm = ({
             key={x.input}
             placeholder={x.input}
             type={x.type}
+            maxLength={x.limit}
           />
         ))}
 

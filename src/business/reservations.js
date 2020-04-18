@@ -14,6 +14,15 @@ const S = styled.div`
   .reservation {
     background: grey;
     margin: 10px;
+    height: 50px;
+    display: inline-block;
+    border-radius: 30px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 20px;
+    i {
+      font-size: 30px;
+    }
   }
 
   .confirmed-total {
@@ -24,8 +33,22 @@ const S = styled.div`
     color: white;
   }
 
-  .name {
+  .info {
+    display: inline-block;
+    &.arrived {
+      text-decoration: line-through;
+    }
+  }
+  .name,
+  .time,
+  .people {
     margin: 10px;
+    display: inline-flex;
+  }
+  .name {
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .add-reservation {
@@ -48,13 +71,30 @@ const S = styled.div`
     cursor: pointer;
   }
   .selected-reservation {
-    border: 2px solid red;
+    .edit-reservation {
+      color: red;
+    }
   }
 
   .calendar {
     margin: auto;
     display: block;
     width: min-content;
+  }
+
+  .time-slot {
+    margin: 10px;
+    font-size: 25px;
+    span {
+      margin-left: 10px;
+      i {
+        font-size: 30px;
+      }
+    }
+  }
+
+  .reservations {
+    margin: 20px;
   }
 `;
 
@@ -157,51 +197,55 @@ export const Reservations = () => {
     <S>
       {hours.map(h => (
         <div key={h}>
-          <span className="hour">{`${getHour(h)}${getHourType(h)}`}</span>
+          <div className="time-slot">
+            <span className="hour">{`${getHour(h)}${getHourType(h)}`}</span>
 
-          <span className="total">
-            <i className="material-icons-round">people</i>
-            <span className="number">{getTotal(minutes(h))}</span>
-          </span>
+            <span className="total">
+              <i className="material-icons-round">people</i>
+              <span className="number">{getTotal(minutes(h))}</span>
+            </span>
 
-          <span className="confirmed-total">
-            <i className="material-icons-round">people</i>
-            <span className="number">{getConfirmedTotal(minutes(h))}</span>
-          </span>
-
-          {minutes(h).map(r => (
-            <div
-              className={`reservation ${r.confirmed &&
-                "confirmed-reservation"}`}
-              key={r.id}
-              id={r.id}
-            >
-              <i
-                className="material-icons-round arrived"
-                onClick={() => {
-                  dispatch(arrived(r.id));
-                }}
+            <span className="confirmed-total">
+              <i className="material-icons-round">people</i>
+              <span className="number">{getConfirmedTotal(minutes(h))}</span>
+            </span>
+          </div>
+          <div className="reservations">
+            {minutes(h).map(r => (
+              <div
+                className={`reservation ${
+                  r.confirmed ? "confirmed-reservation" : ""
+                }`}
+                key={r.id}
+                id={r.id}
               >
-                {r.arrived ? "check_box" : "check_box_outline_blank"}
-              </i>
-
-              <span className="minutes">{`${getHour(h)}:${getMinutes(
-                r.time.minutes
-              )}`}</span>
-
-              <span className="name">{r.name}</span>
-              <span className="name">{r.people}</span>
-              <i
-                className="material-icons-round edit-reservation"
-                onClick={() => {
-                  setReservation(reservations.find(x => x.id == r.id));
-                  setAddReservationUI(true);
-                }}
-              >
-                edit
-              </i>
-            </div>
-          ))}
+                <i
+                  className="material-icons-round arrived"
+                  onClick={() => {
+                    dispatch(arrived(r.id));
+                  }}
+                >
+                  {r.arrived ? "check_box" : "check_box_outline_blank"}
+                </i>
+                <div className={`info ${r.arrived ? "arrived" : ""}`}>
+                  <span className="time">{`${getHour(h)}:${getMinutes(
+                    r.time.minutes
+                  )}`}</span>
+                  <span className="name">{r.name}</span>
+                  <span className="people">{r.people}</span>
+                </div>
+                <i
+                  className="material-icons-round edit-reservation"
+                  onClick={() => {
+                    setReservation(reservations.find(x => x.id == r.id));
+                    setAddReservationUI(true);
+                  }}
+                >
+                  edit
+                </i>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
 

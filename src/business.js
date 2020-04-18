@@ -18,7 +18,7 @@ const S = styled.div`
     .name {
       margin: 20px;
       display: inline-block;
-      font-size: 20px;
+      font-size: 30px;
     }
 
     .logo {
