@@ -45,7 +45,7 @@ const S = styled.div`
   text-transform: uppercase;
   position: relative;
   user-select: none;
-  font-size: 15px;
+  font-size: 20px;
   display: inline-block;
   .week {
     display: grid;
@@ -53,11 +53,10 @@ const S = styled.div`
   }
   .day {
     transition: 0.3s;
-    padding: 4px;
-    width: 30px;
+    width: 40px;
     cursor: pointer;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 50%;
   }
   .days {
@@ -65,7 +64,7 @@ const S = styled.div`
   }
   .selected {
     color: white;
-    background: var(--theme);
+    background: #00c853;
   }
 
   .nav {
@@ -73,7 +72,7 @@ const S = styled.div`
     right: 0;
     top: 0;
     i {
-      font-size: 30px;
+      font-size: 40px;
       cursor: pointer;
     }
   }

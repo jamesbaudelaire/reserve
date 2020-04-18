@@ -25,7 +25,7 @@ const GS = createGlobalStyle`
 :root{
 --font:'Ubuntu', sans-serif;
 --shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
---theme:#009624;
+--theme:#2962ff;
 
 }
 
@@ -41,7 +41,7 @@ button{
   cursor:pointer;
   transition:.3s;
   margin: 0 20px 20px 0;
-      background: grey;
+      background: black;
       padding: 5px 10px;
       border-radius: 30px;
       border: none;
@@ -81,9 +81,9 @@ i{
     bottom: 0;
     right: 0;
     margin: 20px;
-    background: white;
-    box-shadow: var(--shadow);
-    padding: 10px;
+    background: black;
+    color:white;
+    padding: 5px;
     border-radius: 50%;
     z-index: 100;
   }
@@ -114,12 +114,12 @@ i{
 .reservation-form{
   position: absolute;
     left: 340px;
-    top: 340px;
+    top: 360px;
     width: 300px;
 }
 .add-reservation{
   left: 340px;
-    top: 340px;
+    top: 360px;
     bottom: unset;
     right: unset;
 }
@@ -128,7 +128,7 @@ i{
 .calendar{
   position: absolute;
     left: 360px;
-    top: 60px;
+    top: 20px;
 }
 
 

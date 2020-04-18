@@ -12,14 +12,12 @@ import { arrived } from "../redux/actions";
 
 const S = styled.div`
   .reservation {
-    background: grey;
     transition: 0.3s;
     margin: 10px;
     display: inline-block;
     border-radius: 30px;
-    box-sizing: border-box;
     font-size: 15px;
-    padding: 0px 10px 0 10px;
+    padding: 5px 10px;
     i {
       font-size: 25px;
       vertical-align: middle;
@@ -29,9 +27,9 @@ const S = styled.div`
   .confirmed-total {
     color: var(--theme);
   }
+
   .confirmed-reservation {
-    background: var(--theme);
-    color: white;
+    color: var(--theme);
   }
 
   .info {
@@ -42,7 +40,7 @@ const S = styled.div`
     .name,
     .time,
     .people {
-      margin: 10px 5px;
+      margin: 0px 5px;
       display: inline-flex;
     }
     .name {
@@ -57,7 +55,8 @@ const S = styled.div`
     cursor: pointer;
   }
   .selected-reservation {
-    opacity: 0.5;
+    background: #00c853;
+    color: white;
   }
 
   .calendar {
@@ -72,7 +71,7 @@ const S = styled.div`
     span {
       margin-left: 10px;
       i {
-        font-size: 30px;
+        font-size: 25px;
       }
     }
   }
@@ -93,25 +92,8 @@ const S = styled.div`
   }
 
   .notes {
-    margin: 5px 10px;
-    display: inline-block;
-    position: relative;
-    span {
-      display: none;
-      position: absolute;
-      top: -1px;
-      left: 0;
-      padding: 5px 10px;
-      border-radius: 20px;
-      background: black;
-    }
-    &:hover {
-      span {
-        display: block;
-      }
-    }
+    padding: 0px 10px;
   }
-
   .reservations-ui {
     margin-bottom: 20px;
   }
@@ -282,13 +264,6 @@ export const Reservations = () => {
                       {r.arrived ? "check_box" : "check_box_outline_blank"}
                     </i>
 
-                    {r.notes && (
-                      <div className="notes">
-                        <i className="material-icons-round">error</i>
-                        <span>{r.notes}</span>
-                      </div>
-                    )}
-
                     <div className={`info ${r.arrived ? "arrived" : ""}`}>
                       <span className="time">{`${getHour(h)}:${getMinutes(
                         r.time.minutes
@@ -306,6 +281,12 @@ export const Reservations = () => {
                     >
                       edit
                     </i>
+
+                    {r.notes && (
+                      <div className="notes">
+                        <span>{r.notes}</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
