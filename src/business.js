@@ -10,6 +10,10 @@ import { Reservations } from "./business/reservations";
 import { LS } from "./functions";
 import { loadReservations } from "./redux/actions";
 
+import { FB } from "./firebase";
+
+import { uid } from "./redux/actions";
+
 const S = styled.div`
   .topbar {
     position: relative;
@@ -18,30 +22,65 @@ const S = styled.div`
 `;
 
 export const Business = () => {
-  let { business } = useParams();
+  let { url } = useParams();
 
   const [name, setName] = useState();
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (business === "guest") {
-      setName("Guest");
-      LS.init();
-      dispatch(loadReservations(LS.data));
-    } else {
-      //firebase init
+  const [user, setUser] = useState(false);
 
-      setName("Rialto");
+  let ref = FB.firestore().collection("business");
+
+  useEffect(() => {
+    if (url === "guest") {
+      LS.init();
+      dispatch(loadReservations(LS.data.reservations));
+      setUser(true);
+      setName("Guest");
+    } else {
+      FB.auth().onAuthStateChanged(user => {
+        if (user) {
+          ref
+            .doc(user.uid)
+            .get()
+            .then(doc => {
+              let data = doc.data();
+              if (url === data.url) {
+                setUser(true);
+                setName(data.name);
+                dispatch(uid(user.uid));
+                loadFBReservations(user.uid);
+              }
+            });
+        }
+      });
     }
   }, []);
+
+  let loadFBReservations = uid => {
+    ref
+      .doc(uid)
+      .collection("reservations")
+      .get()
+      .then(q => {
+        let res = [];
+
+        q.forEach(d => {
+          let r = d.data();
+          res.push(r);
+        });
+
+        dispatch(loadReservations(res));
+      });
+  };
 
   // let logo = `${business}`;
   let logo = `https://randomuser.me/api/portraits/men/75.jpg`;
 
   return (
     <S>
-      {name ? (
+      {user ? (
         <>
           <div className="topbar">
             <div className="business-name">{name}</div>
@@ -50,7 +89,7 @@ export const Business = () => {
           <Reservations />
         </>
       ) : (
-        "Business not found!"
+        "Login"
       )}
     </S>
   );

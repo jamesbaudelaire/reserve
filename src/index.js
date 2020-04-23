@@ -8,17 +8,8 @@ import { Business } from "./business";
 
 import { createGlobalStyle } from "styled-components";
 
-import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { Reducers } from "./redux/reducers";
-
-import { LS } from "./functions";
-
-const store = createStore(Reducers);
-
-store.subscribe(() => {
-  LS.save(store.getState().reservations);
-});
+import { store } from "./redux/reducers";
 
 const GS = createGlobalStyle`
 
@@ -26,6 +17,7 @@ const GS = createGlobalStyle`
 --font:'Ubuntu', sans-serif;
 --shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 --theme:#2962ff;
+--select:#00c853;
 
 }
 
@@ -48,7 +40,7 @@ button{
       color: white;
   :focus {outline:0;}
   &:hover{
-    background:var(--theme);
+    background:var(--select);
   }
 &:active{
   background:white;
@@ -76,7 +68,7 @@ i{
 }
 
 .add-reservation {
-    font-size: 40px;
+    font-size: 30px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -84,8 +76,12 @@ i{
     background: black;
     color:white;
     padding: 5px;
+    transition:.3s;
     border-radius: 50%;
     z-index: 100;
+    &:hover{
+    background:var(--select);
+  }
   }
 
   .business-name {
@@ -141,7 +137,7 @@ const Pages = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/:business" component={Business} />
+      <Route path="/:url" component={Business} />
     </Switch>
   );
 };

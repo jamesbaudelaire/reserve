@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 
@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReservationForm } from "./reservation-form";
 
 import { arrived } from "../redux/actions";
+
+import { DB } from "../firebase";
 
 const S = styled.div`
   .reservation {
@@ -55,7 +57,7 @@ const S = styled.div`
     cursor: pointer;
   }
   .selected-reservation {
-    background: #00c853;
+    background: var(--select);
     color: white;
   }
 
@@ -158,8 +160,8 @@ export const Reservations = () => {
       ["year", "month", "number"].every(x => r.date[x] === day[x])
     );
 
-    let hour = new Date().getHours();
-    reservations = reservations.filter(r => r.time.hour > hour);
+    // let hour = new Date().getHours();
+    // reservations = reservations.filter(r => r.time.hour >= hour);
   }
 
   let hours = [...new Set(reservations.map(r => r.time.hour))].sort((a, b) =>
@@ -206,6 +208,24 @@ export const Reservations = () => {
       if (el) {
         el.classList.add("selected-reservation");
       }
+    }
+  };
+
+  const uid = useSelector(s => s.app.uid);
+
+  let addFBReservation = r => {
+    if (uid) {
+      DB.add(uid, r);
+    }
+  };
+  // let updateFBReservation = r => {
+  //   if (uid) {
+  //     DB.update(uid, r);
+  //   }
+  // };
+  let arrivedFB = (id, toggle) => {
+    if (uid) {
+      DB.arrived(uid, id, toggle);
     }
   };
 
@@ -259,6 +279,7 @@ export const Reservations = () => {
                       className="material-icons-round arrived"
                       onClick={() => {
                         dispatch(arrived(r.id));
+                        arrivedFB(r.id, !r.arrived);
                       }}
                     >
                       {r.arrived ? "check_box" : "check_box_outline_blank"}
@@ -312,6 +333,8 @@ export const Reservations = () => {
           reservation={reservation}
           setReservation={setReservation}
           selectReservation={selectReservation}
+          addFBReservation={addFBReservation}
+          // updateFBReservation={updateFBReservation}
         />
       )}
 

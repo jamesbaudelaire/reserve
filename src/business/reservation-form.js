@@ -93,7 +93,8 @@ export const ReservationForm = ({
   setui,
   reservation,
   setReservation,
-  selectReservation
+  selectReservation,
+  addFBReservation
 }) => {
   const dispatch = useDispatch();
 
@@ -115,7 +116,7 @@ export const ReservationForm = ({
       input: "phone",
       type: "text"
     },
-    { input: "notes", type: "text" }
+    { input: "notes", type: "text", limit: 20 }
   ];
 
   useEffect(() => {
@@ -159,6 +160,7 @@ export const ReservationForm = ({
     };
 
     r.confirmed = document.getElementById("confirmed").checked;
+    r.arrived = false;
 
     if (reservation) {
       r.id = reservation.id;
@@ -230,11 +232,16 @@ export const ReservationForm = ({
                 newReservation().name
               ) {
                 dispatch(addReservation(newReservation()));
+                if (reservation) {
+                  //update
+                } else {
+                  addFBReservation(newReservation());
+                }
                 resetui();
               }
             }}
           >
-            save
+            {reservation ? "update" : "save"}
           </button>
         </div>
       </div>

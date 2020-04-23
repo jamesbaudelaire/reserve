@@ -6,16 +6,26 @@ export function ID() {
 
 export const LS = {
   init() {
-    this.name = "reserve";
+    this.offline = true;
+    this.name = "reserve-app";
     let data = JSON.parse(localStorage.getItem(this.name));
     if (data !== null) {
       this.data = data;
     } else {
-      this.data = [];
+      this.data = {
+        reservations: [],
+        history: []
+      };
       this.save(this.data);
     }
   },
   save(data) {
     localStorage.setItem(this.name, JSON.stringify(data));
+  },
+  saveReservations(data) {
+    if (this.offline) {
+      this.data.reservations = data;
+      localStorage.setItem(this.name, JSON.stringify(this.data));
+    }
   }
 };

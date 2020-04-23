@@ -64,7 +64,7 @@ const S = styled.div`
   }
   .selected {
     color: white;
-    background: #00c853;
+    background: var(--select);
   }
 
   .nav {

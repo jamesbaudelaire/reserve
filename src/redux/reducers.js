@@ -1,4 +1,6 @@
-import { combineReducers } from "redux";
+import { createStore, combineReducers } from "redux";
+
+import { LS } from "../functions";
 
 const reservationsReducer = (state = [], action) => {
   switch (action.type) {
@@ -22,6 +24,23 @@ const reservationsReducer = (state = [], action) => {
   }
 };
 
+const appReducer = (state = { uid: null }, action) => {
+  switch (action.type) {
+    case "uid":
+      state.uid = action.data;
+      return state;
+    default:
+      return state;
+  }
+};
+
 export const Reducers = combineReducers({
-  reservations: reservationsReducer
+  reservations: reservationsReducer,
+  app: appReducer
+});
+
+export const store = createStore(Reducers);
+
+store.subscribe(() => {
+  LS.saveReservations(store.getState().reservations);
 });

@@ -18,3 +18,10 @@ export const arrived = x => {
     data: x
   };
 };
+
+export const uid = x => {
+  return {
+    type: "uid",
+    data: x
+  };
+};
