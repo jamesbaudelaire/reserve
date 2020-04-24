@@ -48,19 +48,19 @@ export const DB = {
   }
 };
 
-// let auth = firebase.auth();
+let auth = firebase.auth();
 
-// export const USER = {
-//   login(email, password) {
-//     auth.signInWithEmailAndPassword(email, password).catch(error => {
-//       console.log(error.code, error.message);
-//     });
-//   },
+export const A = {
+  login(inputs) {
+    auth.signInWithEmailAndPassword(inputs.email, inputs.password).catch(error => {
+      console.log(error.code, error.message);
+    });
+  },
 
-//   logout() {
-//     auth.signOut();
-//   }
-// };
+  logout() {
+    auth.signOut();
+  }
+};
 
 let email = "the.rialto.restaurant@gmail.com";
 let password = "36542108";

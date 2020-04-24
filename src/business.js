@@ -10,14 +10,20 @@ import { Reservations } from "./business/reservations";
 import { LS } from "./functions";
 import { loadReservations } from "./redux/actions";
 
-import { FB } from "./firebase";
+import { FB, A } from "./firebase";
 
 import { uid } from "./redux/actions";
+import { Login } from "./login";
 
 const S = styled.div`
   .topbar {
     position: relative;
     height: 60px;
+    .logout {
+      position: absolute;
+      right: 0;
+      top: 20px;
+    }
   }
 `;
 
@@ -62,8 +68,7 @@ export const Business = () => {
     ref
       .doc(uid)
       .collection("reservations")
-      .get()
-      .then(q => {
+      .onSnapshot(q => {
         let res = [];
 
         q.forEach(d => {
@@ -83,13 +88,24 @@ export const Business = () => {
       {user ? (
         <>
           <div className="topbar">
+            {url !== "guest" && (
+              <button
+                className="logout"
+                onClick={() => {
+                  A.logout();
+                  setUser(false);
+                }}
+              >
+                logout
+              </button>
+            )}
             <div className="business-name">{name}</div>
             <img alt="logo" src={logo} className="logo" />
           </div>
           <Reservations />
         </>
       ) : (
-        "Login"
+        <Login />
       )}
     </S>
   );

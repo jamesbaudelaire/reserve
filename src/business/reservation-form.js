@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import styled from "styled-components";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addReservation } from "../redux/actions";
 
 import { ID } from "../functions";
@@ -68,14 +68,7 @@ const S = styled.div`
 
   .inputs {
     margin: 0 20px;
-    input {
-      margin: 10px;
-      border: none;
-      box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
-      border-radius: 30px;
-      padding: 5px 10px;
-      outline: none;
-    }
+   
   }
 `;
 
@@ -173,19 +166,10 @@ export const ReservationForm = ({
     return r;
   };
 
-  let clearinputs = () => {
-    inputs.forEach(x => {
-      document.getElementById(x.input).value = "";
-    });
-    document.getElementById("time").value = "";
-    document.getElementById("confirmed").checked = "";
-  };
-
   let resetui = () => {
     setui(false);
     setReservation(null);
     selectReservation();
-    // clearinputs();
   };
 
   return (
@@ -232,11 +216,9 @@ export const ReservationForm = ({
                 newReservation().name
               ) {
                 dispatch(addReservation(newReservation()));
-                if (reservation) {
-                  //update
-                } else {
-                  addFBReservation(newReservation());
-                }
+
+                addFBReservation(newReservation());
+
                 resetui();
               }
             }}

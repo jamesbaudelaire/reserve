@@ -12,17 +12,23 @@ import { arrived } from "../redux/actions";
 
 import { DB } from "../firebase";
 
+
 const S = styled.div`
   .reservation {
     transition: 0.3s;
     margin: 10px;
     display: inline-block;
-    border-radius: 30px;
+    border-radius: 5px;
     font-size: 15px;
     padding: 5px 10px;
     i {
       font-size: 25px;
       vertical-align: middle;
+    }
+    &:hover {
+      .edit-reservation {
+        opacity: 1;
+      }
     }
   }
 
@@ -55,6 +61,8 @@ const S = styled.div`
 
   .edit-reservation {
     cursor: pointer;
+    opacity: 0;
+    transition: 0.3s;
   }
   .selected-reservation {
     background: var(--select);
@@ -192,12 +200,6 @@ export const Reservations = () => {
     return n;
   };
 
-  // useEffect(() => {
-  //   if (addReservationUI) {
-  //     window.scrollTo({ top: 0, behavior: "smooth" });
-  //   }
-  // }, [addReservationUI]);
-
   let selectReservation = id => {
     let x = document.querySelector(".selected-reservation");
     if (x) {
@@ -218,11 +220,7 @@ export const Reservations = () => {
       DB.add(uid, r);
     }
   };
-  // let updateFBReservation = r => {
-  //   if (uid) {
-  //     DB.update(uid, r);
-  //   }
-  // };
+
   let arrivedFB = (id, toggle) => {
     if (uid) {
       DB.arrived(uid, id, toggle);
@@ -276,7 +274,7 @@ export const Reservations = () => {
                     id={r.id}
                   >
                     <i
-                      className="material-icons-round arrived"
+                      className="material-icons-round arrived-toggle"
                       onClick={() => {
                         dispatch(arrived(r.id));
                         arrivedFB(r.id, !r.arrived);
@@ -334,7 +332,6 @@ export const Reservations = () => {
           setReservation={setReservation}
           selectReservation={selectReservation}
           addFBReservation={addFBReservation}
-          // updateFBReservation={updateFBReservation}
         />
       )}
 

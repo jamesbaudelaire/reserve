@@ -16,8 +16,8 @@ const GS = createGlobalStyle`
 :root{
 --font:'Ubuntu', sans-serif;
 --shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
---theme:#2962ff;
---select:#00c853;
+--select:#2962ff;
+--theme:#00c853;
 
 }
 
@@ -31,6 +31,7 @@ body,input,button{
 
 button{
   cursor:pointer;
+  text-transform:uppercase;
   transition:.3s;
   margin: 0 20px 20px 0;
       background: black;
@@ -46,6 +47,15 @@ button{
   background:white;
 }
 }
+
+input {
+      margin: 10px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
+      border-radius: 30px;
+      padding: 5px 10px;
+      outline: none;
+    }
 
 
 
