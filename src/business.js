@@ -17,13 +17,41 @@ import { Login } from "./login";
 
 const S = styled.div`
   .topbar {
+    display: flex;
+    align-items: center;
     position: relative;
-    height: 60px;
-    .logout {
-      position: absolute;
-      right: 0;
-      top: 20px;
-    }
+  }
+  .business-name {
+    /* position:absolute;left:90px;top:30px; */
+    font-size: 30px;
+  }
+
+  .logo {
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    margin: 20px;
+  }
+
+  .logout {
+    position: absolute;
+    right: 0;
+    top: 20px;
+  }
+
+  @media screen and (min-width: 700px) {
+  .topbar{
+    flex-direction:row-reverse;
+    position:absolute;top:0;right:0;
+    
+  }
+  .logout {
+    top: 90px;
+  }
   }
 `;
 
@@ -88,7 +116,11 @@ export const Business = () => {
       {user ? (
         <>
           <div className="topbar">
-            {url !== "guest" && (
+            <img alt="logo" src={logo} className="logo" />
+            <div className="business-name">{name}</div>
+          </div>
+          {
+              // url !== "guest" &&
               <button
                 className="logout"
                 onClick={() => {
@@ -98,10 +130,8 @@ export const Business = () => {
               >
                 logout
               </button>
-            )}
-            <div className="business-name">{name}</div>
-            <img alt="logo" src={logo} className="logo" />
-          </div>
+            }
+
           <Reservations />
         </>
       ) : (

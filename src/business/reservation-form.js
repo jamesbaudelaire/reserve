@@ -9,15 +9,22 @@ import { ID } from "../functions";
 
 const S = styled.div`
   .reservation-form {
+    position: fixed;
+    background: rgb(200, 200, 200);
+    bottom: 0;
+    left: 0%;
+    z-index: 100;
+
     .buttons {
       text-align: right;
     }
   }
 
   .toggle {
-    margin: 10px;
+    margin: 20px;
     line-height: 20px;
     vertical-align: middle;
+    display: inline-flex;
     label {
       margin-left: 10px;
       position: relative;
@@ -45,7 +52,7 @@ const S = styled.div`
         box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
 
         transition: 0.4s;
-        border-radius: 20px;
+        border-radius: 5px;
         &:before {
           position: absolute;
           content: "";
@@ -55,7 +62,7 @@ const S = styled.div`
           bottom: 2.5px;
           background-color: white;
           transition: 0.4s;
-          border-radius: 50%;
+          border-radius: 2.5px;
           box-shadow: var(--shadow);
         }
       }
@@ -67,8 +74,27 @@ const S = styled.div`
   }
 
   .inputs {
-    margin: 0 20px;
-   
+    input {
+      margin: 20px 0px 0 20px;
+      max-width: 100px;
+    }
+    input:last-child {
+      margin-right: 20px;
+    }
+    .text {
+      white-space: nowrap;
+      overflow: scroll;
+      width: 100vw;
+    }
+    #time {
+      margin: 20px;
+    }
+
+    #name,
+    #people,
+    #time {
+      border: 2px solid #d50000;
+    }
   }
 `;
 
@@ -128,6 +154,9 @@ export const ReservationForm = ({
   });
 
   let convertTime = x => {
+    if (x === "") {
+      return null;
+    }
     let time = {};
 
     time.hour = parseInt(x.substring(0, 2));
@@ -176,15 +205,17 @@ export const ReservationForm = ({
     <S>
       <div className="reservation-form">
         <div className="inputs">
-          {inputs.map(x => (
-            <input
-              id={x.input}
-              key={x.input}
-              placeholder={x.input}
-              type={x.type}
-              maxLength={x.limit}
-            />
-          ))}
+          <div className="text">
+            {inputs.map(x => (
+              <input
+                id={x.input}
+                key={x.input}
+                placeholder={x.input}
+                type={x.type}
+                maxLength={x.limit}
+              />
+            ))}
+          </div>
 
           <div className="toggle">
             CONFIRMED
@@ -212,8 +243,8 @@ export const ReservationForm = ({
             onClick={() => {
               if (
                 newReservation().people > 0 &&
-                newReservation().time !== {} &&
-                newReservation().name
+                newReservation().name &&
+                newReservation().time
               ) {
                 dispatch(addReservation(newReservation()));
 

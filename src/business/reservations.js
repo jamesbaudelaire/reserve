@@ -12,7 +12,6 @@ import { arrived } from "../redux/actions";
 
 import { DB } from "../firebase";
 
-
 const S = styled.div`
   .reservation {
     transition: 0.3s;
@@ -60,17 +59,19 @@ const S = styled.div`
   }
 
   .edit-reservation {
-    cursor: pointer;
     opacity: 0;
     transition: 0.3s;
   }
   .selected-reservation {
     background: var(--select);
     color: white;
+    i {
+      opacity: 1;
+    }
   }
 
   .calendar {
-    margin: auto;
+    margin: 20px auto;
     display: block;
     width: min-content;
   }
@@ -93,7 +94,6 @@ const S = styled.div`
 
   .today {
     font-size: 25px;
-    margin: 20px;
     text-transform: uppercase;
     i {
       margin: 10px;
@@ -105,8 +105,34 @@ const S = styled.div`
     padding: 0px 10px;
   }
   .reservations-ui {
-    margin-bottom: 20px;
+    margin: 0 20px;
   }
+
+  .add-reservation {
+    font-size: 30px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: black;
+    color:white;
+    padding: 5px;
+    transition:.3s;
+    border-radius: 50%;
+    z-index: 100;
+    &:hover{
+    background:var(--select);
+  }
+  }
+
+  @media screen and (min-width: 700px) {
+.add-reservation{
+  left: 20px;
+    top: 20px;
+    bottom: unset;
+    right: unset;
+}
+}
+
 `;
 
 let getHour = h => {
@@ -182,7 +208,7 @@ export const Reservations = () => {
       .sort((a, b) => (a.time.minutes > b.time.minutes ? 1 : -1));
   };
 
-  const [addReservationUI, setAddReservationUI] = useState(false);
+  const [addReservationUI, setAddReservationUI] = useState(true);
   const [reservation, setReservation] = useState(null);
 
   let getNumbers = status => {
@@ -231,6 +257,29 @@ export const Reservations = () => {
 
   return (
     <S>
+      {!addReservationUI ? (
+        <i
+          className="material-icons-round add-reservation"
+          onClick={() => {
+            setAddReservationUI(true);
+          }}
+        >
+          add
+        </i>
+      ) : (
+        <ReservationForm
+          day={day}
+          setui={setAddReservationUI}
+          ui={addReservationUI}
+          reservation={reservation}
+          setReservation={setReservation}
+          selectReservation={selectReservation}
+          addFBReservation={addFBReservation}
+        />
+      )}
+
+      {<CalendarUI day={day} setDay={setDay} />}
+
       <div className="reservations-ui">
         <div className="today">
           {day && day.name}
@@ -313,29 +362,6 @@ export const Reservations = () => {
           ))}
         </div>
       </div>
-
-      {!addReservationUI ? (
-        <i
-          className="material-icons-round add-reservation"
-          onClick={() => {
-            setAddReservationUI(true);
-          }}
-        >
-          add
-        </i>
-      ) : (
-        <ReservationForm
-          day={day}
-          setui={setAddReservationUI}
-          ui={addReservationUI}
-          reservation={reservation}
-          setReservation={setReservation}
-          selectReservation={selectReservation}
-          addFBReservation={addFBReservation}
-        />
-      )}
-
-      {<CalendarUI day={day} setDay={setDay} />}
     </S>
   );
 };

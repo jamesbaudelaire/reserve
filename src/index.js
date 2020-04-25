@@ -36,7 +36,7 @@ button{
   margin: 0 20px 20px 0;
       background: black;
       padding: 5px 10px;
-      border-radius: 30px;
+      border-radius: 5px;
       border: none;
       color: white;
   :focus {outline:0;}
@@ -52,7 +52,7 @@ input {
       margin: 10px;
       border: none;
       box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
-      border-radius: 30px;
+      border-radius: 5px;
       padding: 5px 10px;
       outline: none;
     }
@@ -68,8 +68,10 @@ body{
   ::after {
     content: "";
     display: block;
-    height: 100px;
+    height: 200px;
   }
+  background:rgb(250,250,250);
+  color:rgb(50,50,50);
 }
 
 
@@ -77,68 +79,8 @@ i{
   cursor:pointer;
 }
 
-.add-reservation {
-    font-size: 30px;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 20px;
-    background: black;
-    color:white;
-    padding: 5px;
-    transition:.3s;
-    border-radius: 50%;
-    z-index: 100;
-    &:hover{
-    background:var(--select);
-  }
-  }
-
-  .business-name {
-    position:absolute;left:90px;top:30px;
-      font-size: 30px;
-    }
-
-    .logo {
-      background-size: cover;
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      position: absolute;
-      top: 0;
-      left:0;
-      margin: 20px;
-    }
- 
-
-@media screen and (min-width: 700px) {
-
-.reservations-ui{
-  position:absolute;
-  top:60px;left:20px;
-}
-.reservation-form{
-  position: absolute;
-    left: 340px;
-    top: 360px;
-    width: 300px;
-}
-.add-reservation{
-  left: 340px;
-    top: 360px;
-    bottom: unset;
-    right: unset;
-}
 
 
-.calendar{
-  position: absolute;
-    left: 360px;
-    top: 20px;
-}
-
-
-}
 
 
 `;
