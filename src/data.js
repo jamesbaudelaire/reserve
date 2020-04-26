@@ -1,58 +1,49 @@
 export const data = {
   rialto: {
-    year: {
-      2020: {
-        mar: {
-          1: [
-            {
-              time: {
-                hour: 20,
-                minutes: 20
-              },
-              name: "john",
-              number: 2,
-              phone: "123123213213",
-              email: "email",
-              notes: "notes",
-              confirmed: false,
-              id: 123214
-            },
-
-            {
-              time: {
-                hour: 9,
-                minutes: 29
-              },
-              name: "jane",
-              number: 10,
-              phone: "1231231231",
-              email: "email",
-              notes: "notes",
-              confirmed: true,
-              id: 343145
-            }
-          ]
-        }
+    name: "The Rialto Restaurant",
+    reservations: []
+  },
+  guest: {
+    name: "Guest Mode",
+    reservations: [
+      {
+        date: {
+          year: 2020,
+          month: "apr",
+          number: 13
+        },
+        time: {
+          hour: 1,
+          minutes: 20
+        },
+        name: "john",
+        people: 2,
+        phone: "46793893",
+        email: "email",
+        notes: "notes",
+        confirmed: false,
+        arrived: false,
+        id: 123214
       },
-      2019: {
-        apr: {
-          2: [
-            {
-              time: {
-                hour: 10,
-                minutes: 0
-              },
-              name: "jaksd",
-              number: 5,
-              phone: "phone",
-              email: "email",
-              notes: "notes",
-              confirmed: true,
-              id: 231431
-            }
-          ]
-        }
+      {
+        date: {
+          year: 2020,
+          month: "apr",
+          number: 14
+        },
+        time: {
+          hour: 20,
+          minutes: 30
+        },
+        people: 2,
+        name: "jane",
+        phone: "0394238553",
+        email: "email",
+        notes: "notes",
+        confirmed: true,
+        arrived: true,
+        id: 431341
       }
-    }
+    ]
   }
 };

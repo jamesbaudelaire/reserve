@@ -17,7 +17,6 @@ export const CalendarData = {
     "nov",
     "dec"
   ],
-  // days: ["s", "m", "t", "w", "t", "f", "s"],
   days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
 };
 
@@ -36,45 +35,46 @@ export class Calendar {
 
 const S = styled.div`
   text-transform: uppercase;
-  background: grey;
   position: relative;
   user-select: none;
-  font-size: 15px;
+  font-size: 20px;
   display: inline-block;
-  text-align: center;
   .week {
     display: grid;
     grid-template-columns: repeat(7, min-content);
   }
   .day {
-    padding: 2px;
+    transition: 0.3s;
     width: 30px;
+    margin: 5px;
     cursor: pointer;
-    height: 20px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
   }
-
+  .days {
+    text-align: center;
+  }
   .selected {
     color: white;
-  }
-
-  i {
-    font-size: 30px;
-    cursor: pointer;
+    background: var(--select);
   }
 
   .nav {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 0;
+    top: 0;
+    i {
+      font-size: 40px;
+      cursor: pointer;
+    }
   }
   .year {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 10px;
+    display: inline-block;
   }
   .month {
     margin: 10px;
+    display: inline-block;
   }
 `;
 
@@ -114,24 +114,40 @@ let selectDay = (day, name) => {
   clearSelected();
   if (day) {
     document.getElementById(`day-${day}`).classList.add("selected");
-    document.getElementById(name).classList.add("selected");
   }
 };
 
-export const CalendarUI = () => {
+export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
   const [daynum, setDaynum] = useState(null);
   const [dayname, setDayname] = useState(null);
 
+  // const dispatch = useDispatch();
+
   let Today = () => {
     clearSelected();
 
     let today = new Date();
-    setYear(today.getFullYear());
-    setMonth(today.getMonth());
-    setDaynum(today.getDate());
-    setDayname(CalendarData.days[today.getDay()]);
+    let year = today.getFullYear();
+    let month = today.getMonth();
+    let number = today.getDate();
+    let name = CalendarData.days[today.getDay()];
+
+    setYear(year);
+    setMonth(month);
+    setDaynum(number);
+    setDayname(name);
+
+    let day = {
+      year,
+      month: CalendarData.months[month],
+      number,
+      name
+    };
+
+    // dispatch(setDay(day));
+    setDay(day);
   };
 
   useLayoutEffect(() => {
@@ -171,7 +187,7 @@ export const CalendarUI = () => {
   };
 
   return (
-    <S>
+    <S className="calendar">
       <div className="month">{CalendarData.months[month]}</div>
 
       <div className="year">{year}</div>
@@ -224,7 +240,13 @@ export const CalendarUI = () => {
                   let monthname = CalendarData.months[month];
                   setDaynum(null);
                   if (day) {
-                    console.log(day, monthname, dayname, year);
+                    setDay({
+                      year,
+                      month: monthname,
+                      number: day,
+                      name: dayname
+                    });
+
                     selectDay(day, dayname);
                   }
                 }}
