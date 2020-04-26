@@ -20,38 +20,54 @@ const S = styled.div`
     display: flex;
     align-items: center;
     position: relative;
+    flex-direction: row-reverse;
   }
   .business-name {
-    /* position:absolute;left:90px;top:30px; */
     font-size: 30px;
   }
 
   .logo {
+    cursor: pointer;
     background-size: cover;
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    /* position: absolute; */
     top: 0;
     left: 0;
     margin: 20px;
+    box-shadow: var(--shadow);
   }
 
-  .logout {
-    position: absolute;
+  .top-shelf {
+    background: rgb(200, 200, 200);
+
     right: 0;
-    top: 20px;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    z-index: 100;
+
+    .logout {
+      margin: 20px;
+    }
   }
 
-  @media screen and (min-width: 700px) {
-  .topbar{
-    flex-direction:row-reverse;
-    position:absolute;top:0;right:0;
-    
-  }
-  .logout {
-    top: 90px;
-  }
+  @media screen and (min-width: 1000px) {
+    .topbar {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .top-shelf {
+      box-shadow: var(--shadow);
+      position: absolute;
+      z-index: 100;
+      width: 200px;
+      height: 300px;
+      top: 80px;
+      right: 20px;
+      border-radius: 5px;
+    }
   }
 `;
 
@@ -63,6 +79,8 @@ export const Business = () => {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState(false);
+
+  const [topshelf, setTopshelf] = useState(false);
 
   let ref = FB.firestore().collection("business");
 
@@ -108,30 +126,42 @@ export const Business = () => {
       });
   };
 
-  // let logo = `${business}`;
-  let logo = `https://randomuser.me/api/portraits/men/75.jpg`;
+  let logo = `https://res.cloudinary.com/baudelaire/image/upload/v1587884625/reserve/${url}.png`;
 
   return (
     <S>
+      {topshelf && (
+        <div className="top-shelf">
+          {
+            <button
+              className="logout"
+              onClick={() => {
+                setTopshelf(false);
+                if (url !== "guest") {
+                  A.logout();
+                  setUser(false);
+                }
+              }}
+            >
+              logout
+            </button>
+          }
+        </div>
+      )}
+
       {user ? (
         <>
           <div className="topbar">
-            <img alt="logo" src={logo} className="logo" />
+            <img
+              alt="logo"
+              src={logo}
+              className="logo"
+              onClick={() => {
+                setTopshelf(!topshelf);
+              }}
+            />
             <div className="business-name">{name}</div>
           </div>
-          {
-              // url !== "guest" &&
-              <button
-                className="logout"
-                onClick={() => {
-                  A.logout();
-                  setUser(false);
-                }}
-              >
-                logout
-              </button>
-            }
-
           <Reservations />
         </>
       ) : (

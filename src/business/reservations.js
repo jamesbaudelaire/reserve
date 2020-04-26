@@ -14,8 +14,8 @@ import { DB } from "../firebase";
 
 const S = styled.div`
   .reservation {
+    margin: 5px;
     transition: 0.3s;
-    margin: 10px;
     display: inline-block;
     border-radius: 5px;
     font-size: 15px;
@@ -50,12 +50,10 @@ const S = styled.div`
       margin: 0px 5px;
       display: inline-flex;
     }
-    .name {
-      max-width: 80px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-transform: uppercase;
-    }
+  }
+
+  .notes {
+    font-style: italic;
   }
 
   .edit-reservation {
@@ -77,7 +75,6 @@ const S = styled.div`
   }
 
   .time-slot {
-    margin: 0 20px;
     font-size: 20px;
     span {
       margin-left: 10px;
@@ -88,7 +85,6 @@ const S = styled.div`
   }
 
   .reservations {
-    margin: 0 40px;
     max-width: 300px;
   }
 
@@ -105,34 +101,39 @@ const S = styled.div`
     padding: 0px 10px;
   }
   .reservations-ui {
-    margin: 0 20px;
+    margin: 0 40px;
   }
 
   .add-reservation {
     font-size: 30px;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 0px;
+    right: 0px;
+    margin: 20px;
     background: black;
-    color:white;
+    color: white;
     padding: 5px;
-    transition:.3s;
+    transition: 0.3s;
     border-radius: 50%;
     z-index: 100;
-    &:hover{
-    background:var(--select);
-  }
+    &:hover {
+      background: var(--select);
+    }
   }
 
-  @media screen and (min-width: 700px) {
-.add-reservation{
-  left: 20px;
-    top: 20px;
-    bottom: unset;
-    right: unset;
-}
-}
-
+  @media screen and (min-width: 1000px) {
+    .add-reservation {
+      position: unset;
+    }
+    .calendar {
+      position: absolute;
+      left: 320px;
+      top: 0;
+    }
+    .reservations-ui {
+      position: absolute;
+    }
+  }
 `;
 
 let getHour = h => {
@@ -208,7 +209,7 @@ export const Reservations = () => {
       .sort((a, b) => (a.time.minutes > b.time.minutes ? 1 : -1));
   };
 
-  const [addReservationUI, setAddReservationUI] = useState(true);
+  const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservation, setReservation] = useState(null);
 
   let getNumbers = status => {

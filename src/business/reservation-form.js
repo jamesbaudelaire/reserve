@@ -62,7 +62,7 @@ const S = styled.div`
           bottom: 2.5px;
           background-color: white;
           transition: 0.4s;
-          border-radius: 2.5px;
+          border-radius: 4px;
           box-shadow: var(--shadow);
         }
       }
@@ -86,14 +86,25 @@ const S = styled.div`
       overflow: scroll;
       width: 100vw;
     }
-    #time {
-      margin: 20px;
-    }
 
     #name,
     #people,
     #time {
       border: 2px solid #d50000;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .reservation-form {
+      position: unset;
+      margin: 20px;
+      border-radius: 5px;
+      width: 240px;
+      box-shadow: var(--shadow);
+      .text {
+        width: unset;
+        white-space: unset;
+      }
     }
   }
 `;
@@ -217,6 +228,8 @@ export const ReservationForm = ({
             ))}
           </div>
 
+          <input type="time" id="time" />
+
           <div className="toggle">
             CONFIRMED
             <label>
@@ -224,8 +237,6 @@ export const ReservationForm = ({
               <span />
             </label>
           </div>
-
-          <input type="time" id="time" />
         </div>
 
         <div className="buttons">
