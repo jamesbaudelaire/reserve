@@ -52,19 +52,14 @@ let auth = firebase.auth();
 
 export const A = {
   login(inputs) {
-    auth.signInWithEmailAndPassword(inputs.email, inputs.password).catch(error => {
-      console.log(error.code, error.message);
-    });
+    auth
+      .signInWithEmailAndPassword(inputs.email, inputs.password)
+      .catch(error => {
+        console.log(error.code, error.message);
+      });
   },
 
   logout() {
     auth.signOut();
   }
 };
-
-let email = "the.rialto.restaurant@gmail.com";
-let password = "36542108";
-// USER.logout()
-
-// USER.login(email,password)
-// USER.state()

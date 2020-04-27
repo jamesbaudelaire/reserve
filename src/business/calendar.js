@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 
 import styled from "styled-components";
 
-export const CalendarData = {
+const CalendarData = {
   months: [
     "jan",
     "feb",
@@ -25,13 +25,24 @@ export class Calendar {
     this.date = new Date();
   }
 
-  dayLetter() {
+  dayName() {
     return CalendarData.days[this.date.getDay()];
   }
-  day() {
-    return CalendarData.days[this.date.getDay()];
+  dayNumber() {
+    return this.date.getDate();
+  }
+
+  year() {
+    return this.date.getFullYear();
+  }
+  monthNumber() {
+    return this.date.getMonth();
+  }
+  monthName() {
+    return CalendarData.months[this.date.getMonth()];
   }
 }
+let cal = new Calendar();
 
 const S = styled.div`
   text-transform: uppercase;
@@ -123,30 +134,21 @@ export const CalendarUI = ({ day, setDay }) => {
   const [daynum, setDaynum] = useState(null);
   const [dayname, setDayname] = useState(null);
 
-  // const dispatch = useDispatch();
-
   let Today = () => {
     clearSelected();
 
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth();
-    let number = today.getDate();
-    let name = CalendarData.days[today.getDay()];
-
-    setYear(year);
-    setMonth(month);
-    setDaynum(number);
-    setDayname(name);
+    setYear(cal.year());
+    setMonth(cal.monthNumber());
+    setDaynum(cal.dayNumber());
+    setDayname(cal.dayName());
 
     let day = {
-      year,
-      month: CalendarData.months[month],
-      number,
-      name
+      year: cal.year(),
+      month: cal.monthName(),
+      number: cal.dayNumber(),
+      name: cal.dayName()
     };
 
-    // dispatch(setDay(day));
     setDay(day);
   };
 
@@ -188,7 +190,7 @@ export const CalendarUI = ({ day, setDay }) => {
 
   return (
     <S className="calendar">
-      <div className="month">{CalendarData.months[month]}</div>
+      <div className="month">{cal.monthName()}</div>
 
       <div className="year">{year}</div>
 
@@ -239,6 +241,7 @@ export const CalendarUI = ({ day, setDay }) => {
                   let dayname = CalendarData.days[i];
                   let monthname = CalendarData.months[month];
                   setDaynum(null);
+
                   if (day) {
                     setDay({
                       year,
@@ -246,7 +249,6 @@ export const CalendarUI = ({ day, setDay }) => {
                       number: day,
                       name: dayname
                     });
-
                     selectDay(day, dayname);
                   }
                 }}

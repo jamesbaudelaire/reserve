@@ -20,7 +20,7 @@ const S = styled.div`
     display: flex;
     align-items: center;
     position: relative;
-    flex-direction: row-reverse;
+    flex-flow: row-reverse;
   }
   .business-name {
     font-size: 30px;
@@ -44,7 +44,7 @@ const S = styled.div`
     right: 0;
     top: 0;
     width: 100%;
-    height: 90px;
+    height: 70px;
     z-index: 100;
 
     .logout {
@@ -54,15 +54,15 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     .topbar {
-      position: absolute;
+      position: fixed;
       top: 0;
       right: 0;
     }
     .top-shelf {
       box-shadow: var(--shadow);
-      position: absolute;
+      position: fixed;
       z-index: 100;
-      width: 200px;
+      width: fit-content;
       height: 300px;
       top: 80px;
       right: 20px;
@@ -126,7 +126,7 @@ export const Business = () => {
       });
   };
 
-  let logo = `https://res.cloudinary.com/baudelaire/image/upload/v1587884625/reserve/${url}.png`;
+  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${url}.png`;
 
   return (
     <S>
