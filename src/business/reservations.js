@@ -123,15 +123,28 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     .add-reservation {
-      position: unset;
+      top: 0;
+      left: 0;
+      right: unset;
+      bottom: unset;
     }
     .calendar {
       position: absolute;
-      left: 320px;
+      right: 0;
       top: 0;
+      margin: 20px;
     }
     .reservations-ui {
       position: absolute;
+      left: 0;
+      top: 0;
+      margin: 20px 40px;
+      height: calc(100% - 40px);
+    }
+
+    .time-slots {
+      height: calc(100% - 40px);
+      overflow: scroll;
     }
   }
 `;
@@ -285,14 +298,14 @@ export const Reservations = () => {
         <div className="today">
           {day && day.name}
 
-          <span className="total">
-            <i className="material-icons-round">people</i>
-            <span className="number">{getNumbers()}</span>
-          </span>
-
           <span className="confirmed-total">
             <i className="material-icons-round">people</i>
             <span className="number">{getNumbers("confirmed")}</span>
+          </span>
+
+          <span className="total">
+            <i className="material-icons-round">people</i>
+            <span className="number">{getNumbers()}</span>
           </span>
         </div>
 
@@ -302,16 +315,16 @@ export const Reservations = () => {
               <div className="time-slot">
                 <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
 
-                <span className="total">
-                  <i className="material-icons-round">people</i>
-                  <span className="number">{getTotal(minutes(h))}</span>
-                </span>
-
                 <span className="confirmed-total">
                   <i className="material-icons-round">people</i>
                   <span className="number">
                     {getConfirmedTotal(minutes(h))}
                   </span>
+                </span>
+
+                <span className="total">
+                  <i className="material-icons-round">people</i>
+                  <span className="number">{getTotal(minutes(h))}</span>
                 </span>
               </div>
               <div className="reservations">

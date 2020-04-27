@@ -90,20 +90,25 @@ const S = styled.div`
     #name,
     #people,
     #time {
-      border: 2px solid #d50000;
+      border-left: 3px solid #d50000;
+      box-sizing: border-box;
     }
   }
 
   @media screen and (min-width: 1000px) {
     .reservation-form {
-      position: unset;
       margin: 20px;
       border-radius: 5px;
-      width: 240px;
+      width: 200px;
       box-shadow: var(--shadow);
+      top: 0;
+      bottom: unset;
       .text {
         width: unset;
         white-space: unset;
+      }
+      input {
+        width: 100px;
       }
     }
   }
