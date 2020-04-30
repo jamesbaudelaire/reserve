@@ -136,15 +136,16 @@ const S = styled.div`
     }
     .reservations-ui {
       position: absolute;
-      left: 0;
-      top: 0;
-      margin: 20px 40px;
+      left: 30px;
+      top: 10px;
+      margin: 0px;
       height: calc(100% - 40px);
     }
 
     .time-slots {
       height: calc(100% - 40px);
       overflow: scroll;
+      margin: 10px;
     }
   }
 `;

@@ -26,7 +26,7 @@ const reservationsReducer = (state = [], action) => {
 
 const appReducer = (state = { uid: null }, action) => {
   switch (action.type) {
-    case "uid":
+    case "set":
       state.uid = action.data;
       return state;
     default:

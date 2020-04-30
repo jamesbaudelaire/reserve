@@ -59,7 +59,7 @@ let sample = [
 
 export const LS = {
   init() {
-    this.offline = true;
+    this.guest = true;
     this.name = "reserve-app";
     let data = JSON.parse(localStorage.getItem(this.name));
     if (data !== null) {
@@ -76,7 +76,7 @@ export const LS = {
     localStorage.setItem(this.name, JSON.stringify(data));
   },
   saveReservations(data) {
-    if (this.offline) {
+    if (this.guest) {
       this.data.reservations = data;
       localStorage.setItem(this.name, JSON.stringify(this.data));
     }

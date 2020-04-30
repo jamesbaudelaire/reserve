@@ -19,9 +19,9 @@ export const arrived = x => {
   };
 };
 
-export const uid = x => {
+export const setuid = x => {
   return {
-    type: "uid",
+    type: "set",
     data: x
   };
 };
