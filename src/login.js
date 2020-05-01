@@ -1,5 +1,5 @@
 import React from "react";
-import { A } from "./firebase";
+import { AUTH } from "./firebase";
 
 import styled from "styled-components";
 
@@ -11,9 +11,17 @@ const S = styled.div`
     display: block;
     margin-top: 10px;
   }
+
+  @media screen and (min-width: 1000px) {
+    .inputs {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  }
 `;
 
-export const Login = () => {
+export const Login = ({ setLoading }) => {
   let inputs = [
     {
       input: "email",
@@ -30,7 +38,13 @@ export const Login = () => {
     inputs.forEach(x => {
       login[x.input] = document.getElementById(x.input).value;
     });
-    A.login(login);
+
+    AUTH.signInWithEmailAndPassword(login.email, login.password).catch(
+      error => {
+        setLoading(false);
+        alert(error.message);
+      }
+    );
   };
   return (
     <S>
@@ -46,6 +60,8 @@ export const Login = () => {
         <button
           className="login"
           onClick={() => {
+            setLoading(true);
+
             getInputs();
           }}
         >

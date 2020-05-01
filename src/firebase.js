@@ -48,18 +48,4 @@ export const DB = {
   }
 };
 
-let auth = firebase.auth();
-
-export const A = {
-  login(inputs) {
-    auth
-      .signInWithEmailAndPassword(inputs.email, inputs.password)
-      .catch(error => {
-        console.log(error.code, error.message);
-      });
-  },
-
-  logout() {
-    auth.signOut();
-  }
-};
+export const AUTH = firebase.auth();
