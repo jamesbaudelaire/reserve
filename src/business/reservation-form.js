@@ -76,7 +76,7 @@ const S = styled.div`
   .inputs {
     input {
       margin: 20px 0px 0 20px;
-      max-width: 100px;
+      width: 120px;
     }
     input:last-child {
       margin-right: 20px;
@@ -87,11 +87,12 @@ const S = styled.div`
       width: 100vw;
     }
 
-    #name,
-    #people,
-    #time {
+    input:required {
       border-left: 3px solid #d50000;
       box-sizing: border-box;
+    }
+    input:valid {
+      border: none;
     }
   }
 
@@ -106,9 +107,6 @@ const S = styled.div`
       .text {
         width: unset;
         white-space: unset;
-      }
-      input {
-        width: 100px;
       }
     }
   }
@@ -137,11 +135,13 @@ export const ReservationForm = ({
     {
       input: "name",
       type: "text",
-      limit: 10
+      limit: 10,
+      req: true
     },
     {
       input: "people",
-      type: "number"
+      type: "number",
+      req: true
     },
     {
       input: "email",
@@ -229,11 +229,12 @@ export const ReservationForm = ({
                 placeholder={x.input}
                 type={x.type}
                 maxLength={x.limit}
+                required={x.req}
               />
             ))}
           </div>
 
-          <input type="time" id="time" />
+          <input type="time" id="time" required />
 
           <div className="toggle">
             CONFIRMED

@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { Home } from "./home.js";
-
+import { Home } from "./home";
+import { Settings } from "./settings";
 import { createGlobalStyle } from "styled-components";
 
 import { Provider } from "react-redux";
@@ -78,11 +78,41 @@ i{
   cursor:pointer;
 }
 
+.loader{
+  position:fixed;top:0;right:0;
+  margin:10px;
+height:50px;
+width:50px;
+animation: rotate 1s linear infinite;
+
+circle {
+fill: none;
+stroke: var(--theme);
+stroke-width: 3;
+stroke-dasharray: 100;
+stroke-dashoffset: 200;
+animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+to {
+  stroke-dashoffset: 0;
+}
+}
+@keyframes rotate{
+  to{
+       transform:rotate(360deg);
+  }
+}
+
+
+}
 
 @media screen and (min-width: 1000px) {
 
 #app{
   position: absolute;
+  overflow:scroll;
   width: calc(100% - 400px);
     height: calc(100% - 200px);
     box-shadow: var(--shadow);
@@ -103,6 +133,7 @@ const Pages = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route path="/settings" component={Settings} />
     </Switch>
   );
 };

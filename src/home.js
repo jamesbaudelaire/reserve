@@ -11,6 +11,8 @@ import { setuid } from "./redux/actions";
 
 import { Login } from "./login";
 
+import { ReactComponent as Rsrv } from "./files/rsrv.svg";
+
 const S = styled.div`
   .app-name {
     font-size: 40px;
@@ -19,22 +21,42 @@ const S = styled.div`
 
   .app-slogan {
     font-size: 20px;
-    margin: 20px;
+    margin: 20px 40px;
   }
 
   .guest-mode-button {
     margin: 20px;
     display: block;
   }
+
+  .rsrv {
+    svg {
+      width: calc(100% - 40px);
+      height: 300px;
+      margin: auto 20px;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .guest-mode-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 20px;
+    }
+  }
 `;
 export const Home = () => {
   const [user, setUser] = useState(false);
   const [username, setUsername] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     FB.auth().onAuthStateChanged(user => {
       if (user) {
+        setLoading(true);
         FB.firestore()
           .collection("business")
           .doc(user.uid)
@@ -45,6 +67,7 @@ export const Home = () => {
             setUser(true);
             setUsername(data.name);
             dispatch(setuid(user.uid));
+            setLoading(false);
           });
       }
     });
@@ -52,10 +75,19 @@ export const Home = () => {
 
   return (
     <S>
+      {loading && (
+        <svg className="loader">
+          <circle cx="25" cy="25" r="15" />
+        </svg>
+      )}
+
       {!user && (
         <>
           <div className="app-name">RSRV</div>
           <div className="app-slogan">Never lose a reservation again!</div>
+          <div className="rsrv">
+            <Rsrv />
+          </div>
           <button
             className="guest-mode-button"
             onClick={() => {
@@ -65,9 +97,9 @@ export const Home = () => {
               dispatch(loadReservations(LS.data.reservations));
             }}
           >
-            guest
+            try now
           </button>
-          <Login />
+          <Login setLoading={setLoading} />
         </>
       )}
 

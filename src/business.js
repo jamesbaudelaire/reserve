@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 import { Reservations } from "./business/reservations";
 
-import { FB, A } from "./firebase";
+import { FB, AUTH } from "./firebase";
 
 import { setuid } from "./redux/actions";
 
@@ -113,7 +113,7 @@ export const Business = ({ setUser, username }) => {
                 setUser(false);
                 if (username !== "Guest") {
                   dispatch(setuid(null));
-                  A.logout();
+                  AUTH.signOut();
                 }
               }}
             >
