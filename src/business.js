@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { useParams } from "react-router-dom";
+import { loadReservations } from "./redux/actions";
 
 import styled from "styled-components";
 
 import { Reservations } from "./business/reservations";
 
-import { LS } from "./functions";
-import { loadReservations } from "./redux/actions";
-
 import { FB, A } from "./firebase";
 
-import { uid } from "./redux/actions";
-import { Login } from "./login";
+import { setuid } from "./redux/actions";
 
 const S = styled.div`
   .topbar {
@@ -47,7 +43,7 @@ const S = styled.div`
     height: 70px;
     z-index: 100;
 
-    .logout {
+    button {
       margin: 20px;
     }
   }
@@ -62,71 +58,48 @@ const S = styled.div`
       box-shadow: var(--shadow);
       position: fixed;
       z-index: 100;
-      width: fit-content;
-      height: 300px;
+      width: 120px;
+      height: auto;
       top: 80px;
       right: 20px;
       border-radius: 5px;
+      button {
+        margin: 20px auto;
+        display: block;
+      }
     }
   }
 `;
 
-export const Business = () => {
-  let { url } = useParams();
-
-  const [name, setName] = useState();
-
+export const Business = ({ setUser, username }) => {
   const dispatch = useDispatch();
 
-  const [user, setUser] = useState(false);
+  const uid = useSelector(s => s.app.uid);
+
+  useEffect(() => {
+    if (uid) {
+      let detach = FB.firestore()
+        .collection("business")
+        .doc(uid)
+        .collection("reservations")
+        .onSnapshot(q => {
+          let res = [];
+
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r);
+          });
+
+          dispatch(loadReservations(res));
+        });
+
+      return () => detach();
+    }
+  }, [uid]);
 
   const [topshelf, setTopshelf] = useState(false);
 
-  let ref = FB.firestore().collection("business");
-
-  useEffect(() => {
-    if (url === "guest") {
-      LS.init();
-      dispatch(loadReservations(LS.data.reservations));
-      setUser(true);
-      setName("Guest");
-    } else {
-      FB.auth().onAuthStateChanged(user => {
-        if (user) {
-          ref
-            .doc(user.uid)
-            .get()
-            .then(doc => {
-              let data = doc.data();
-              if (url === data.url) {
-                setUser(true);
-                setName(data.name);
-                dispatch(uid(user.uid));
-                loadFBReservations(user.uid);
-              }
-            });
-        }
-      });
-    }
-  }, []);
-
-  let loadFBReservations = uid => {
-    ref
-      .doc(uid)
-      .collection("reservations")
-      .onSnapshot(q => {
-        let res = [];
-
-        q.forEach(d => {
-          let r = d.data();
-          res.push(r);
-        });
-
-        dispatch(loadReservations(res));
-      });
-  };
-
-  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${url}.png`;
+  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
 
   return (
     <S>
@@ -134,39 +107,38 @@ export const Business = () => {
         <div className="top-shelf">
           {
             <button
-              className="logout"
+              className="logout-button"
               onClick={() => {
                 setTopshelf(false);
-                if (url !== "guest") {
+                setUser(false);
+                if (username !== "Guest") {
+                  dispatch(setuid(null));
                   A.logout();
-                  setUser(false);
                 }
               }}
             >
               logout
             </button>
           }
+          {/* <button className="settings-button" onClick={() => {}}>
+            settings
+          </button> */}
         </div>
       )}
 
-      {user ? (
-        <>
-          <div className="topbar">
-            <img
-              alt="logo"
-              src={logo}
-              className="logo"
-              onClick={() => {
-                setTopshelf(!topshelf);
-              }}
-            />
-            <div className="business-name">{name}</div>
-          </div>
-          <Reservations />
-        </>
-      ) : (
-        <Login />
-      )}
+      <div className="topbar">
+        <img
+          alt="logo"
+          src={logo}
+          className="logo"
+          onClick={() => {
+            setTopshelf(!topshelf);
+          }}
+        />
+        <div className="business-name">{username}</div>
+      </div>
+
+      <Reservations />
     </S>
   );
 };
