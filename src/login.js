@@ -30,7 +30,6 @@ export const Login = () => {
     inputs.forEach(x => {
       login[x.input] = document.getElementById(x.input).value;
     });
-    // console.log(login)
     A.login(login);
   };
   return (

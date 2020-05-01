@@ -72,7 +72,6 @@ const S = styled.div`
 `;
 
 export const Business = ({ setUser, username }) => {
-
   const dispatch = useDispatch();
 
   const uid = useSelector(s => s.app.uid);
@@ -112,7 +111,7 @@ export const Business = ({ setUser, username }) => {
               onClick={() => {
                 setTopshelf(false);
                 setUser(false);
-                if (username !== "guest") {
+                if (username !== "Guest") {
                   dispatch(setuid(null));
                   A.logout();
                 }

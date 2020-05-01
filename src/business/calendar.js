@@ -190,7 +190,7 @@ export const CalendarUI = ({ day, setDay }) => {
 
   return (
     <S className="calendar">
-      <div className="month">{cal.monthName()}</div>
+      <div className="month">{CalendarData.months[month]}</div>
 
       <div className="year">{year}</div>
 

@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { Home } from "./home.js";
-import { Business } from "./business";
 
 import { createGlobalStyle } from "styled-components";
 
@@ -104,7 +103,6 @@ const Pages = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/:url" component={Business} />
     </Switch>
   );
 };

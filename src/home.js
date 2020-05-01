@@ -11,7 +11,22 @@ import { setuid } from "./redux/actions";
 
 import { Login } from "./login";
 
-const S = styled.div``;
+const S = styled.div`
+  .app-name {
+    font-size: 40px;
+    margin: 20px;
+  }
+
+  .app-slogan {
+    font-size: 20px;
+    margin: 20px;
+  }
+
+  .guest-mode-button {
+    margin: 20px;
+    display: block;
+  }
+`;
 export const Home = () => {
   const [user, setUser] = useState(false);
   const [username, setUsername] = useState(null);
@@ -20,9 +35,8 @@ export const Home = () => {
   useEffect(() => {
     FB.auth().onAuthStateChanged(user => {
       if (user) {
-        let ref = FB.firestore().collection("business");
-
-        ref
+        FB.firestore()
+          .collection("business")
           .doc(user.uid)
           .get()
           .then(doc => {
@@ -40,9 +54,12 @@ export const Home = () => {
     <S>
       {!user && (
         <>
+          <div className="app-name">RSRV</div>
+          <div className="app-slogan">Never lose a reservation again!</div>
           <button
+            className="guest-mode-button"
             onClick={() => {
-              setUsername("guest");
+              setUsername("Guest");
               setUser(true);
               LS.init();
               dispatch(loadReservations(LS.data.reservations));

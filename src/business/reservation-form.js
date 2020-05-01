@@ -255,7 +255,7 @@ export const ReservationForm = ({
           </button>
 
           <button
-            id="save-button"
+            id="add-button"
             onClick={() => {
               if (
                 newReservation().people > 0 &&
@@ -270,7 +270,7 @@ export const ReservationForm = ({
               }
             }}
           >
-            {reservation ? "update" : "save"}
+            {reservation ? "update" : "add"}
           </button>
         </div>
       </div>
