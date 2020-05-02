@@ -86,6 +86,7 @@ const S = styled.div`
 
   .reservations {
     max-width: 300px;
+    margin-left: 10px;
   }
 
   .today {
@@ -110,12 +111,13 @@ const S = styled.div`
     bottom: 0px;
     right: 0px;
     margin: 20px;
-    background: black;
     color: white;
     padding: 5px;
     transition: 0.3s;
-    border-radius: 50%;
+    background: #3f3d56;
+    border-radius: 5px;
     z-index: 100;
+    box-shadow: var(--shadow);
     &:hover {
       background: var(--select);
     }
@@ -143,9 +145,9 @@ const S = styled.div`
     }
 
     .time-slots {
-      height: calc(100% - 40px);
+      height: calc(100% - 20px);
       overflow: scroll;
-      margin: 10px;
+      margin: 0 10px;
     }
   }
 `;
@@ -312,22 +314,19 @@ export const Reservations = () => {
 
         <div className="time-slots">
           {hours.map(h => (
-            <div key={h}>
-              <div className="time-slot">
-                <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
+            <div className="time-slot" key={h}>
+              <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
 
-                <span className="confirmed-total">
-                  <i className="material-icons-round">people</i>
-                  <span className="number">
-                    {getConfirmedTotal(minutes(h))}
-                  </span>
-                </span>
+              <span className="confirmed-total">
+                <i className="material-icons-round">people</i>
+                <span className="number">{getConfirmedTotal(minutes(h))}</span>
+              </span>
 
-                <span className="total">
-                  <i className="material-icons-round">people</i>
-                  <span className="number">{getTotal(minutes(h))}</span>
-                </span>
-              </div>
+              <span className="total">
+                <i className="material-icons-round">people</i>
+                <span className="number">{getTotal(minutes(h))}</span>
+              </span>
+
               <div className="reservations">
                 {minutes(h).map(r => (
                   <div
