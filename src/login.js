@@ -6,10 +6,11 @@ import styled from "styled-components";
 const S = styled.div`
   .inputs {
     margin: 20px;
+    text-align: center;
   }
-  .login {
+  .login-button {
     display: block;
-    margin-top: 10px;
+    margin: 10px auto;
   }
 
   @media screen and (min-width: 1000px) {
@@ -17,6 +18,9 @@ const S = styled.div`
       position: fixed;
       top: 0;
       left: 0;
+    }
+    .login-button {
+      margin: 10px;
     }
   }
 `;
@@ -58,7 +62,7 @@ export const Login = ({ setLoading }) => {
           />
         ))}
         <button
-          className="login"
+          className="login-button"
           onClick={() => {
             setLoading(true);
 

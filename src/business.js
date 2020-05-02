@@ -27,7 +27,7 @@ const S = styled.div`
     background-size: cover;
     height: 50px;
     width: 50px;
-    border-radius: 50%;
+    border-radius: 5px;
     top: 0;
     left: 0;
     margin: 20px;
@@ -36,15 +36,14 @@ const S = styled.div`
 
   .top-shelf {
     background: rgb(200, 200, 200);
-
     right: 0;
     top: 0;
     width: 100%;
-    height: 70px;
     z-index: 100;
 
     button {
       margin: 20px;
+      margin-right: 0;
     }
   }
 
@@ -98,6 +97,7 @@ export const Business = ({ setUser, username }) => {
   }, [uid]);
 
   const [topshelf, setTopshelf] = useState(false);
+  const state = useSelector(s => s);
 
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
 
@@ -120,9 +120,17 @@ export const Business = ({ setUser, username }) => {
               logout
             </button>
           }
-          {/* <button className="settings-button" onClick={() => {}}>
-            settings
-          </button> */}
+
+          <button
+            onClick={() => {
+              prompt(
+                "Remember to set BCC for email privacy!",
+                state.reservations.map(r => r.email).join(", ")
+              );
+            }}
+          >
+            email list
+          </button>
         </div>
       )}
 

@@ -16,16 +16,16 @@ import { ReactComponent as Rsrv } from "./files/rsrv.svg";
 const S = styled.div`
   .app-name {
     font-size: 40px;
-    margin: 20px;
+    margin: 10px 20px;
   }
 
   .app-slogan {
     font-size: 20px;
-    margin: 20px 40px;
+    margin: 0px 40px;
   }
 
   .guest-mode-button {
-    margin: 20px;
+    margin: 20px auto;
     display: block;
   }
 
@@ -43,6 +43,12 @@ const S = styled.div`
       top: 0;
       right: 0;
       margin: 20px;
+    }
+
+    .rsrv {
+      svg {
+        margin-top: 40px;
+      }
     }
   }
 `;
