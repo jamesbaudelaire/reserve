@@ -91,9 +91,6 @@ export const Home = () => {
         <>
           <div className="app-name">RSRV</div>
           <div className="app-slogan">Never lose a reservation again!</div>
-          <div className="rsrv">
-            <Rsrv />
-          </div>
           <button
             className="guest-mode-button"
             onClick={() => {
@@ -105,6 +102,10 @@ export const Home = () => {
           >
             try now
           </button>
+          <div className="rsrv">
+            <Rsrv />
+          </div>
+
           <Login setLoading={setLoading} />
         </>
       )}

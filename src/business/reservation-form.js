@@ -7,6 +7,8 @@ import { addReservation } from "../redux/actions";
 
 import { ID } from "../functions";
 
+import { useAnimation } from "../x/animation";
+
 const S = styled.div`
   .reservation-form {
     position: fixed;
@@ -17,6 +19,14 @@ const S = styled.div`
 
     .buttons {
       text-align: right;
+    }
+
+    opacity: 0;
+    transition: 0.3s;
+    transform: translatey(20px);
+    &.loaded {
+      opacity: 1;
+      transform: translatey(0px);
     }
   }
 
@@ -88,7 +98,7 @@ const S = styled.div`
     }
 
     input:required {
-      border-left: 5px solid var(--select);
+      border-left: 5px solid #d50000;
       box-sizing: border-box;
     }
     input:valid {
@@ -108,6 +118,7 @@ const S = styled.div`
         width: unset;
         white-space: unset;
       }
+      transform: translatey(0px);
     }
   }
 `;
@@ -217,13 +228,26 @@ export const ReservationForm = ({
     selectReservation();
   };
 
+  const load = useAnimation();
+
+  let scroll = id => {
+    document.getElementById(id).scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center"
+    });
+  };
+
   return (
     <S>
-      <div className="reservation-form">
+      <div className="reservation-form" {...load}>
         <div className="inputs">
           <div className="text">
             {inputs.map(x => (
               <input
+                onClick={() => {
+                  scroll(x.input);
+                }}
                 id={x.input}
                 key={x.input}
                 placeholder={x.input}
@@ -247,12 +271,12 @@ export const ReservationForm = ({
 
         <div className="buttons">
           <button
-            id="cancel-button"
+            id="close-button"
             onClick={() => {
               resetui();
             }}
           >
-            cancel
+            close
           </button>
 
           <button

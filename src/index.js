@@ -9,6 +9,8 @@ import { createGlobalStyle } from "styled-components";
 import { Provider } from "react-redux";
 import { store } from "./redux/reducers";
 
+import { useAnimation } from "./x/animation";
+
 const GS = createGlobalStyle`
 
 :root{
@@ -39,6 +41,7 @@ button{
   :focus {outline:0;}
   &:hover{
     background:var(--select);
+    box-shadow:var(--shadow);
   }
 &:active{
   background:black;
@@ -109,6 +112,14 @@ button{
 background:#3f3d56;
 }
 
+#app{
+  opacity:0;
+transition:1s;
+  &.loaded{
+    opacity:1
+  }
+}
+
 @media screen and (min-width: 1000px) {
 
 #app{
@@ -139,8 +150,9 @@ const Pages = () => {
 };
 
 const App = () => {
+  const load = useAnimation();
   return (
-    <div id="app">
+    <div id="app" {...load}>
       <GS />
       <BrowserRouter>
         <Pages />

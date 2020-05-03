@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
@@ -11,6 +11,7 @@ import { ReservationForm } from "./reservation-form";
 import { arrived } from "../redux/actions";
 
 import { DB } from "../firebase";
+import { IO } from "../x/IO";
 
 const S = styled.div`
   .reservation {
@@ -62,6 +63,7 @@ const S = styled.div`
   }
   .selected-reservation {
     background: var(--select);
+    box-shadow: var(--shadow);
     color: white;
     i {
       opacity: 1;
@@ -117,9 +119,19 @@ const S = styled.div`
     background: #3f3d56;
     border-radius: 5px;
     z-index: 100;
-    box-shadow: var(--shadow);
     &:hover {
       background: var(--select);
+      box-shadow: var(--shadow);
+    }
+  }
+
+  .time-slot {
+    transition: 0.3s;
+    opacity: 0;
+    transform: translatex(20px);
+    &.io {
+      opacity: 1;
+      transform: translatex(0px);
     }
   }
 
@@ -271,6 +283,15 @@ export const Reservations = () => {
   };
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    let targets = document.querySelectorAll(".time-slot");
+    targets.forEach((x, i) => {
+      setTimeout(() => {
+        IO(x);
+      }, i * 50);
+    });
+  });
 
   return (
     <S>

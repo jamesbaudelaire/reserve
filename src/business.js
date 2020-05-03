@@ -11,6 +11,8 @@ import { FB, AUTH } from "./firebase";
 
 import { setuid } from "./redux/actions";
 
+import { useAnimation } from "./x/animation";
+
 const S = styled.div`
   .topbar {
     display: flex;
@@ -35,6 +37,14 @@ const S = styled.div`
   }
 
   .top-shelf {
+    opacity: 0;
+    transition: 0.3s;
+    height: 0;
+    overflow: hidden;
+    &.loaded {
+      opacity: 1;
+      height: 65px;
+    }
     background: rgb(200, 200, 200);
     right: 0;
     top: 0;
@@ -101,10 +111,11 @@ export const Business = ({ setUser, username }) => {
 
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
 
+  const load = useAnimation();
   return (
     <S>
       {topshelf && (
-        <div className="top-shelf">
+        <div className="top-shelf" {...load}>
           {
             <button
               className="logout-button"
@@ -125,7 +136,11 @@ export const Business = ({ setUser, username }) => {
             onClick={() => {
               prompt(
                 "Remember to set BCC for email privacy!",
-                state.reservations.map(r => r.email).join(", ")
+                [
+                  ...new Set(
+                    state.reservations.map(r => r.email).filter(r => r !== "")
+                  )
+                ].join(", ")
               );
             }}
           >

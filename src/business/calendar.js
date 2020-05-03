@@ -57,7 +57,8 @@ const S = styled.div`
   .day {
     transition: 0.3s;
     width: 30px;
-    margin: 5px;
+    margin: 3px;
+    padding: 3px;
     cursor: pointer;
     height: 30px;
     line-height: 30px;
@@ -69,6 +70,7 @@ const S = styled.div`
   .selected {
     color: white;
     background: var(--select);
+    box-shadow: var(--shadow);
   }
 
   .nav {
