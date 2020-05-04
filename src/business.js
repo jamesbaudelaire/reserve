@@ -39,11 +39,9 @@ const S = styled.div`
   .top-shelf {
     opacity: 0;
     transition: 0.3s;
-    height: 0;
-    overflow: hidden;
+
     &.loaded {
       opacity: 1;
-      height: 65px;
     }
     background: rgb(200, 200, 200);
     right: 0;

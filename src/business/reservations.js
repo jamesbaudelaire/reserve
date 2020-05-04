@@ -101,7 +101,9 @@ const S = styled.div`
   }
 
   .notes {
-    padding: 0px 10px;
+    span {
+      margin: 0;
+    }
   }
   .reservations-ui {
     margin: 0 40px;
