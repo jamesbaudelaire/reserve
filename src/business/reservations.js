@@ -137,6 +137,16 @@ const S = styled.div`
     }
   }
 
+  .add-reservation,
+  .arrived-toggle,
+  .edit-reservation {
+    cursor: pointer;
+  }
+
+  .no-reservations {
+    margin: 10px 20px;
+  }
+
   @media screen and (min-width: 1000px) {
     .add-reservation {
       top: 0;
@@ -336,6 +346,9 @@ export const Reservations = () => {
         </div>
 
         <div className="time-slots">
+          <div className="no-reservations">
+            {reservations.length === 0 && "No reservations today!"}
+          </div>
           {hours.map(h => (
             <div className="time-slot" key={h}>
               <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>

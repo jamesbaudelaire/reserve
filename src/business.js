@@ -132,14 +132,16 @@ export const Business = ({ setUser, username }) => {
 
           <button
             onClick={() => {
-              prompt(
-                "Remember to set BCC for email privacy!",
-                [
-                  ...new Set(
-                    state.reservations.map(r => r.email).filter(r => r !== "")
-                  )
-                ].join(", ")
-              );
+              let emails = [
+                ...new Set(
+                  state.reservations.map(r => r.email).filter(r => r !== "")
+                )
+              ].join(", ");
+              if (emails) {
+                prompt("Remember to set BCC for email privacy!", emails);
+              } else {
+                alert("No emails found!");
+              }
             }}
           >
             email list

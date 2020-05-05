@@ -75,10 +75,6 @@ body{
 }
 
 
-i{
-  cursor:pointer;
-}
-
 .loader{
   position:fixed;top:0;right:0;
   margin:10px;
@@ -114,9 +110,9 @@ background:#3f3d56;
 
 #app{
   opacity:0;
-transition:1s;
+transition:.7s;
   &.loaded{
-    opacity:1
+    opacity:1;
   }
 }
 
