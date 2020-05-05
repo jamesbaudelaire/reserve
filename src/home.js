@@ -17,6 +17,7 @@ const S = styled.div`
   .app-name {
     font-size: 40px;
     margin: 10px 20px;
+    color: var(--select);
   }
 
   .app-slogan {

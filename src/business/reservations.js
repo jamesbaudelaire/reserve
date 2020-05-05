@@ -101,7 +101,9 @@ const S = styled.div`
   }
 
   .notes {
-    padding: 0px 10px;
+    span {
+      margin: 0;
+    }
   }
   .reservations-ui {
     margin: 0 40px;
@@ -133,6 +135,16 @@ const S = styled.div`
       opacity: 1;
       transform: translatex(0px);
     }
+  }
+
+  .add-reservation,
+  .arrived-toggle,
+  .edit-reservation {
+    cursor: pointer;
+  }
+
+  .no-reservations {
+    margin: 10px 20px;
   }
 
   @media screen and (min-width: 1000px) {
@@ -334,6 +346,9 @@ export const Reservations = () => {
         </div>
 
         <div className="time-slots">
+          <div className="no-reservations">
+            {reservations.length === 0 && "No reservations today!"}
+          </div>
           {hours.map(h => (
             <div className="time-slot" key={h}>
               <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>

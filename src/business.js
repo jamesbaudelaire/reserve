@@ -39,11 +39,9 @@ const S = styled.div`
   .top-shelf {
     opacity: 0;
     transition: 0.3s;
-    height: 0;
-    overflow: hidden;
+
     &.loaded {
       opacity: 1;
-      height: 65px;
     }
     background: rgb(200, 200, 200);
     right: 0;
@@ -134,14 +132,16 @@ export const Business = ({ setUser, username }) => {
 
           <button
             onClick={() => {
-              prompt(
-                "Remember to set BCC for email privacy!",
-                [
-                  ...new Set(
-                    state.reservations.map(r => r.email).filter(r => r !== "")
-                  )
-                ].join(", ")
-              );
+              let emails = [
+                ...new Set(
+                  state.reservations.map(r => r.email).filter(r => r !== "")
+                )
+              ].join(", ");
+              if (emails) {
+                prompt("Remember to set BCC for email privacy!", emails);
+              } else {
+                alert("No emails found!");
+              }
             }}
           >
             email list
