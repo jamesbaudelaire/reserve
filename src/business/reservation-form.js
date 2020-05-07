@@ -98,7 +98,7 @@ const S = styled.div`
     }
 
     input:required {
-      border-left: 5px solid #d50000;
+      border-left: 3px solid #d50000;
       box-sizing: border-box;
     }
     input:valid {

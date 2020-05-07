@@ -346,9 +346,6 @@ export const Reservations = () => {
         </div>
 
         <div className="time-slots">
-          <div className="no-reservations">
-            {reservations.length === 0 && "No reservations today!"}
-          </div>
           {hours.map(h => (
             <div className="time-slot" key={h}>
               <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
@@ -410,6 +407,9 @@ export const Reservations = () => {
               </div>
             </div>
           ))}
+            <div className="no-reservations">
+            {reservations.length === 0 && "No reservations today!"}
+          </div>
         </div>
       </div>
     </S>
