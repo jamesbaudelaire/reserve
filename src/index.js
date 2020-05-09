@@ -39,13 +39,7 @@ button{
       border: none;
       color: white;
   :focus {outline:0;}
-  &:hover{
-    background:var(--select);
-    box-shadow:var(--shadow);
-  }
-&:active{
-  background:black;
-}
+
 }
 
 input {
@@ -59,6 +53,14 @@ input {
 
 
 
+button,.nav i,.add-reservation,.reservation,.day{
+  &:hover {
+      box-shadow: var(--shadow);
+    }
+    &:active{
+      background: var(--select);
+    }
+}
 
 body{
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

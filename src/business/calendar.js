@@ -74,20 +74,37 @@ const S = styled.div`
   }
 
   .nav {
+    left: 0;
     position: absolute;
     right: 0;
     top: 0;
+    margin: 5px auto;
+    line-height: 0px;
+    border-radius: 5px;
+    width: 150px;
     i {
-      font-size: 40px;
+      font-size: 30px;
       cursor: pointer;
+      margin: 0 10px;
+      background: #3f3d56;
+      color: white;
+      border-radius: 5px;
+      transition: 0.3s;
     }
   }
   .year {
     display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
   }
   .month {
-    margin: 10px;
     display: inline-block;
+  }
+  .year,
+  .month {
+    font-size: 25px;
+    margin: 5px 10px;
   }
 `;
 

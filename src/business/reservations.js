@@ -16,19 +16,16 @@ import { IO } from "../x/IO";
 const S = styled.div`
   .reservation {
     margin: 5px;
+    position: relative;
     transition: 0.3s;
     display: inline-block;
     border-radius: 5px;
     font-size: 15px;
+    cursor: pointer;
     padding: 5px 10px;
     i {
       font-size: 25px;
       vertical-align: middle;
-    }
-    &:hover {
-      .edit-reservation {
-        opacity: 1;
-      }
     }
   }
 
@@ -57,17 +54,10 @@ const S = styled.div`
     font-style: italic;
   }
 
-  .edit-reservation {
-    opacity: 0;
-    transition: 0.3s;
-  }
   .selected-reservation {
     background: var(--select);
     box-shadow: var(--shadow);
     color: white;
-    i {
-      opacity: 1;
-    }
   }
 
   .calendar {
@@ -110,21 +100,16 @@ const S = styled.div`
   }
 
   .add-reservation {
-    font-size: 30px;
+    font-size: 40px;
     position: fixed;
     bottom: 0px;
     right: 0px;
     margin: 20px;
     color: white;
-    padding: 5px;
     transition: 0.3s;
     background: #3f3d56;
     border-radius: 5px;
     z-index: 100;
-    &:hover {
-      background: var(--select);
-      box-shadow: var(--shadow);
-    }
   }
 
   .time-slot {
@@ -366,12 +351,17 @@ export const Reservations = () => {
                     className={`reservation ${
                       r.confirmed ? "confirmed-reservation" : ""
                     }`}
+                    onClick={() => {
+                      setReservation(reservations.find(x => x.id == r.id));
+                      setAddReservationUI(true);
+                    }}
                     key={r.id}
                     id={r.id}
                   >
                     <i
                       className="material-icons-round arrived-toggle"
-                      onClick={() => {
+                      onClick={e => {
+                        e.stopPropagation();
                         dispatch(arrived(r.id));
                         arrivedFB(r.id, !r.arrived);
                       }}
@@ -380,14 +370,14 @@ export const Reservations = () => {
                     </i>
 
                     <div className={`info ${r.arrived ? "arrived" : ""}`}>
+                      <span className="name">{r.name}</span>
+                      <span className="people">{r.people}</span>
                       <span className="time">{`${getHour(h)}:${getMinutes(
                         r.time.minutes
                       )}`}</span>
-                      <span className="name">{r.name}</span>
-                      <span className="people">{r.people}</span>
                     </div>
 
-                    <i
+                    {/* <i
                       className="material-icons-round edit-reservation"
                       onClick={() => {
                         setReservation(reservations.find(x => x.id == r.id));
@@ -395,7 +385,7 @@ export const Reservations = () => {
                       }}
                     >
                       edit
-                    </i>
+                    </i> */}
 
                     {r.notes && (
                       <div className="notes">
@@ -407,7 +397,7 @@ export const Reservations = () => {
               </div>
             </div>
           ))}
-            <div className="no-reservations">
+          <div className="no-reservations">
             {reservations.length === 0 && "No reservations today!"}
           </div>
         </div>
