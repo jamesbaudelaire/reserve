@@ -8,13 +8,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { ReservationForm } from "./reservation-form";
 
-import { arrived } from "../redux/actions";
+// import { arrived } from "../redux/actions";
 
 import { DB } from "../firebase";
 import { IO } from "../x/IO";
 
 const S = styled.div`
   .reservation {
+    background: #3f3d56;
+    color: white;
     margin: 5px;
     position: relative;
     transition: 0.3s;
@@ -22,7 +24,7 @@ const S = styled.div`
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px;
     i {
       font-size: 25px;
       vertical-align: middle;
@@ -77,8 +79,8 @@ const S = styled.div`
   }
 
   .reservations {
-    max-width: 300px;
-    margin-left: 10px;
+    max-width: 200px;
+    margin-left: 20px;
   }
 
   .today {
@@ -92,7 +94,7 @@ const S = styled.div`
 
   .notes {
     span {
-      margin: 0;
+      margin: 0 10px;
     }
   }
   .reservations-ui {
@@ -209,10 +211,8 @@ let getConfirmedTotal = x => {
   return n;
 };
 
-export const Reservations = () => {
-  const [day, setDay] = useState();
+export const Reservations = ({ day, setDay }) => {
   const reservationsData = useSelector(s => s.reservations);
-
   let reservations = reservationsData;
 
   if (reservations && day) {
@@ -273,11 +273,17 @@ export const Reservations = () => {
     }
   };
 
-  let arrivedFB = (id, toggle) => {
+  let deleteFBReservation = r => {
     if (uid) {
-      DB.arrived(uid, id, toggle);
+      DB.delete(uid, r);
     }
   };
+
+  // let arrivedFB = (id, toggle) => {
+  //   if (uid) {
+  //     DB.arrived(uid, id, toggle);
+  //   }
+  // };
 
   const dispatch = useDispatch();
 
@@ -310,6 +316,7 @@ export const Reservations = () => {
           setReservation={setReservation}
           selectReservation={selectReservation}
           addFBReservation={addFBReservation}
+          deleteFBReservation={deleteFBReservation}
         />
       )}
 
@@ -358,7 +365,7 @@ export const Reservations = () => {
                     key={r.id}
                     id={r.id}
                   >
-                    <i
+                    {/* <i
                       className="material-icons-round arrived-toggle"
                       onClick={e => {
                         e.stopPropagation();
@@ -367,7 +374,7 @@ export const Reservations = () => {
                       }}
                     >
                       {r.arrived ? "check_box" : "check_box_outline_blank"}
-                    </i>
+                    </i> */}
 
                     <div className={`info ${r.arrived ? "arrived" : ""}`}>
                       <span className="name">{r.name}</span>

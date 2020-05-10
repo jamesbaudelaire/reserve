@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
-import { addReservation } from "../redux/actions";
+import { addReservation, deleteReservation } from "../redux/actions";
 
 import { ID } from "../functions";
 
@@ -19,6 +19,14 @@ const S = styled.div`
 
     .buttons {
       text-align: right;
+      #close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+      button {
+        margin: 10px;
+      }
     }
 
     opacity: 0;
@@ -32,9 +40,9 @@ const S = styled.div`
 
   .toggle {
     margin: 20px;
+    margin-bottom: 10px;
     line-height: 20px;
-    vertical-align: middle;
-    display: inline-flex;
+    display: block;
     label {
       margin-left: 10px;
       position: relative;
@@ -85,7 +93,7 @@ const S = styled.div`
 
   .inputs {
     input {
-      margin: 20px 0px 0 20px;
+      margin: 10px;
       width: 120px;
     }
     input:last-child {
@@ -119,6 +127,14 @@ const S = styled.div`
         white-space: unset;
       }
       transform: translatey(0px);
+
+      .toggle {
+        margin: 10px;
+        label {
+          margin: 10px 0;
+          display: block;
+        }
+      }
     }
   }
 `;
@@ -138,7 +154,8 @@ export const ReservationForm = ({
   reservation,
   setReservation,
   selectReservation,
-  addFBReservation
+  addFBReservation,
+  deleteFBReservation
 }) => {
   const dispatch = useDispatch();
 
@@ -241,6 +258,14 @@ export const ReservationForm = ({
   return (
     <S>
       <div className="reservation-form" {...load}>
+        <div className="toggle">
+          CONFIRMED
+          <label>
+            <input type="checkbox" id="confirmed" />
+            <span />
+          </label>
+        </div>
+
         <div className="inputs">
           <div className="text">
             {inputs.map(x => (
@@ -259,14 +284,6 @@ export const ReservationForm = ({
           </div>
 
           <input type="time" id="time" required />
-
-          <div className="toggle">
-            CONFIRMED
-            <label>
-              <input type="checkbox" id="confirmed" />
-              <span />
-            </label>
-          </div>
         </div>
 
         <div className="buttons">
@@ -278,6 +295,21 @@ export const ReservationForm = ({
           >
             close
           </button>
+
+          {reservation && (
+            <button
+              id="delete-button"
+              onClick={() => {
+                if (confirm("Delete this reservation?")) {
+                  resetui();
+                  dispatch(deleteReservation(reservation.id));
+                  deleteFBReservation(reservation);
+                }
+              }}
+            >
+              delete
+            </button>
+          )}
 
           <button
             id="add-button"

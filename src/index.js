@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/reducers";
 
 import { useAnimation } from "./x/animation";
+import { Form } from "./guest/form";
 
 const GS = createGlobalStyle`
 
@@ -53,7 +54,7 @@ input {
 
 
 
-button,.nav i,.add-reservation,.reservation,.day{
+button,.nav i,.add-reservation,.day{
   &:hover {
       box-shadow: var(--shadow);
     }
@@ -133,6 +134,13 @@ transition:.7s;
     bottom: 0;
     margin: auto;
 }
+
+.reservation{
+  &:hover {
+      box-shadow: var(--shadow);
+    }
+}
+
 }
 
 
@@ -143,6 +151,7 @@ const Pages = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route path="/:business" component={Form} />
     </Switch>
   );
 };

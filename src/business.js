@@ -79,6 +79,8 @@ const S = styled.div`
 `;
 
 export const Business = ({ setUser, username }) => {
+  const [day, setDay] = useState();
+
   const dispatch = useDispatch();
 
   const uid = useSelector(s => s.app.uid);
@@ -88,6 +90,10 @@ export const Business = ({ setUser, username }) => {
       let detach = FB.firestore()
         .collection("business")
         .doc(uid)
+        .collection("years")
+        .doc(`${day.year}`)
+        .collection(`${day.month}`)
+        .doc(`${day.number}`)
         .collection("reservations")
         .onSnapshot(q => {
           let res = [];
@@ -96,20 +102,21 @@ export const Business = ({ setUser, username }) => {
             let r = d.data();
             res.push(r);
           });
-
           dispatch(loadReservations(res));
         });
 
       return () => detach();
     }
-  }, [uid]);
+  }, [uid, day]);
 
   const [topshelf, setTopshelf] = useState(false);
-  const state = useSelector(s => s);
+
+  // const state = useSelector(s => s);
 
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
 
   const load = useAnimation();
+
   return (
     <S>
       {topshelf && (
@@ -130,7 +137,7 @@ export const Business = ({ setUser, username }) => {
             </button>
           }
 
-          <button
+          {/* <button
             onClick={() => {
               let emails = [
                 ...new Set(
@@ -144,8 +151,8 @@ export const Business = ({ setUser, username }) => {
               }
             }}
           >
-            email list
-          </button>
+            get emails
+          </button> */}
         </div>
       )}
 
@@ -161,7 +168,7 @@ export const Business = ({ setUser, username }) => {
         <div className="business-name">{username}</div>
       </div>
 
-      <Reservations />
+      <Reservations day={day} setDay={setDay} />
     </S>
   );
 };

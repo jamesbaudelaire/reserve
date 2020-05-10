@@ -12,6 +12,13 @@ export const addReservation = x => {
   };
 };
 
+export const deleteReservation = x => {
+  return {
+    type: "deleteReservation",
+    data: x
+  };
+};
+
 export const arrived = x => {
   return {
     type: "arrived",
