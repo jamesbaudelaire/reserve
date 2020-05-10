@@ -8,27 +8,26 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { ReservationForm } from "./reservation-form";
 
-import { arrived } from "../redux/actions";
+// import { arrived } from "../redux/actions";
 
 import { DB } from "../firebase";
 import { IO } from "../x/IO";
 
 const S = styled.div`
   .reservation {
+    background: #3f3d56;
+    color: white;
     margin: 5px;
+    position: relative;
     transition: 0.3s;
     display: inline-block;
     border-radius: 5px;
     font-size: 15px;
-    padding: 5px 10px;
+    cursor: pointer;
+    padding: 5px;
     i {
       font-size: 25px;
       vertical-align: middle;
-    }
-    &:hover {
-      .edit-reservation {
-        opacity: 1;
-      }
     }
   }
 
@@ -37,7 +36,7 @@ const S = styled.div`
   }
 
   .confirmed-reservation {
-    color: var(--theme);
+    background: var(--theme);
   }
 
   .info {
@@ -57,17 +56,10 @@ const S = styled.div`
     font-style: italic;
   }
 
-  .edit-reservation {
-    opacity: 0;
-    transition: 0.3s;
-  }
   .selected-reservation {
     background: var(--select);
     box-shadow: var(--shadow);
     color: white;
-    i {
-      opacity: 1;
-    }
   }
 
   .calendar {
@@ -87,8 +79,8 @@ const S = styled.div`
   }
 
   .reservations {
-    max-width: 300px;
-    margin-left: 10px;
+    max-width: 200px;
+    margin-left: 20px;
   }
 
   .today {
@@ -102,7 +94,7 @@ const S = styled.div`
 
   .notes {
     span {
-      margin: 0;
+      margin: 0 10px;
     }
   }
   .reservations-ui {
@@ -110,21 +102,16 @@ const S = styled.div`
   }
 
   .add-reservation {
-    font-size: 30px;
+    font-size: 40px;
     position: fixed;
     bottom: 0px;
     right: 0px;
     margin: 20px;
     color: white;
-    padding: 5px;
     transition: 0.3s;
     background: #3f3d56;
     border-radius: 5px;
     z-index: 100;
-    &:hover {
-      background: var(--select);
-      box-shadow: var(--shadow);
-    }
   }
 
   .time-slot {
@@ -224,10 +211,8 @@ let getConfirmedTotal = x => {
   return n;
 };
 
-export const Reservations = () => {
-  const [day, setDay] = useState();
+export const Reservations = ({ day, setDay }) => {
   const reservationsData = useSelector(s => s.reservations);
-
   let reservations = reservationsData;
 
   if (reservations && day) {
@@ -288,11 +273,17 @@ export const Reservations = () => {
     }
   };
 
-  let arrivedFB = (id, toggle) => {
+  let deleteFBReservation = r => {
     if (uid) {
-      DB.arrived(uid, id, toggle);
+      DB.delete(uid, r);
     }
   };
+
+  // let arrivedFB = (id, toggle) => {
+  //   if (uid) {
+  //     DB.arrived(uid, id, toggle);
+  //   }
+  // };
 
   const dispatch = useDispatch();
 
@@ -325,6 +316,7 @@ export const Reservations = () => {
           setReservation={setReservation}
           selectReservation={selectReservation}
           addFBReservation={addFBReservation}
+          deleteFBReservation={deleteFBReservation}
         />
       )}
 
@@ -346,9 +338,6 @@ export const Reservations = () => {
         </div>
 
         <div className="time-slots">
-          <div className="no-reservations">
-            {reservations.length === 0 && "No reservations today!"}
-          </div>
           {hours.map(h => (
             <div className="time-slot" key={h}>
               <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
@@ -369,28 +358,33 @@ export const Reservations = () => {
                     className={`reservation ${
                       r.confirmed ? "confirmed-reservation" : ""
                     }`}
+                    onClick={() => {
+                      setReservation(reservations.find(x => x.id == r.id));
+                      setAddReservationUI(true);
+                    }}
                     key={r.id}
                     id={r.id}
                   >
-                    <i
+                    {/* <i
                       className="material-icons-round arrived-toggle"
-                      onClick={() => {
+                      onClick={e => {
+                        e.stopPropagation();
                         dispatch(arrived(r.id));
                         arrivedFB(r.id, !r.arrived);
                       }}
                     >
                       {r.arrived ? "check_box" : "check_box_outline_blank"}
-                    </i>
+                    </i> */}
 
                     <div className={`info ${r.arrived ? "arrived" : ""}`}>
+                      <span className="name">{r.name}</span>
+                      <span className="people">{r.people}</span>
                       <span className="time">{`${getHour(h)}:${getMinutes(
                         r.time.minutes
                       )}`}</span>
-                      <span className="name">{r.name}</span>
-                      <span className="people">{r.people}</span>
                     </div>
 
-                    <i
+                    {/* <i
                       className="material-icons-round edit-reservation"
                       onClick={() => {
                         setReservation(reservations.find(x => x.id == r.id));
@@ -398,7 +392,7 @@ export const Reservations = () => {
                       }}
                     >
                       edit
-                    </i>
+                    </i> */}
 
                     {r.notes && (
                       <div className="notes">
@@ -410,6 +404,9 @@ export const Reservations = () => {
               </div>
             </div>
           ))}
+          <div className="no-reservations">
+            {reservations.length === 0 && "No reservations today!"}
+          </div>
         </div>
       </div>
     </S>
