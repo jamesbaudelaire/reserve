@@ -300,7 +300,7 @@ export const ReservationForm = ({
             <button
               id="delete-button"
               onClick={() => {
-                if (confirm("Delete this reservation?")) {
+                if (window.confirm("Delete this reservation?")) {
                   resetui();
                   dispatch(deleteReservation(reservation.id));
                   deleteFBReservation(reservation);
