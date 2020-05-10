@@ -36,7 +36,7 @@ const S = styled.div`
   }
 
   .confirmed-reservation {
-    color: var(--theme);
+    background: var(--theme);
   }
 
   .info {
