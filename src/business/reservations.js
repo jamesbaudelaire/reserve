@@ -134,6 +134,10 @@ const S = styled.div`
     margin: 10px 20px;
   }
 
+  .loading-reservations {
+    position: relative;
+    margin: 0;
+  }
   @media screen and (min-width: 1000px) {
     .add-reservation {
       top: 0;
@@ -162,6 +166,12 @@ const S = styled.div`
     }
   }
 `;
+
+let getDayName = day => {
+  let string = `${day.month + 1}/${day.day}/${day.year}`;
+  var date = new Date(string);
+  return date.toLocaleDateString("locale", { weekday: "short" });
+};
 
 let getHour = h => {
   if (h === 12 || h === 0) {
@@ -212,17 +222,28 @@ let getConfirmedTotal = x => {
 };
 
 export const Reservations = ({ day, setDay }) => {
-  const reservationsData = useSelector(s => s.reservations);
-  let reservations = reservationsData;
+  const [loading, setLoading] = useState();
 
+  const reservationsData = useSelector(s => s.reservations);
+
+  let reservations = reservationsData;
   if (reservations && day) {
     reservations = reservations.filter(r =>
       ["year", "month", "day"].every(x => r.date[x] === day[x])
     );
-
     // let hour = new Date().getHours();
     // reservations = reservations.filter(r => r.time.hour >= hour);
   }
+
+  useEffect(() => {
+    setLoading(true);
+  }, [day]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+  }, [reservations]);
 
   let hours = [...new Set(reservations.map(r => r.time.hour))].sort((a, b) =>
     a > b ? 1 : -1
@@ -323,7 +344,7 @@ export const Reservations = ({ day, setDay }) => {
 
       <div className="reservations-ui">
         <div className="today">
-          {day && day.name}
+          {day && getDayName(day)}
 
           <span className="confirmed-total">
             <i className="material-icons-round">people</i>
@@ -335,6 +356,12 @@ export const Reservations = ({ day, setDay }) => {
             <span className="number">{getNumbers()}</span>
           </span>
         </div>
+
+        {loading && (
+          <svg className="loader loading-reservations">
+            <circle cx="25" cy="25" r="15" />
+          </svg>
+        )}
 
         <div className="time-slots">
           {hours.map(h => (
@@ -403,9 +430,10 @@ export const Reservations = ({ day, setDay }) => {
               </div>
             </div>
           ))}
-          <div className="no-reservations">
-            {reservations.length === 0 && "No reservations today!"}
-          </div>
+
+          {!loading && !reservations.length && (
+            <div className="no-reservations">No reservations today!</div>
+          )}
         </div>
       </div>
     </S>
