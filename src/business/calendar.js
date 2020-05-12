@@ -140,7 +140,7 @@ let clearSelected = () => {
     .forEach(day => day.classList.remove("selected"));
 };
 
-let selectDay = (day, name) => {
+let selectDay = day => {
   clearSelected();
   if (day) {
     document.getElementById(`day-${day}`).classList.add("selected");
@@ -151,7 +151,7 @@ export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
   const [daynum, setDaynum] = useState(null);
-  const [dayname, setDayname] = useState(null);
+  // const [dayname, setDayname] = useState(null);
 
   let Today = () => {
     clearSelected();
@@ -159,13 +159,13 @@ export const CalendarUI = ({ day, setDay }) => {
     setYear(cal.year());
     setMonth(cal.monthNumber());
     setDaynum(cal.dayNumber());
-    setDayname(cal.dayName());
+    // setDayname(cal.dayName());
 
     let day = {
       year: cal.year(),
-      month: cal.monthName(),
-      number: cal.dayNumber(),
-      name: cal.dayName()
+      month: cal.monthNumber(),
+      day: cal.dayNumber()
+      // name: cal.dayName()
     };
 
     setDay(day);
@@ -177,7 +177,7 @@ export const CalendarUI = ({ day, setDay }) => {
 
   useLayoutEffect(() => {
     if (daynum) {
-      selectDay(daynum, dayname);
+      selectDay(daynum);
     }
   }, [daynum]);
 
@@ -226,7 +226,7 @@ export const CalendarUI = ({ day, setDay }) => {
           className="material-icons home"
           onClick={() => {
             Today();
-            selectDay(daynum, dayname);
+            selectDay(daynum);
           }}
         >
           expand_more
@@ -257,18 +257,16 @@ export const CalendarUI = ({ day, setDay }) => {
                 className="day"
                 id={`day-${day}`}
                 onClick={() => {
-                  let dayname = CalendarData.days[i];
-                  let monthname = CalendarData.months[month];
-                  setDaynum(null);
-
+                  // let dayname = CalendarData.days[i];
+                  // let monthname = CalendarData.months[month];
+                  // setDaynum(null);
                   if (day) {
                     setDay({
                       year,
-                      month: monthname,
-                      number: day,
-                      name: dayname
+                      month,
+                      day
                     });
-                    selectDay(day, dayname);
+                    selectDay(day);
                   }
                 }}
               >

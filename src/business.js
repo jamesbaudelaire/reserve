@@ -80,7 +80,6 @@ const S = styled.div`
 
 export const Business = ({ setUser, username }) => {
   const [day, setDay] = useState();
-
   const dispatch = useDispatch();
 
   const uid = useSelector(s => s.app.uid);
@@ -90,24 +89,47 @@ export const Business = ({ setUser, username }) => {
       let detach = FB.firestore()
         .collection("business")
         .doc(uid)
-        .collection("years")
-        .doc(`${day.year}`)
-        .collection(`${day.month}`)
-        .doc(`${day.number}`)
         .collection("reservations")
+        .where("date.year", "==", day.year)
+        .where("date.month", "==", day.month)
+        .where("date.day", "==", day.day)
         .onSnapshot(q => {
           let res = [];
-
           q.forEach(d => {
             let r = d.data();
             res.push(r);
           });
+
           dispatch(loadReservations(res));
         });
 
       return () => detach();
     }
   }, [uid, day]);
+
+  // useEffect(() => {
+  //   if (uid) {
+  //     let detach = FB.firestore()
+  //       .collection("business")
+  //       .doc(uid)
+  //       .collection("years")
+  //       .doc(`${day.year}`)
+  //       .collection(`${day.month}`)
+  //       .doc(`${day.number}`)
+  //       .collection("reservations")
+  //       .onSnapshot(q => {
+  //         let res = [];
+
+  //         q.forEach(d => {
+  //           let r = d.data();
+  //           res.push(r);
+  //         });
+  //         dispatch(loadReservations(res));
+  //       });
+
+  //     return () => detach();
+  //   }
+  // }, [uid, day]);
 
   const [topshelf, setTopshelf] = useState(false);
 
@@ -153,6 +175,34 @@ export const Business = ({ setUser, username }) => {
           >
             get emails
           </button> */}
+
+          <button
+            onClick={() => {
+              if (uid) {
+                // FB.firestore()
+                //   .collection("business")
+                //   .doc(uid)
+                //   .collection("years")
+                //   .doc(`${2020}`)
+                //   .collection("may")
+                //   .doc("15")
+                //   .collection("reservations")
+                //   .where("confirmed", "==", false)
+                //   .get()
+                //   .then(function(querySnapshot) {
+                //     querySnapshot.forEach(function(doc) {
+                //       // doc.data() is never undefined for query doc snapshots
+                //       console.log(doc.id, " => ", doc.data());
+                //     });
+                //   })
+                //   .catch(function(error) {
+                //     console.log("Error getting documents: ", error);
+                //   });
+              }
+            }}
+          >
+            analytics
+          </button>
         </div>
       )}
 

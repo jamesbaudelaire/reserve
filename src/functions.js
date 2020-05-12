@@ -4,15 +4,14 @@ let cal = new Calendar();
 
 export function ID() {
   return parseInt(
-    [...new Array(6)].map(x => Math.floor(Math.random() * 10)).join("")
+    [...new Array(10)].map(x => Math.floor(Math.random() * 10)).join("")
   );
 }
 
 let sample = [
   {
-    arrived: false,
     confirmed: false,
-    date: { year: cal.year(), month: cal.monthName(), number: cal.dayNumber() },
+    date: { year: cal.year(), month: cal.monthNumber(), day: cal.dayNumber() },
     email: "jane@gmail.com",
     id: ID(),
     name: "jane",
@@ -26,9 +25,8 @@ let sample = [
   },
 
   {
-    arrived: false,
     confirmed: true,
-    date: { year: cal.year(), month: cal.monthName(), number: cal.dayNumber() },
+    date: { year: cal.year(), month: cal.monthNumber(), day: cal.dayNumber() },
     email: "john@gmail.com",
     id: ID(),
     name: "john",
@@ -41,9 +39,8 @@ let sample = [
     }
   },
   {
-    arrived: true,
     confirmed: true,
-    date: { year: cal.year(), month: cal.monthName(), number: cal.dayNumber() },
+    date: { year: cal.year(), month: cal.monthNumber(), day: cal.dayNumber() },
     email: "jack@gmail.com",
     id: ID(),
     name: "jack",

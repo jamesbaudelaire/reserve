@@ -25,10 +25,6 @@ export const DB = {
     store
       .collection("business")
       .doc(uid)
-      .collection("years")
-      .doc(`${reservation.date.year}`)
-      .collection(`${reservation.date.month}`)
-      .doc(`${reservation.date.number}`)
       .collection("reservations")
       .doc(`${reservation.id}`)
       .set(reservation);
@@ -38,10 +34,6 @@ export const DB = {
     store
       .collection("business")
       .doc(uid)
-      .collection("years")
-      .doc(`${reservation.date.year}`)
-      .collection(`${reservation.date.month}`)
-      .doc(`${reservation.date.number}`)
       .collection("reservations")
       .doc(`${reservation.id}`)
       .update(reservation);
@@ -51,10 +43,6 @@ export const DB = {
     store
       .collection("business")
       .doc(uid)
-      .collection("years")
-      .doc(`${reservation.date.year}`)
-      .collection(`${reservation.date.month}`)
-      .doc(`${reservation.date.number}`)
       .collection("reservations")
       .doc(`${reservation.id}`)
       .delete();
