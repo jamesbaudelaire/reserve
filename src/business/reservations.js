@@ -217,7 +217,7 @@ export const Reservations = ({ day, setDay }) => {
 
   if (reservations && day) {
     reservations = reservations.filter(r =>
-      ["year", "month", "number"].every(x => r.date[x] === day[x])
+      ["year", "month", "day"].every(x => r.date[x] === day[x])
     );
 
     // let hour = new Date().getHours();
@@ -236,7 +236,6 @@ export const Reservations = ({ day, setDay }) => {
 
   const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservation, setReservation] = useState(null);
-
   let getNumbers = status => {
     let n = 0;
     reservations.forEach(r => (n += r.people));

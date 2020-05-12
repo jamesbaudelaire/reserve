@@ -18,7 +18,6 @@ const S = styled.div`
     z-index: 100;
 
     .buttons {
-      text-align: right;
       #close-button {
         position: absolute;
         top: 0;
@@ -218,15 +217,14 @@ export const ReservationForm = ({
     });
 
     r.people = parseInt(r.people);
-
     r.date = {
       year: day.year,
       month: day.month,
-      number: day.number
+      day: day.day
     };
 
     r.confirmed = document.getElementById("confirmed").checked;
-    r.arrived = false;
+    // r.arrived = false;
 
     if (reservation) {
       r.id = reservation.id;
