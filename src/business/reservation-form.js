@@ -14,17 +14,19 @@ const S = styled.div`
     position: fixed;
     background: rgb(200, 200, 200);
     bottom: 0;
+    border-radius: 10px 10px 0 0;
     left: 0%;
     z-index: 100;
 
     .buttons {
       #close-button {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 0px;
+        right: 0px;
+        border-radius: 0 10px 0 10px;
       }
       button {
-        margin: 10px;
+        margin: 0px 0px 20px 20px;
       }
     }
 
@@ -66,7 +68,7 @@ const S = styled.div`
         left: 0;
         right: 0;
         bottom: 0;
-        box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
+        box-shadow: var(--inset);
 
         transition: 0.4s;
         border-radius: 5px;
@@ -91,21 +93,37 @@ const S = styled.div`
   }
 
   .inputs {
-    input {
+    margin-top: 20px;
+    .time {
       margin: 10px;
-      width: 120px;
     }
-    input:last-child {
-      margin-right: 20px;
+    .input {
+      input {
+        width: 120px;
+      }
+      display: inline-block;
+      i {
+        font-size: 30px;
+        display: block;
+        margin-left: 10px;
+      }
     }
+
     .text {
       white-space: nowrap;
       overflow: scroll;
       width: 100vw;
+
+      .input:first-child {
+        margin-left: 10px;
+      }
+      .input:last-child {
+        margin-right: 10px;
+      }
     }
 
     input:required {
-      border-left: 3px solid #d50000;
+      border-left: 3px solid var(--theme);
       box-sizing: border-box;
     }
     input:valid {
@@ -116,10 +134,11 @@ const S = styled.div`
   @media screen and (min-width: 1000px) {
     .reservation-form {
       margin: 20px;
-      border-radius: 5px;
+      border-radius: 10px;
       width: 200px;
       box-shadow: var(--shadow);
       top: 0;
+      padding-bottom: 0px;
       bottom: unset;
       .text {
         width: unset;
@@ -132,6 +151,32 @@ const S = styled.div`
         label {
           margin: 10px 0;
           display: block;
+        }
+      }
+
+      .inputs {
+        margin: 0px;
+        .input {
+          display: flex;
+          align-items: center;
+        }
+        .text {
+          .input:first-child {
+            margin-left: 0px;
+          }
+        }
+        .time {
+          margin: 0;
+        }
+      }
+
+      .buttons {
+        #close-button {
+          top: -10px;
+          right: 0px;
+        }
+        button {
+          margin: 10px 0px 10px 10px;
         }
       }
     }
@@ -163,22 +208,26 @@ export const ReservationForm = ({
       input: "name",
       type: "text",
       limit: 10,
+      icon: "face",
       req: true
     },
     {
       input: "people",
       type: "number",
+      icon: "people",
       req: true
     },
     {
       input: "email",
+      icon: "email",
       type: "email"
     },
     {
       input: "phone",
+      icon: "phone",
       type: "text"
     },
-    { input: "notes", type: "text", limit: 10 }
+    { input: "notes", type: "text", icon: "note", limit: 10 }
   ];
 
   useEffect(() => {
@@ -267,21 +316,26 @@ export const ReservationForm = ({
         <div className="inputs">
           <div className="text">
             {inputs.map(x => (
-              <input
-                onClick={() => {
-                  scroll(x.input);
-                }}
-                id={x.input}
-                key={x.input}
-                placeholder={x.input}
-                type={x.type}
-                maxLength={x.limit}
-                required={x.req}
-              />
+              <div key={x.input} className="input">
+                <i className="material-icons back">{x.icon}</i>
+                <input
+                  onClick={() => {
+                    scroll(x.input);
+                  }}
+                  id={x.input}
+                  placeholder={x.input}
+                  type={x.type}
+                  maxLength={x.limit}
+                  required={x.req}
+                />
+              </div>
             ))}
           </div>
 
-          <input type="time" id="time" required />
+          <div className="input time">
+            <i className="material-icons">schedule</i>
+            <input type="time" id="time" required />
+          </div>
         </div>
 
         <div className="buttons">

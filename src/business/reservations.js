@@ -13,11 +13,13 @@ import { ReservationForm } from "./reservation-form";
 import { DB } from "../firebase";
 import { IO } from "../x/IO";
 
+import { LS } from "../functions";
+
 const S = styled.div`
   .reservation {
     background: #3f3d56;
     color: white;
-    margin: 5px;
+    margin: 5px 10px;
     position: relative;
     transition: 0.3s;
     display: inline-block;
@@ -85,6 +87,7 @@ const S = styled.div`
 
   .today {
     font-size: 25px;
+    margin: 0 30px;
     text-transform: uppercase;
     i {
       margin: 10px;
@@ -94,11 +97,8 @@ const S = styled.div`
 
   .notes {
     span {
-      margin: 0 10px;
+      margin: 5px;
     }
-  }
-  .reservations-ui {
-    margin: 0 40px;
   }
 
   .add-reservation {
@@ -115,7 +115,9 @@ const S = styled.div`
   }
 
   .time-slot {
+    margin-left: 20px;
     transition: 0.3s;
+    margin-bottom: 10px;
     opacity: 0;
     transform: translatex(20px);
     &.io {
@@ -135,9 +137,30 @@ const S = styled.div`
   }
 
   .loading-reservations {
-    position: relative;
-    margin: 0;
+    position: fixed;
+    margin: 20px;
+    bottom: 0;
+    left: 0;
+    top: unset;
   }
+
+  @media screen and (max-width: 1000px) {
+    .time-slots {
+      white-space: nowrap;
+      overflow: scroll;
+      .time-slot {
+        display: inline-block;
+      }
+      .time-slot:last-child {
+        margin-right: 20px;
+      }
+    }
+
+    .reservations {
+      display: grid;
+    }
+  }
+
   @media screen and (min-width: 1000px) {
     .add-reservation {
       top: 0;
@@ -153,16 +176,22 @@ const S = styled.div`
     }
     .reservations-ui {
       position: absolute;
-      left: 30px;
-      top: 10px;
+      left: 0px;
+      top: 0px;
       margin: 0px;
       height: calc(100% - 40px);
     }
 
     .time-slots {
-      height: calc(100% - 20px);
+      height: 100%;
       overflow: scroll;
-      margin: 0 10px;
+      margin: 20px 0;
+    }
+
+    .today {
+      position: absolute;
+      right: 0;
+      bottom: 20px;
     }
   }
 `;
@@ -224,25 +253,34 @@ let getConfirmedTotal = x => {
 export const Reservations = ({ day, setDay }) => {
   const [loading, setLoading] = useState();
 
+  const [reservations, setReservations] = useState([]);
+
   const reservationsData = useSelector(s => s.reservations);
 
-  let reservations = reservationsData;
-  if (reservations && day) {
-    reservations = reservations.filter(r =>
-      ["year", "month", "day"].every(x => r.date[x] === day[x])
-    );
-    // let hour = new Date().getHours();
-    // reservations = reservations.filter(r => r.time.hour >= hour);
-  }
+  useEffect(() => {
+    let reservations = reservationsData;
+    if (reservations && day) {
+      reservations = reservations.filter(r =>
+        ["year", "month", "day"].every(x => r.date[x] === day[x])
+      );
+    }
+    setReservations(reservations);
+  }, [reservationsData]);
 
   useEffect(() => {
     setLoading(true);
+    if (LS.guest) {
+      if (reservations && day) {
+        let reservations = reservationsData.filter(r =>
+          ["year", "month", "day"].every(x => r.date[x] === day[x])
+        );
+        setReservations(reservations);
+      }
+    }
   }, [day]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 300);
+    setLoading(false);
   }, [reservations]);
 
   let hours = [...new Set(reservations.map(r => r.time.hour))].sort((a, b) =>
@@ -281,6 +319,11 @@ export const Reservations = ({ day, setDay }) => {
       let el = document.getElementById(id);
       if (el) {
         el.classList.add("selected-reservation");
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center"
+        });
       }
     }
   };
@@ -340,23 +383,23 @@ export const Reservations = ({ day, setDay }) => {
         />
       )}
 
+      <div className="today">
+        {day && getDayName(day)}
+
+        <span className="confirmed-total">
+          <i className="material-icons-round">people</i>
+          <span className="number">{getNumbers("confirmed")}</span>
+        </span>
+
+        <span className="total">
+          <i className="material-icons-round">people</i>
+          <span className="number">{getNumbers()}</span>
+        </span>
+      </div>
+
       {<CalendarUI day={day} setDay={setDay} />}
 
       <div className="reservations-ui">
-        <div className="today">
-          {day && getDayName(day)}
-
-          <span className="confirmed-total">
-            <i className="material-icons-round">people</i>
-            <span className="number">{getNumbers("confirmed")}</span>
-          </span>
-
-          <span className="total">
-            <i className="material-icons-round">people</i>
-            <span className="number">{getNumbers()}</span>
-          </span>
-        </div>
-
         {loading && (
           <svg className="loader loading-reservations">
             <circle cx="25" cy="25" r="15" />
@@ -431,7 +474,7 @@ export const Reservations = ({ day, setDay }) => {
             </div>
           ))}
 
-          {!loading && !reservations.length && (
+          {!loading && reservations.length === 0 && (
             <div className="no-reservations">No reservations today!</div>
           )}
         </div>

@@ -107,30 +107,6 @@ export const Business = ({ setUser, username }) => {
     }
   }, [uid, day]);
 
-  // useEffect(() => {
-  //   if (uid) {
-  //     let detach = FB.firestore()
-  //       .collection("business")
-  //       .doc(uid)
-  //       .collection("years")
-  //       .doc(`${day.year}`)
-  //       .collection(`${day.month}`)
-  //       .doc(`${day.number}`)
-  //       .collection("reservations")
-  //       .onSnapshot(q => {
-  //         let res = [];
-
-  //         q.forEach(d => {
-  //           let r = d.data();
-  //           res.push(r);
-  //         });
-  //         dispatch(loadReservations(res));
-  //       });
-
-  //     return () => detach();
-  //   }
-  // }, [uid, day]);
-
   const [topshelf, setTopshelf] = useState(false);
 
   // const state = useSelector(s => s);
@@ -176,7 +152,7 @@ export const Business = ({ setUser, username }) => {
             get emails
           </button> */}
 
-          <button
+          {/* <button
             onClick={() => {
               if (uid) {
                 // FB.firestore()
@@ -202,7 +178,7 @@ export const Business = ({ setUser, username }) => {
             }}
           >
             analytics
-          </button>
+          </button> */}
         </div>
       )}
 

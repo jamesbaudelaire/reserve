@@ -63,6 +63,9 @@ const S = styled.div`
     height: 30px;
     line-height: 30px;
     border-radius: 5px;
+    &:hover {
+      box-shadow: var(--inset);
+    }
   }
   .days {
     text-align: center;
@@ -70,7 +73,7 @@ const S = styled.div`
   .selected {
     color: white;
     background: var(--select);
-    box-shadow: var(--shadow);
+    box-shadow: var(--inset);
   }
 
   .nav {
