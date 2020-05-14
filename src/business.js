@@ -80,6 +80,8 @@ const S = styled.div`
 
 export const Business = ({ setUser, username }) => {
   const [day, setDay] = useState();
+  const [unconfirmed, setUnconfirmed] = useState([]);
+
   const dispatch = useDispatch();
 
   const uid = useSelector(s => s.app.uid);
@@ -107,29 +109,26 @@ export const Business = ({ setUser, username }) => {
     }
   }, [uid, day]);
 
-  // useEffect(() => {
-  //   if (uid) {
-  //     let detach = FB.firestore()
-  //       .collection("business")
-  //       .doc(uid)
-  //       .collection("years")
-  //       .doc(`${day.year}`)
-  //       .collection(`${day.month}`)
-  //       .doc(`${day.number}`)
-  //       .collection("reservations")
-  //       .onSnapshot(q => {
-  //         let res = [];
+  useEffect(() => {
+    if (uid) {
+      let detach = FB.firestore()
+        .collection("business")
+        .doc(uid)
+        .collection("reservations")
+        .where("confirmed", "==", false)
+        .onSnapshot(q => {
+          let res = [];
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r);
+          });
 
-  //         q.forEach(d => {
-  //           let r = d.data();
-  //           res.push(r);
-  //         });
-  //         dispatch(loadReservations(res));
-  //       });
+          setUnconfirmed(res);
+        });
 
-  //     return () => detach();
-  //   }
-  // }, [uid, day]);
+      return () => detach();
+    }
+  }, [uid]);
 
   const [topshelf, setTopshelf] = useState(false);
 
@@ -176,7 +175,7 @@ export const Business = ({ setUser, username }) => {
             get emails
           </button> */}
 
-          <button
+          {/* <button
             onClick={() => {
               if (uid) {
                 // FB.firestore()
@@ -202,7 +201,7 @@ export const Business = ({ setUser, username }) => {
             }}
           >
             analytics
-          </button>
+          </button> */}
         </div>
       )}
 
@@ -218,7 +217,12 @@ export const Business = ({ setUser, username }) => {
         <div className="business-name">{username}</div>
       </div>
 
-      <Reservations day={day} setDay={setDay} />
+      <Reservations
+        day={day}
+        setDay={setDay}
+        unconfirmed={unconfirmed}
+        setUnconfirmed={setUnconfirmed}
+      />
     </S>
   );
 };

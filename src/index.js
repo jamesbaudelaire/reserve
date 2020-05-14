@@ -17,8 +17,9 @@ const GS = createGlobalStyle`
 :root{
 --font:'Ubuntu', sans-serif;
 --shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
---select:#6b63ff;
---theme:#3acc6c;
+--inset:black 1px 1px 3px 0 inset;
+--theme:#6b63ff;
+--select:#3acc6c;
 
 }
 
@@ -46,7 +47,7 @@ button{
 input {
       margin: 10px;
       border: none;
-      box-shadow: rgba(0, 0, 0, 0.75) 0px 2px 5px 0px inset;
+      box-shadow: var(--inset);
       border-radius: 5px;
       padding: 5px 10px;
       outline: none;
@@ -54,9 +55,11 @@ input {
 
 
 
-button,.nav i,.add-reservation,.day{
+button,.nav i,.add-reservation,.reservation{
+  box-shadow: var(--inset);
+
   &:hover {
-      box-shadow: var(--shadow);
+      box-shadow: none;
     }
     &:active{
       background: var(--select);
@@ -71,7 +74,7 @@ body{
   ::after {
     content: "";
     display: block;
-    height: 200px;
+    height: 400px;
   }
   background:rgb(250,250,250);
   color:#3f3d56;
@@ -133,12 +136,6 @@ transition:.7s;
     top: 0;
     bottom: 0;
     margin: auto;
-}
-
-.reservation{
-  &:hover {
-      box-shadow: var(--shadow);
-    }
 }
 
 }
