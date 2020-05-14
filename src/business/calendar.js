@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 
 import styled from "styled-components";
 
@@ -73,7 +73,7 @@ const S = styled.div`
   .selected {
     color: white;
     background: var(--select);
-    box-shadow: var(--inset);
+    box-shadow: var(--shadow);
   }
 
   .nav {
@@ -155,6 +155,15 @@ export const CalendarUI = ({ day, setDay }) => {
   const [month, setMonth] = useState();
   const [daynum, setDaynum] = useState(null);
   // const [dayname, setDayname] = useState(null);
+
+  useEffect(() => {
+    if (day) {
+      setYear(day.year);
+      setMonth(day.month);
+      setDaynum(day.day);
+      selectDay(day.day);
+    }
+  }, [day]);
 
   let Today = () => {
     clearSelected();

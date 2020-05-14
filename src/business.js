@@ -80,6 +80,8 @@ const S = styled.div`
 
 export const Business = ({ setUser, username }) => {
   const [day, setDay] = useState();
+  const [unconfirmed, setUnconfirmed] = useState([]);
+
   const dispatch = useDispatch();
 
   const uid = useSelector(s => s.app.uid);
@@ -106,6 +108,27 @@ export const Business = ({ setUser, username }) => {
       return () => detach();
     }
   }, [uid, day]);
+
+  useEffect(() => {
+    if (uid) {
+      let detach = FB.firestore()
+        .collection("business")
+        .doc(uid)
+        .collection("reservations")
+        .where("confirmed", "==", false)
+        .onSnapshot(q => {
+          let res = [];
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r);
+          });
+
+          setUnconfirmed(res);
+        });
+
+      return () => detach();
+    }
+  }, [uid]);
 
   const [topshelf, setTopshelf] = useState(false);
 
@@ -194,7 +217,12 @@ export const Business = ({ setUser, username }) => {
         <div className="business-name">{username}</div>
       </div>
 
-      <Reservations day={day} setDay={setDay} />
+      <Reservations
+        day={day}
+        setDay={setDay}
+        unconfirmed={unconfirmed}
+        setUnconfirmed={setUnconfirmed}
+      />
     </S>
   );
 };

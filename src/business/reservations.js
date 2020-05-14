@@ -26,6 +26,7 @@ const S = styled.div`
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
+    width: fit-content;
     padding: 5px;
     i {
       font-size: 25px;
@@ -87,7 +88,7 @@ const S = styled.div`
 
   .today {
     font-size: 25px;
-    margin: 0 30px;
+    margin: 0 20px;
     text-transform: uppercase;
     i {
       margin: 10px;
@@ -133,7 +134,7 @@ const S = styled.div`
   }
 
   .no-reservations {
-    margin: 10px 20px;
+    margin: 10px 30px;
   }
 
   .loading-reservations {
@@ -142,6 +143,22 @@ const S = styled.div`
     bottom: 0;
     left: 0;
     top: unset;
+  }
+
+  .unconfirmed-reservations {
+    margin: 10px 0;
+    div {
+      overflow: auto;
+      white-space: nowrap;
+      button {
+        margin: 0;
+        margin-left: 20px;
+      }
+    }
+    span {
+      display: block;
+      margin: 0 0 10px 20px;
+    }
   }
 
   @media screen and (max-width: 1000px) {
@@ -159,6 +176,14 @@ const S = styled.div`
     .reservations {
       display: grid;
     }
+
+    .unconfirmed-reservations {
+      button {
+        &:last-child {
+          margin-right: 20px;
+        }
+      }
+    }
   }
 
   @media screen and (min-width: 1000px) {
@@ -171,12 +196,13 @@ const S = styled.div`
     .calendar {
       position: absolute;
       right: 0;
-      top: 0;
+      top: 40px;
       margin: 20px;
     }
     .reservations-ui {
       position: absolute;
       left: 0px;
+      width: 300px;
       top: 0px;
       margin: 0px;
       height: calc(100% - 40px);
@@ -191,7 +217,27 @@ const S = styled.div`
     .today {
       position: absolute;
       right: 0;
-      bottom: 20px;
+      top: 0px;
+    }
+
+    .unconfirmed-reservations {
+      position: fixed;
+      right: 30px;
+      top: 90px;
+      box-shadow: var(--shadow);
+      border-radius: 5px;
+
+      div {
+        display: grid;
+        max-height: 50vh;
+        button {
+          margin: 10px;
+          margin-top: 0;
+        }
+      }
+      span {
+        margin: 10px;
+      }
     }
   }
 `;
@@ -250,7 +296,7 @@ let getConfirmedTotal = x => {
   return n;
 };
 
-export const Reservations = ({ day, setDay }) => {
+export const Reservations = ({ day, setDay, unconfirmed, setUnconfirmed }) => {
   const [loading, setLoading] = useState();
 
   const [reservations, setReservations] = useState([]);
@@ -258,26 +304,20 @@ export const Reservations = ({ day, setDay }) => {
   const reservationsData = useSelector(s => s.reservations);
 
   useEffect(() => {
-    let reservations = reservationsData;
-    if (reservations && day) {
-      reservations = reservations.filter(r =>
-        ["year", "month", "day"].every(x => r.date[x] === day[x])
-      );
-    }
-    setReservations(reservations);
-  }, [reservationsData]);
-
-  useEffect(() => {
     setLoading(true);
     if (LS.guest) {
-      if (reservations && day) {
+      setUnconfirmed(reservationsData.filter(r => !r.confirmed));
+
+      if (reservationsData && day) {
         let reservations = reservationsData.filter(r =>
           ["year", "month", "day"].every(x => r.date[x] === day[x])
         );
         setReservations(reservations);
       }
+    } else {
+      setReservations(reservationsData);
     }
-  }, [day]);
+  }, [day, reservationsData]);
 
   useEffect(() => {
     setLoading(false);
@@ -319,11 +359,11 @@ export const Reservations = ({ day, setDay }) => {
       let el = document.getElementById(id);
       if (el) {
         el.classList.add("selected-reservation");
-        el.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "center"
-        });
+        // el.scrollIntoView({
+        //   behavior: "smooth",
+        //   block: "center",
+        //   inline: "center"
+        // });
       }
     }
   };
@@ -395,6 +435,24 @@ export const Reservations = ({ day, setDay }) => {
           <i className="material-icons-round">people</i>
           <span className="number">{getNumbers()}</span>
         </span>
+      </div>
+
+      <div className="unconfirmed-reservations">
+        <span>UNCONFIRMED</span>
+        <div>
+          {unconfirmed.map(r => (
+            <button
+              key={r.id}
+              onClick={() => {
+                setDay(r.date);
+                setReservation(r);
+                setAddReservationUI(true);
+              }}
+            >
+              {r.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       {<CalendarUI day={day} setDay={setDay} />}

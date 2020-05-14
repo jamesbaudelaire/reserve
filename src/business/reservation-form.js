@@ -227,7 +227,7 @@ export const ReservationForm = ({
       icon: "phone",
       type: "text"
     },
-    { input: "notes", type: "text", icon: "note", limit: 10 }
+    { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
 
   useEffect(() => {
