@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { loadReservations } from "./redux/actions";
+import { loadReservations } from "../redux/actions";
 
 import styled from "styled-components";
 
-import { Reservations } from "./business/reservations";
+import { Reservations } from "./reservations";
 
-import { FB, AUTH } from "./firebase";
+import { FB, AUTH } from "../x/firebase";
 
-import { setuid } from "./redux/actions";
+import { setuid } from "../redux/actions";
 
-import { useAnimation } from "./x/animation";
+import { useAnimation } from "../x/animation";
 
 const S = styled.div`
   .topbar {
@@ -26,6 +26,7 @@ const S = styled.div`
 
   .logo {
     cursor: pointer;
+    background-color: white;
     background-size: cover;
     height: 50px;
     width: 50px;
@@ -132,11 +133,46 @@ export const Business = ({ setUser, username }) => {
 
   const [topshelf, setTopshelf] = useState(false);
 
-  // const state = useSelector(s => s);
-
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
 
   const load = useAnimation();
+
+  const state = useSelector(s => s);
+  let getEmails = () => {
+    if (uid) {
+      FB.firestore()
+        .collection("business")
+        .doc(uid)
+        .collection("reservations")
+        .where("email", ">", "")
+        .get()
+        .then(q => {
+          let res = [];
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r.email);
+          });
+
+          let emails = [...new Set(res)].join(", ");
+
+          if (emails) {
+            prompt("Remember to set BCC for email privacy!", emails);
+          } else {
+            alert("No emails found!");
+          }
+        });
+    } else {
+      let emails = [
+        ...new Set(state.reservations.map(r => r.email).filter(e => e !== ""))
+      ].join(", ");
+
+      if (emails) {
+        prompt("Remember to set BCC for email privacy!", emails);
+      } else {
+        alert("No emails found!");
+      }
+    }
+  };
 
   return (
     <S>
@@ -158,45 +194,20 @@ export const Business = ({ setUser, username }) => {
             </button>
           }
 
-          {/* <button
+          <button
             onClick={() => {
-              let emails = [
-                ...new Set(
-                  state.reservations.map(r => r.email).filter(r => r !== "")
-                )
-              ].join(", ");
-              if (emails) {
-                prompt("Remember to set BCC for email privacy!", emails);
-              } else {
-                alert("No emails found!");
-              }
+              getEmails();
             }}
           >
             get emails
-          </button> */}
+          </button>
 
           {/* <button
             onClick={() => {
               if (uid) {
-                // FB.firestore()
-                //   .collection("business")
-                //   .doc(uid)
-                //   .collection("years")
-                //   .doc(`${2020}`)
-                //   .collection("may")
-                //   .doc("15")
-                //   .collection("reservations")
-                //   .where("confirmed", "==", false)
-                //   .get()
-                //   .then(function(querySnapshot) {
-                //     querySnapshot.forEach(function(doc) {
-                //       // doc.data() is never undefined for query doc snapshots
-                //       console.log(doc.id, " => ", doc.data());
-                //     });
-                //   })
-                //   .catch(function(error) {
-                //     console.log("Error getting documents: ", error);
-                //   });
+                console.log("beta");
+              } else {
+                alert("Premium feature!");
               }
             }}
           >

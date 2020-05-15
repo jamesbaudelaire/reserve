@@ -1,12 +1,12 @@
-import { Calendar } from "./business/calendar";
-
-let cal = new Calendar();
+import { Calendar } from "./calendar";
 
 export function ID() {
   return parseInt(
     [...new Array(10)].map(x => Math.floor(Math.random() * 10)).join("")
   );
 }
+
+let cal = new Calendar();
 
 let sample = [
   {
@@ -63,8 +63,7 @@ export const LS = {
       this.data = data;
     } else {
       this.data = {
-        reservations: sample,
-        history: []
+        reservations: sample
       };
       this.save(this.data);
     }
