@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addReservation, deleteReservation } from "../redux/actions";
 
-import { ID } from "../functions";
+import { ID } from "../x/functions";
 
 import { useAnimation } from "../x/animation";
 

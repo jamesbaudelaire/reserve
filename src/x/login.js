@@ -1,5 +1,5 @@
 import React from "react";
-import { AUTH } from "./x/firebase";
+import { AUTH } from "./firebase";
 
 import styled from "styled-components";
 

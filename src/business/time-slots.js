@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { IO } from "../x/IO";
 
 const S = styled.div`
+  margin: 20px 0;
+
   .reservations {
     max-width: 200px;
     margin-left: 50px;
@@ -78,34 +80,31 @@ const S = styled.div`
   }
 
   @media screen and (max-width: 1000px) {
+    white-space: nowrap;
+    overflow: scroll;
+
     .reservations {
       display: grid;
     }
 
-    .time-slots {
-      white-space: nowrap;
-      overflow: scroll;
-      .time-slot {
-        display: inline-block;
-      }
-      .time-slot:last-child {
-        margin-right: 20px;
-      }
+    .time-slot {
+      display: inline-block;
+    }
+    .time-slot:last-child {
+      margin-right: 20px;
     }
   }
 
   @media screen and (min-width: 1000px) {
-    .time-slots {
-      position: absolute;
-      left: 0px;
-      width: 300px;
-      top: 0px;
-      margin: 0px;
-      height: 100%;
-      overflow: scroll;
-      .time-slot {
-        margin: 20px;
-      }
+    position: absolute;
+    left: 0px;
+    width: 300px;
+    top: 0px;
+    margin: 0px;
+    height: 100%;
+    overflow: scroll;
+    .time-slot {
+      margin: 20px;
     }
   }
 `;
@@ -185,63 +184,61 @@ export const TimeSlots = ({
 
   return (
     <S>
-      <div className="time-slots">
-        {hours.map(h => (
-          <div className="time-slot" key={h}>
-            <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
+      {hours.map(h => (
+        <div className="time-slot" key={h}>
+          <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
 
-            <span className="confirmed-total">
-              <i className="material-icons-round">people</i>
-              <span className="number">{getConfirmedTotal(minutes(h))}</span>
-            </span>
+          <span className="confirmed-total">
+            <i className="material-icons-round">people</i>
+            <span className="number">{getConfirmedTotal(minutes(h))}</span>
+          </span>
 
-            <span className="total">
-              <i className="material-icons-round">people</i>
-              <span className="number">{getTotal(minutes(h))}</span>
-            </span>
+          <span className="total">
+            <i className="material-icons-round">people</i>
+            <span className="number">{getTotal(minutes(h))}</span>
+          </span>
 
-            <div className="reservations">
-              {minutes(h).map(r => (
-                <div
-                  className={`reservation ${
-                    r.confirmed ? "confirmed-reservation" : ""
-                  }`}
-                  onClick={() => {
-                    setReservation(reservations.find(x => x.id == r.id));
-                    setAddReservationUI(true);
-                  }}
-                  key={r.id}
-                  id={r.id}
-                >
-                  <div className="info">
-                    <span className="name">{r.name}</span>
-                    <span className="people">{r.people}</span>
-                    <span className="time">{`${getHour(h)}:${getMinutes(
-                      r.time.minutes
-                    )}`}</span>
-                  </div>
-
-                  {r.notes && (
-                    <div className="notes">
-                      <span>{r.notes}</span>
-                    </div>
-                  )}
+          <div className="reservations">
+            {minutes(h).map(r => (
+              <div
+                className={`reservation ${
+                  r.confirmed ? "confirmed-reservation" : ""
+                }`}
+                onClick={() => {
+                  setReservation(reservations.find(x => x.id == r.id));
+                  setAddReservationUI(true);
+                }}
+                key={r.id}
+                id={r.id}
+              >
+                <div className="info">
+                  <span className="name">{r.name}</span>
+                  <span className="people">{r.people}</span>
+                  <span className="time">{`${getHour(h)}:${getMinutes(
+                    r.time.minutes
+                  )}`}</span>
                 </div>
-              ))}
-            </div>
+
+                {r.notes && (
+                  <div className="notes">
+                    <span>{r.notes}</span>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+      ))}
 
-        {!loading && reservations.length === 0 && (
-          <div className="no-reservations">No reservations today!</div>
-        )}
+      {!loading && reservations.length === 0 && (
+        <div className="no-reservations">No reservations today!</div>
+      )}
 
-        {loading && (
-          <svg className="loader loading-reservations">
-            <circle cx="25" cy="25" r="15" />
-          </svg>
-        )}
-      </div>
+      {loading && (
+        <svg className="loader loading-reservations">
+          <circle cx="25" cy="25" r="15" />
+        </svg>
+      )}
     </S>
   );
 };

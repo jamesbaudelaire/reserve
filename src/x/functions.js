@@ -1,4 +1,4 @@
-import { Calendar } from "./business/calendar";
+import { Calendar } from "./calendar";
 
 export function ID() {
   return parseInt(

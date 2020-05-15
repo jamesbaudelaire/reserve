@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 
-import { CalendarUI } from "./calendar";
+import { CalendarUI } from "../x/calendar";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,9 +10,9 @@ import { ReservationForm } from "./reservation-form";
 
 import { TimeSlots } from "./time-slots";
 
-import { DB } from "../firebase";
+import { DB } from "../x/firebase";
 
-import { LS } from "../functions";
+import { LS } from "../x/functions";
 
 import { IO } from "../x/IO";
 
@@ -22,7 +22,7 @@ const S = styled.div`
   }
 
   .calendar {
-    margin: 20px auto;
+    margin: 0px auto;
     display: block;
     width: min-content;
   }
@@ -52,11 +52,11 @@ const S = styled.div`
   }
 
   .no-reservations {
-    margin: 10px 30px;
+    margin: 0 20px;
   }
 
   .unconfirmed-reservations {
-    margin: 10px 0;
+    margin: 20px 0;
     div {
       overflow: auto;
       white-space: nowrap;
@@ -107,11 +107,13 @@ const S = styled.div`
       right: 0;
       top: 0px;
     }
-
+    .no-reservations {
+      margin: 20px;
+    }
     .unconfirmed-reservations {
       position: fixed;
-      right: 30px;
-      top: 90px;
+      right: 25px;
+      top: 80px;
       box-shadow: var(--shadow);
       border-radius: 5px;
 

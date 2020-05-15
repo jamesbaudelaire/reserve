@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Business } from "./business";
+import { Business } from "./business/business";
 
-import { LS } from "./functions";
+import { LS } from "./x/functions";
 import { useDispatch } from "react-redux";
 import { loadReservations } from "./redux/actions";
 
-import { FB } from "./firebase";
+import { FB } from "./x/firebase";
 import { setuid } from "./redux/actions";
 
-import { Login } from "./login";
+import { Login } from "./x/login";
 
 import { ReactComponent as Rsrv } from "./files/rsrv.svg";
 

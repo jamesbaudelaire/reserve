@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { CalendarUI } from "../business/calendar";
+import { CalendarUI } from "../x/calendar";
 import { useParams } from "react-router-dom";
-import { FB } from "../firebase";
+import { FB } from "../x/firebase";
 import "./form.css";
 export const Form = () => {
   const [day, setDay] = useState();

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { loadReservations } from "./redux/actions";
+import { loadReservations } from "../redux/actions";
 
 import styled from "styled-components";
 
-import { Reservations } from "./business/reservations";
+import { Reservations } from "./reservations";
 
-import { FB, AUTH } from "./firebase";
+import { FB, AUTH } from "../x/firebase";
 
-import { setuid } from "./redux/actions";
+import { setuid } from "../redux/actions";
 
-import { useAnimation } from "./x/animation";
+import { useAnimation } from "../x/animation";
 
 const S = styled.div`
   .topbar {

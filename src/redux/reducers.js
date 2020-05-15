@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from "redux";
 
-import { LS } from "../functions";
+import { LS } from "../x/functions";
 
 const reservationsReducer = (state = [], action) => {
   switch (action.type) {
