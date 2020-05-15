@@ -16,12 +16,6 @@ const reservationsReducer = (state = [], action) => {
     case "deleteReservation":
       return state.filter(r => r.id !== action.data);
 
-    case "arrived":
-      let x = state.map(r =>
-        r.id === action.data ? { ...r, arrived: !r.arrived } : r
-      );
-      return x;
-
     default:
       return state;
   }

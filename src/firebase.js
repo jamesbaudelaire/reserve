@@ -46,21 +46,7 @@ export const DB = {
       .collection("reservations")
       .doc(`${reservation.id}`)
       .delete();
-    //   .then(function() {
-    //     console.log("Document successfully deleted!");
-    // }).catch(function(error) {
-    //     console.error("Error removing document: ", error);
-    // })
   }
-
-  // arrived(uid, id, toggle) {
-  //   store
-  //     .collection("business")
-  //     .doc(uid)
-  //     .collection("reservations")
-  //     .doc(`${id}`)
-  //     .update({ arrived: toggle });
-  // }
 };
 
 export const AUTH = firebase.auth();

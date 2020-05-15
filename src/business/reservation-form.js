@@ -197,7 +197,6 @@ export const ReservationForm = ({
   setui,
   reservation,
   setReservation,
-  selectReservation,
   addFBReservation,
   deleteFBReservation
 }) => {
@@ -273,7 +272,6 @@ export const ReservationForm = ({
     };
 
     r.confirmed = document.getElementById("confirmed").checked;
-    // r.arrived = false;
 
     if (reservation) {
       r.id = reservation.id;
@@ -284,6 +282,19 @@ export const ReservationForm = ({
     r.time = convertTime(document.getElementById("time").value);
 
     return r;
+  };
+
+  let selectReservation = id => {
+    let x = document.querySelector(".selected-reservation");
+    if (x) {
+      x.classList.remove("selected-reservation");
+    }
+    if (id) {
+      let el = document.getElementById(id);
+      if (el) {
+        el.classList.add("selected-reservation");
+      }
+    }
   };
 
   let resetui = () => {

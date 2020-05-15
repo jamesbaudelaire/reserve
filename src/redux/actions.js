@@ -19,13 +19,6 @@ export const deleteReservation = x => {
   };
 };
 
-export const arrived = x => {
-  return {
-    type: "arrived",
-    data: x
-  };
-};
-
 export const setuid = x => {
   return {
     type: "set",
