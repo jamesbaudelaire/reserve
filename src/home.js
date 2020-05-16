@@ -11,7 +11,7 @@ import { setuid } from "./redux/actions";
 
 import { Login } from "./x/login";
 
-import { ReactComponent as Rsrv } from "./files/rsrv.svg";
+import { ReactComponent as Rsrv } from "./assets/rsrv.svg";
 
 const S = styled.div`
   .app-name {
@@ -31,11 +31,9 @@ const S = styled.div`
   }
 
   .rsrv {
-    svg {
-      width: calc(100% - 40px);
-      height: 300px;
-      margin: auto 20px;
-    }
+    width: calc(100% - 40px);
+    height: 300px;
+    margin: auto 20px;
   }
 
   @media screen and (min-width: 1000px) {
@@ -103,9 +101,8 @@ export const Home = () => {
           >
             try now
           </button>
-          <div className="rsrv">
-            <Rsrv />
-          </div>
+
+          <Rsrv className="rsrv" />
 
           <Login setLoading={setLoading} />
         </>

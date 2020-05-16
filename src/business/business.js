@@ -82,6 +82,7 @@ const S = styled.div`
 export const Business = ({ setUser, username }) => {
   const [day, setDay] = useState();
   const [unconfirmed, setUnconfirmed] = useState([]);
+  const [unconfirmedGR, setUnconfirmedGR] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -123,13 +124,31 @@ export const Business = ({ setUser, username }) => {
             let r = d.data();
             res.push(r);
           });
-
           setUnconfirmed(res);
         });
 
       return () => detach();
     }
   }, [uid]);
+
+  // useEffect(() => {
+  //   if (uid) {
+  //     let detach = FB.firestore()
+  //       .collection("private")
+  //       .doc("rialto")
+  //       .collection("reservations")
+  //       .onSnapshot(q => {
+  //         let res = [];
+  //         q.forEach(d => {
+  //           let r = d.data();
+  //           res.push(r);
+  //         });
+  //         setUnconfirmedGR(res);
+  //       });
+
+  //     return () => detach();
+  //   }
+  // });
 
   const [topshelf, setTopshelf] = useState(false);
 
@@ -233,6 +252,7 @@ export const Business = ({ setUser, username }) => {
         setDay={setDay}
         unconfirmed={unconfirmed}
         setUnconfirmed={setUnconfirmed}
+        unconfirmedGR={unconfirmedGR}
       />
     </S>
   );

@@ -74,7 +74,7 @@ body{
   ::after {
     content: "";
     display: block;
-    height: 400px;
+    height: 300px;
   }
   background:rgb(250,250,250);
   color:#3f3d56;

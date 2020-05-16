@@ -16,6 +16,10 @@ import { LS } from "../x/functions";
 
 import { IO } from "../x/IO";
 
+import { useAnimation } from "../x/animation";
+
+import { ReactComponent as None } from "../assets/no-reservations.svg";
+
 const S = styled.div`
   .confirmed-total {
     color: var(--theme);
@@ -51,12 +55,8 @@ const S = styled.div`
     z-index: 100;
   }
 
-  .no-reservations {
-    margin: 0 20px;
-  }
-
   .unconfirmed-reservations {
-    margin: 20px 0;
+    margin: 10px 0 20px 0;
     div {
       overflow: auto;
       white-space: nowrap;
@@ -76,6 +76,34 @@ const S = styled.div`
       display: block;
       margin: 0 0 10px 20px;
     }
+  }
+
+  .guest-reservation {
+    background: red;
+  }
+
+  .loading-reservations {
+    position: fixed;
+    margin: 20px;
+    bottom: 0;
+    left: 0;
+    top: unset;
+  }
+
+  .no-reservations {
+    margin: 0 20px;
+    opacity: 0;
+    transition: 0.3s;
+    &.loaded {
+      opacity: 1;
+    }
+    display: inline-block;
+  }
+
+  .svg-none {
+    height: 160px;
+    margin: 20px;
+    width: calc(100% - 40px);
   }
 
   @media screen and (max-width: 1000px) {
@@ -107,13 +135,11 @@ const S = styled.div`
       right: 0;
       top: 0px;
     }
-    .no-reservations {
-      margin: 20px;
-    }
+
     .unconfirmed-reservations {
       position: fixed;
       right: 25px;
-      top: 80px;
+      top: 90px;
       box-shadow: var(--shadow);
       border-radius: 5px;
 
@@ -129,6 +155,17 @@ const S = styled.div`
         margin: 10px;
       }
     }
+
+    .no-reservations {
+      margin: 30px;
+    }
+    .svg-none {
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      height: 150px;
+      width: 300px;
+    }
   }
 `;
 
@@ -138,7 +175,13 @@ let getDayName = day => {
   return date.toLocaleDateString("locale", { weekday: "short" });
 };
 
-export const Reservations = ({ day, setDay, unconfirmed, setUnconfirmed }) => {
+export const Reservations = ({
+  day,
+  setDay,
+  unconfirmed,
+  unconfirmedGR,
+  setUnconfirmed
+}) => {
   const [loading, setLoading] = useState();
 
   const [reservations, setReservations] = useState([]);
@@ -167,6 +210,7 @@ export const Reservations = ({ day, setDay, unconfirmed, setUnconfirmed }) => {
 
   const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservation, setReservation] = useState(null);
+
   let getNumbers = status => {
     let n = 0;
     reservations.forEach(r => (n += r.people));
@@ -205,6 +249,8 @@ export const Reservations = ({ day, setDay, unconfirmed, setUnconfirmed }) => {
     });
   });
 
+  let load = useAnimation();
+
   return (
     <S>
       {!addReservationUI ? (
@@ -235,20 +281,33 @@ export const Reservations = ({ day, setDay, unconfirmed, setUnconfirmed }) => {
           <i className="material-icons-round">people</i>
           <span className="number">{getNumbers("confirmed")}</span>
         </span>
-
-        <span className="total">
-          <i className="material-icons-round">people</i>
-          <span className="number">{getNumbers()}</span>
-        </span>
       </div>
 
-      {unconfirmed.length > 0 && (
+      {unconfirmed.length + unconfirmedGR.length > 0 && (
         <div className="unconfirmed-reservations">
-          <span>{unconfirmed.length} UNCONFIRMED</span>
+          <span>
+            {unconfirmed.length + unconfirmedGR.length > 3
+              ? unconfirmed.length + unconfirmedGR.length
+              : ""}{" "}
+            UNCONFIRMED
+          </span>
           <div>
             {unconfirmed.map(r => (
               <button
                 className="unconfirmed-reservation"
+                key={r.id}
+                onClick={() => {
+                  setDay(r.date);
+                  setReservation(r);
+                  setAddReservationUI(true);
+                }}
+              >
+                {r.name}
+              </button>
+            ))}
+            {unconfirmedGR.map(r => (
+              <button
+                className="unconfirmed-reservation guest-reservation"
                 key={r.id}
                 onClick={() => {
                   setDay(r.date);
@@ -271,6 +330,19 @@ export const Reservations = ({ day, setDay, unconfirmed, setUnconfirmed }) => {
         setAddReservationUI={setAddReservationUI}
         setReservation={setReservation}
       />
+
+      {!loading && reservations.length === 0 && (
+        <div className="no-reservations" {...load}>
+          <span>No reservations today!</span>
+          <None className="svg-none" />
+        </div>
+      )}
+
+      {loading && (
+        <svg className="loader loading-reservations">
+          <circle cx="25" cy="25" r="15" />
+        </svg>
+      )}
     </S>
   );
 };
