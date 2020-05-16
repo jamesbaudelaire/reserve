@@ -33,26 +33,6 @@ const S = styled.div`
     background: var(--theme);
   }
 
-  .info {
-    display: inline-block;
-    .name,
-    .time,
-    .people {
-      margin: 0px 5px;
-      display: inline-flex;
-    }
-  }
-
-  .notes {
-    font-style: italic;
-  }
-
-  .selected-reservation {
-    background: var(--select);
-    box-shadow: var(--shadow);
-    color: white;
-  }
-
   .time-slot {
     font-size: 20px;
     span {
@@ -71,12 +51,27 @@ const S = styled.div`
     }
   }
 
-  .loading-reservations {
-    position: fixed;
-    margin: 20px;
-    bottom: 0;
-    left: 0;
-    top: unset;
+  .info {
+    display: inline-block;
+    .name,
+    .time,
+    .people {
+      margin: 0px 5px;
+      display: inline-flex;
+    }
+  }
+
+  .notes {
+    font-style: italic;
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  .selected-reservation {
+    background: var(--select);
+    box-shadow: var(--shadow);
+    color: white;
   }
 
   @media screen and (max-width: 1000px) {
@@ -158,7 +153,6 @@ let getConfirmedTotal = x => {
 };
 
 export const TimeSlots = ({
-  loading,
   reservations,
   setReservation,
   setAddReservationUI
@@ -193,10 +187,10 @@ export const TimeSlots = ({
             <span className="number">{getConfirmedTotal(minutes(h))}</span>
           </span>
 
-          <span className="total">
+          {/* <span className="total">
             <i className="material-icons-round">people</i>
             <span className="number">{getTotal(minutes(h))}</span>
-          </span>
+          </span> */}
 
           <div className="reservations">
             {minutes(h).map(r => (
@@ -229,16 +223,6 @@ export const TimeSlots = ({
           </div>
         </div>
       ))}
-
-      {!loading && reservations.length === 0 && (
-        <div className="no-reservations">No reservations today!</div>
-      )}
-
-      {loading && (
-        <svg className="loader loading-reservations">
-          <circle cx="25" cy="25" r="15" />
-        </svg>
-      )}
     </S>
   );
 };

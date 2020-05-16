@@ -40,9 +40,8 @@ const S = styled.div`
   }
 
   .toggle {
-    margin: 20px;
-    margin-bottom: 10px;
     line-height: 20px;
+    margin: 20px;
     display: block;
     label {
       margin-left: 10px;
@@ -88,23 +87,29 @@ const S = styled.div`
     }
   }
 
+  #add-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+  }
+
   textarea {
     resize: none;
   }
 
   .inputs {
-    margin-top: 20px;
     .time {
       margin: 10px;
     }
     .input {
+      display: inline-block;
       input {
         width: 120px;
       }
       display: inline-block;
       i {
         font-size: 30px;
-        display: block;
         margin-left: 10px;
       }
     }
@@ -148,6 +153,8 @@ const S = styled.div`
 
       .toggle {
         margin: 10px;
+        position: unset;
+        margin: 10px 0 0 20px;
         label {
           margin: 10px 0;
           display: block;
@@ -179,6 +186,10 @@ const S = styled.div`
           margin: 10px 0px 10px 10px;
         }
       }
+    }
+    #add-button {
+      position: unset;
+      margin: 10px;
     }
   }
 `;
@@ -242,7 +253,7 @@ export const ReservationForm = ({
 
       selectReservation(reservation.id);
     }
-  });
+  }, [reservation]);
 
   let convertTime = x => {
     if (x === "") {
@@ -359,39 +370,42 @@ export const ReservationForm = ({
             close
           </button>
 
-          {reservation && (
+          {reservation &&
+            (reservation.gr ? (
+              <>delete gr</>
+            ) : (
+              <button
+                id="delete-button"
+                onClick={() => {
+                  if (window.confirm("Delete this reservation?")) {
+                    resetui();
+                    dispatch(deleteReservation(reservation.id));
+                    deleteFBReservation(reservation);
+                  }
+                }}
+              >
+                delete
+              </button>
+            ))}
+          {reservation && reservation.gr ? (
+            <>approve</>
+          ) : (
             <button
-              id="delete-button"
+              id="add-button"
               onClick={() => {
-                if (window.confirm("Delete this reservation?")) {
+                let r = newReservation();
+                if (r.people > 0 && r.name && r.time) {
+                  dispatch(addReservation(r));
+
+                  addFBReservation(r);
+
                   resetui();
-                  dispatch(deleteReservation(reservation.id));
-                  deleteFBReservation(reservation);
                 }
               }}
             >
-              delete
+              {reservation ? "update" : "add"}
             </button>
           )}
-
-          <button
-            id="add-button"
-            onClick={() => {
-              if (
-                newReservation().people > 0 &&
-                newReservation().name &&
-                newReservation().time
-              ) {
-                dispatch(addReservation(newReservation()));
-
-                addFBReservation(newReservation());
-
-                resetui();
-              }
-            }}
-          >
-            {reservation ? "update" : "add"}
-          </button>
         </div>
       </div>
     </S>

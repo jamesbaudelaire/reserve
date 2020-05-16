@@ -30,6 +30,15 @@ export const DB = {
       .set(reservation);
   },
 
+  guest(business, reservation) {
+    store
+      .collection("private")
+      .doc(business)
+      .collection("reservations")
+      .doc(`${reservation.id}`)
+      .set(reservation);
+  },
+
   update(uid, reservation) {
     store
       .collection("business")
