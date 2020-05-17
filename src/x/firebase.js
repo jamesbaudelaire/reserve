@@ -55,6 +55,15 @@ export const DB = {
       .collection("reservations")
       .doc(`${reservation.id}`)
       .delete();
+  },
+
+  deleteGR(business, id) {
+    store
+      .collection("private")
+      .doc(business)
+      .collection("reservations")
+      .doc(`${id}`)
+      .delete();
   }
 };
 

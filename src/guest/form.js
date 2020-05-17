@@ -10,6 +10,8 @@ import { ID } from "../x/functions";
 
 import { DB } from "../x/firebase";
 
+import { ReactComponent as Contact } from "../assets/contact.svg";
+
 import { useAnimation } from "../x/animation";
 
 const S = styled.div`
@@ -56,6 +58,135 @@ const S = styled.div`
       border: none;
     }
   }
+
+  .business-name {
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+  }
+  .logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    height: 50px;
+    width: 50px;
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+  }
+
+  .calendar {
+    margin: 20px auto;
+    display: block;
+    width: min-content;
+    margin-top: 80px;
+  }
+
+  .inputs {
+    border-radius: 10px 10px 0px 0px;
+
+    i {
+      font-size: 30px;
+    }
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: rgb(200, 200, 200);
+    .text {
+      white-space: nowrap;
+      width: 100vw;
+      overflow: scroll;
+    }
+    .input {
+      margin: 20px 10px;
+      display: inline-block;
+
+      input {
+        width: 120px;
+      }
+    }
+    .time {
+      margin: 20px;
+      margin-top: 0;
+    }
+  }
+
+  .submit {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+  }
+
+  .submitted {
+    font-size: 20px;
+    margin: 20px auto;
+    margin-top: 100px;
+    text-align: center;
+    max-width: 300px;
+  }
+
+  #contact-svg {
+    width: 100%;
+    height: 200px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .text {
+      .input {
+        &:first-child {
+          margin-left: 20px;
+        }
+        &:last-child {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .logo {
+      position: fixed;
+      top: 0;
+      right: 0;
+    }
+    .business-name {
+      position: fixed;
+    }
+
+    .calendar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 20px;
+    }
+
+    .inputs {
+      background: unset;
+      margin: 20px 30px;
+      position: absolute;
+      top: 0;
+      bottom: unset;
+      .text {
+        display: grid;
+        width: unset;
+      }
+
+      .input,
+      .time {
+        margin: 0;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .submit {
+      position: unset;
+      margin: 10px 0;
+    }
+  }
 `;
 
 let scroll = id => {
@@ -86,7 +217,7 @@ export const Form = () => {
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${business}.png`;
 
   const [listed, setListed] = useState(true);
-  const [name, setName] = useState("Rialto");
+  const [name, setName] = useState();
   const [submit, setSubmit] = useState(true);
 
   useEffect(() => {
@@ -95,20 +226,21 @@ export const Form = () => {
     }, 300);
   });
 
-  // useEffect(() => {
-  //   FB.firestore()
-  //     .collection("public")
-  //     .doc(business)
-  //     .get()
-  //     .then(doc => {
-  //       let data = doc.data();
-  //       if (data) {
-  //         setName(data.name);
-  //       } else {
-  //         setListed(false);
-  //       }
-  //     });
-  // }, []);
+  useEffect(() => {
+    FB.firestore()
+      .collection("public")
+      .doc(business)
+      .get()
+      .then(doc => {
+        console.log("d");
+        let data = doc.data();
+        if (data) {
+          setName(data.name);
+        } else {
+          setListed(false);
+        }
+      });
+  }, []);
 
   let inputs = [
     {
@@ -153,6 +285,8 @@ export const Form = () => {
 
     r.confirmed = false;
 
+    r.gr = true;
+
     r.id = ID();
 
     r.time = convertTime(document.getElementById("time").value);
@@ -187,52 +321,56 @@ export const Form = () => {
       )}
 
       {name && submit && (
-        <>
-          <div className="inputs">
-            <div className="text">
-              {inputs.map(x => (
-                <div key={x.input} className="input">
-                  <i className="material-icons back">{x.icon}</i>
-                  <input
-                    onClick={() => {
-                      scroll(x.input);
-                    }}
-                    id={x.input}
-                    placeholder={x.input}
-                    type={x.type}
-                    maxLength={x.limit}
-                    required={x.req}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="input time">
-              <i className="material-icons">schedule</i>
-              <input type="time" id="time" required />
-            </div>
+        <div className="inputs">
+          <div className="text">
+            {inputs.map(x => (
+              <div key={x.input} className="input">
+                <i className="material-icons back">{x.icon}</i>
+                <input
+                  onClick={() => {
+                    scroll(x.input);
+                  }}
+                  id={x.input}
+                  placeholder={x.input}
+                  type={x.type}
+                  maxLength={x.limit}
+                  required={x.req}
+                />
+              </div>
+            ))}
           </div>
+
+          <div className="input time">
+            <i className="material-icons">schedule</i>
+            <input type="time" id="time" required />
+          </div>
+
           <button
+            className="submit"
             onClick={() => {
               let r = newReservation();
               if (r.people > 0 && r.name && r.time) {
                 addFBReservation(r);
+                setSubmit(false);
+                window.scrollTo({
+                  top: 0,
+                  left: 0,
+                  behavior: "smooth"
+                });
               }
-
-              setSubmit(false);
             }}
           >
             submit
           </button>
-        </>
+        </div>
       )}
 
       {!submit && (
-        <>
-          Reservation submitted,
-          <br />
-          {`${name}'s`} event coordinatior will contact you later on to confirm!
-        </>
+        <div className="submitted">
+          <Contact id="contact-svg" />
+          <h2>Thank You!</h2>
+          We'll contact you later on to confirm!
+        </div>
       )}
     </S>
   );

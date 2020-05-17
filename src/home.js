@@ -45,16 +45,17 @@ const S = styled.div`
     }
 
     .rsrv {
-      svg {
-        margin-top: 40px;
-      }
+      position: absolute;
+      bottom: 0;
+      margin: 20px;
     }
   }
 `;
 export const Home = () => {
-  const [user, setUser] = useState(false);
+  const [url, setUrl] = useState();
   const [username, setUsername] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [business, setBusiness] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,10 +70,17 @@ export const Home = () => {
           .then(doc => {
             LS.guest = false;
             let data = doc.data();
-            setUser(true);
+            setUrl(data.url);
             setUsername(data.name);
             dispatch(setuid(user.uid));
             setLoading(false);
+            setBusiness(true);
+          })
+          .catch(error => {
+            if (error) {
+              setLoading(false);
+              alert("App is overloaded, try again later!");
+            }
           });
       }
     });
@@ -86,7 +94,7 @@ export const Home = () => {
         </svg>
       )}
 
-      {!user && (
+      {!business && (
         <>
           <div className="app-name">RSRV</div>
           <div className="app-slogan">Never lose a reservation again!</div>
@@ -94,7 +102,7 @@ export const Home = () => {
             className="guest-mode-button"
             onClick={() => {
               setUsername("Guest");
-              setUser(true);
+              setBusiness(true);
               LS.init();
               dispatch(loadReservations(LS.data.reservations));
             }}
@@ -108,7 +116,9 @@ export const Home = () => {
         </>
       )}
 
-      {user && <Business setUser={setUser} username={username} />}
+      {business && (
+        <Business setBusiness={setBusiness} username={username} url={url} />
+      )}
     </S>
   );
 };

@@ -79,8 +79,8 @@ const S = styled.div`
   }
 `;
 
-export const Business = ({ setUser, username }) => {
-  const [day, setDay] = useState();
+export const Business = ({ setBusiness, url, username }) => {
+  const [day, setDay] = useState(null);
   const [unconfirmed, setUnconfirmed] = useState([]);
   const [unconfirmedGR, setUnconfirmedGR] = useState([]);
 
@@ -89,7 +89,7 @@ export const Business = ({ setUser, username }) => {
   const uid = useSelector(s => s.app.uid);
 
   useEffect(() => {
-    if (uid) {
+    if (uid && day) {
       let detach = FB.firestore()
         .collection("business")
         .doc(uid)
@@ -131,24 +131,24 @@ export const Business = ({ setUser, username }) => {
     }
   }, [uid]);
 
-  // useEffect(() => {
-  //   if (uid) {
-  //     let detach = FB.firestore()
-  //       .collection("private")
-  //       .doc("rialto")
-  //       .collection("reservations")
-  //       .onSnapshot(q => {
-  //         let res = [];
-  //         q.forEach(d => {
-  //           let r = d.data();
-  //           res.push(r);
-  //         });
-  //         setUnconfirmedGR(res);
-  //       });
+  useEffect(() => {
+    if (uid) {
+      let detach = FB.firestore()
+        .collection("private")
+        .doc(url)
+        .collection("reservations")
+        .onSnapshot(q => {
+          let res = [];
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r);
+          });
+          setUnconfirmedGR(res);
+        });
 
-  //     return () => detach();
-  //   }
-  // });
+      return () => detach();
+    }
+  }, [uid]);
 
   const [topshelf, setTopshelf] = useState(false);
 
@@ -202,8 +202,8 @@ export const Business = ({ setUser, username }) => {
               className="logout-button"
               onClick={() => {
                 setTopshelf(false);
-                setUser(false);
-                if (username !== "Guest") {
+                setBusiness(false);
+                if (uid) {
                   dispatch(setuid(null));
                   AUTH.signOut();
                 }
@@ -253,6 +253,7 @@ export const Business = ({ setUser, username }) => {
         unconfirmed={unconfirmed}
         setUnconfirmed={setUnconfirmed}
         unconfirmedGR={unconfirmedGR}
+        url={url}
       />
     </S>
   );
