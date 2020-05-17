@@ -79,7 +79,7 @@ const S = styled.div`
   }
 
   .guest-reservation {
-    background: red;
+    background: #fea944;
   }
 
   .loading-reservations {
@@ -180,7 +180,8 @@ export const Reservations = ({
   setDay,
   unconfirmed,
   unconfirmedGR,
-  setUnconfirmed
+  setUnconfirmed,
+  url
 }) => {
   const [loading, setLoading] = useState();
 
@@ -271,6 +272,7 @@ export const Reservations = ({
           setReservation={setReservation}
           addFBReservation={addFBReservation}
           deleteFBReservation={deleteFBReservation}
+          url={url}
         />
       )}
 
@@ -285,12 +287,7 @@ export const Reservations = ({
 
       {unconfirmed.length + unconfirmedGR.length > 0 && (
         <div className="unconfirmed-reservations">
-          <span>
-            {unconfirmed.length + unconfirmedGR.length > 3
-              ? unconfirmed.length + unconfirmedGR.length
-              : ""}{" "}
-            UNCONFIRMED
-          </span>
+          <span>{unconfirmed.length + unconfirmedGR.length} UNCONFIRMED</span>
           <div>
             {unconfirmed.map(r => (
               <button
@@ -298,7 +295,9 @@ export const Reservations = ({
                 key={r.id}
                 onClick={() => {
                   setDay(r.date);
+
                   setReservation(r);
+
                   setAddReservationUI(true);
                 }}
               >
@@ -333,7 +332,7 @@ export const Reservations = ({
 
       {!loading && reservations.length === 0 && (
         <div className="no-reservations" {...load}>
-          <span>No reservations today!</span>
+          <span>No reservations!</span>
           <None className="svg-none" />
         </div>
       )}

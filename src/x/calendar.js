@@ -154,7 +154,6 @@ export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
   const [daynum, setDaynum] = useState(null);
-  // const [dayname, setDayname] = useState(null);
 
   useEffect(() => {
     if (day) {
@@ -171,13 +170,11 @@ export const CalendarUI = ({ day, setDay }) => {
     setYear(cal.year());
     setMonth(cal.monthNumber());
     setDaynum(cal.dayNumber());
-    // setDayname(cal.dayName());
 
     let day = {
       year: cal.year(),
       month: cal.monthNumber(),
       day: cal.dayNumber()
-      // name: cal.dayName()
     };
 
     setDay(day);
@@ -269,9 +266,7 @@ export const CalendarUI = ({ day, setDay }) => {
                 className="day"
                 id={`day-${day}`}
                 onClick={() => {
-                  // let dayname = CalendarData.days[i];
-                  // let monthname = CalendarData.months[month];
-                  // setDaynum(null);
+    
                   if (day) {
                     setDay({
                       year,

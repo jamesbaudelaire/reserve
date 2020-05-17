@@ -9,6 +9,8 @@ import { ID } from "../x/functions";
 
 import { useAnimation } from "../x/animation";
 
+import { DB } from "../x/firebase";
+
 const S = styled.div`
   .reservation-form {
     position: fixed;
@@ -209,7 +211,8 @@ export const ReservationForm = ({
   reservation,
   setReservation,
   addFBReservation,
-  deleteFBReservation
+  deleteFBReservation,
+  url
 }) => {
   const dispatch = useDispatch();
 
@@ -270,7 +273,6 @@ export const ReservationForm = ({
 
   let newReservation = () => {
     let r = {};
-
     inputs.forEach(x => {
       r[x.input] = document.getElementById(x.input).value;
     });
@@ -372,7 +374,17 @@ export const ReservationForm = ({
 
           {reservation &&
             (reservation.gr ? (
-              <>delete gr</>
+              <button
+                id="delete-button"
+                onClick={() => {
+                  if (window.confirm("Delete this reservation?")) {
+                    resetui();
+                    DB.deleteGR(url, reservation.id);
+                  }
+                }}
+              >
+                delete
+              </button>
             ) : (
               <button
                 id="delete-button"
@@ -388,7 +400,17 @@ export const ReservationForm = ({
               </button>
             ))}
           {reservation && reservation.gr ? (
-            <>approve</>
+            <button
+              id="add-button"
+              onClick={() => {
+                reservation.gr = false;
+                addFBReservation(reservation);
+                DB.deleteGR(url, reservation.id);
+                resetui();
+              }}
+            >
+              add
+            </button>
           ) : (
             <button
               id="add-button"
