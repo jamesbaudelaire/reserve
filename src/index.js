@@ -20,6 +20,7 @@ const GS = createGlobalStyle`
 --inset:black 1px 1px 3px 0 inset;
 --theme:#6b63ff;
 --select:#3acc6c;
+--grey:rgb(200, 200, 200);
 
 }
 
