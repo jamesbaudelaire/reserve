@@ -299,6 +299,8 @@ export const Form = () => {
 
     r.gr = true;
 
+    r.rsrv = true;
+
     r.id = ID();
 
     r.notes = "";
