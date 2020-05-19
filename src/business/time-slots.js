@@ -41,7 +41,7 @@ const S = styled.div`
         font-size: 25px;
       }
     }
-    margin-left: 20px;
+    margin-left: 10px;
     transition: 0.3s;
     opacity: 0;
     transform: translatex(20px);
