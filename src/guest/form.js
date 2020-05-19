@@ -12,13 +12,23 @@ import { DB } from "../x/firebase";
 
 import { ReactComponent as Contact } from "../assets/contact.svg";
 
-import { useAnimation } from "../x/animation";
-
 const S = styled.div`
   opacity: 0;
   transition: 1s;
   &.loaded {
     opacity: 1;
+  }
+
+  .app-name {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 40px;
+    margin: 10px 20px;
+    color: var(--theme);
+    transition: 0.3s;
+    &:hover {
+      color: var(--select);
+    }
   }
 
   .not-found {
@@ -51,7 +61,7 @@ const S = styled.div`
   }
   .inputs {
     input:required {
-      border-left: 3px solid var(--theme);
+      border-left: 5px solid var(--theme);
       box-sizing: border-box;
     }
     input:valid {
@@ -63,7 +73,7 @@ const S = styled.div`
     font-size: 30px;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 70px;
     margin: 20px;
   }
   .logo {
@@ -81,7 +91,7 @@ const S = styled.div`
     margin: 20px auto;
     display: block;
     width: min-content;
-    margin-top: 80px;
+    margin-top: 50px;
   }
 
   .inputs {
@@ -125,7 +135,7 @@ const S = styled.div`
     margin: 20px auto;
     margin-top: 100px;
     text-align: center;
-    max-width: 300px;
+    max-width: 400px;
   }
 
   #contact-svg {
@@ -151,6 +161,11 @@ const S = styled.div`
       position: fixed;
       top: 0;
       right: 0;
+    }
+    .app-name {
+      position: fixed;
+      top: 0;
+      left: 0;
     }
     .business-name {
       position: fixed;
@@ -221,28 +236,30 @@ export const Form = () => {
   const [submit, setSubmit] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      document.getElementById("form").classList.add("loaded");
-    }, 300);
-  });
-
-  useEffect(() => {
     FB.firestore()
       .collection("public")
       .doc(business)
       .get()
       .then(doc => {
-        console.log("d");
         let data = doc.data();
         if (data) {
           setName(data.name);
         } else {
           setListed(false);
         }
+        setTimeout(() => {
+          document.getElementById("form").classList.add("loaded");
+        }, 300);
       });
   }, []);
 
   let inputs = [
+    {
+      input: "phone",
+      icon: "phone",
+      type: "text",
+      req: true
+    },
     {
       input: "name",
       type: "text",
@@ -256,17 +273,12 @@ export const Form = () => {
       icon: "people",
       req: true
     },
+
     {
       input: "email",
       icon: "email",
       type: "email"
-    },
-    {
-      input: "phone",
-      icon: "phone",
-      type: "text"
-    },
-    { input: "notes", type: "text", icon: "note", limit: 15 }
+    }
   ];
 
   let newReservation = () => {
@@ -289,6 +301,8 @@ export const Form = () => {
 
     r.id = ID();
 
+    r.notes = "";
+
     r.time = convertTime(document.getElementById("time").value);
     return r;
   };
@@ -299,6 +313,10 @@ export const Form = () => {
 
   return (
     <S id="form">
+      <Link to="/">
+        <div className="app-name">RSRV</div>
+      </Link>
+
       {name && (
         <>
           <div className="business-name">{name}</div>
@@ -349,7 +367,7 @@ export const Form = () => {
             className="submit"
             onClick={() => {
               let r = newReservation();
-              if (r.people > 0 && r.name && r.time) {
+              if (r.people > 0 && r.name && r.time && r.phone) {
                 addFBReservation(r);
                 setSubmit(false);
                 window.scrollTo({

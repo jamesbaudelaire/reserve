@@ -93,6 +93,7 @@ const S = styled.div`
   .no-reservations {
     margin: 0 20px;
     opacity: 0;
+    font-size: 20px;
     transition: 0.3s;
     &.loaded {
       opacity: 1;

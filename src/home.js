@@ -97,6 +97,7 @@ export const Home = () => {
       {!business && (
         <>
           <div className="app-name">RSRV</div>
+
           <div className="app-slogan">Never lose a reservation again!</div>
           <button
             className="guest-mode-button"
