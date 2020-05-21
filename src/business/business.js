@@ -114,6 +114,25 @@ export const Business = ({ setBusiness, url, username }) => {
   useEffect(() => {
     if (uid) {
       let detach = FB.firestore()
+        .collection("private")
+        .doc(url)
+        .collection("reservations")
+        .onSnapshot(q => {
+          let res = [];
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r);
+          });
+          setUnconfirmedGR(res);
+        });
+
+      return () => detach();
+    }
+  }, [uid]);
+
+  useEffect(() => {
+    if (uid) {
+      let detach = FB.firestore()
         .collection("business")
         .doc(uid)
         .collection("reservations")
@@ -131,28 +150,9 @@ export const Business = ({ setBusiness, url, username }) => {
     }
   }, [uid]);
 
-  useEffect(() => {
-    if (uid) {
-      let detach = FB.firestore()
-        .collection("private")
-        .doc(url)
-        .collection("reservations")
-        .onSnapshot(q => {
-          let res = [];
-          q.forEach(d => {
-            let r = d.data();
-            res.push(r);
-          });
-          setUnconfirmedGR(res);
-        });
-
-      return () => detach();
-    }
-  }, [uid]);
-
   const [topshelf, setTopshelf] = useState(false);
 
-  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
+  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_100/v1587884625/reserve/${username}.png`;
 
   const load = useAnimation();
 

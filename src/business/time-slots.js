@@ -70,7 +70,6 @@ const S = styled.div`
 
   .selected-reservation {
     background: var(--select);
-    box-shadow: var(--shadow);
     color: white;
   }
 
@@ -132,14 +131,6 @@ let getMinutes = m => {
   }
 };
 
-let getTotal = x => {
-  let n = 0;
-
-  x.forEach(r => (n += r.people));
-
-  return n;
-};
-
 let getConfirmedTotal = x => {
   let n = 0;
 
@@ -153,6 +144,7 @@ let getConfirmedTotal = x => {
 };
 
 export const TimeSlots = ({
+  reservation,
   reservations,
   setReservation,
   setAddReservationUI
@@ -187,14 +179,13 @@ export const TimeSlots = ({
             <span className="number">{getConfirmedTotal(minutes(h))}</span>
           </span>
 
-          {/* <span className="total">
-            <i className="material-icons-round">people</i>
-            <span className="number">{getTotal(minutes(h))}</span>
-          </span> */}
-
           <div className="reservations">
             {minutes(h).map(r => (
               <div
+                style={{
+                  background:
+                    reservation && reservation.id == r.id ? `var(--select)` : ""
+                }}
                 className={`reservation ${
                   r.confirmed ? "confirmed-reservation" : ""
                 }`}

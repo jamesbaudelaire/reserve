@@ -144,9 +144,7 @@ const S = styled.div`
       border-radius: 10px;
       width: 200px;
       box-shadow: var(--shadow);
-      top: 0;
       padding-bottom: 0px;
-      bottom: unset;
       .text {
         width: unset;
         white-space: unset;
@@ -253,8 +251,6 @@ export const ReservationForm = ({
       document.getElementById("time").value = `${convertSingle(
         reservation.time.hour
       )}:${convertSingle(reservation.time.minutes)}`;
-
-      selectReservation(reservation.id);
     }
   }, [reservation]);
 
@@ -297,23 +293,9 @@ export const ReservationForm = ({
     return r;
   };
 
-  let selectReservation = id => {
-    let x = document.querySelector(".selected-reservation");
-    if (x) {
-      x.classList.remove("selected-reservation");
-    }
-    if (id) {
-      let el = document.getElementById(id);
-      if (el) {
-        el.classList.add("selected-reservation");
-      }
-    }
-  };
-
   let resetui = () => {
     setui(false);
     setReservation(null);
-    selectReservation();
   };
 
   const load = useAnimation();
