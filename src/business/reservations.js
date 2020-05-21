@@ -119,10 +119,8 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     .add-reservation {
-      top: 0;
       left: 0;
       right: unset;
-      bottom: unset;
     }
     .calendar {
       position: absolute;
@@ -139,14 +137,17 @@ const S = styled.div`
 
     .unconfirmed-reservations {
       position: fixed;
-      right: 25px;
-      top: 90px;
+      right: 0;
+      left: 0;
+      top: 20px;
+      margin: auto;
+      width: calc(100% - 400px);
       box-shadow: var(--shadow);
       border-radius: 5px;
 
       div {
-        display: grid;
-        max-height: 50vh;
+        overflow: scroll;
+        display: block;
         .unconfirmed-reservation {
           margin: 10px;
           margin-top: 0;
@@ -290,27 +291,37 @@ export const Reservations = ({
         <div className="unconfirmed-reservations">
           <span>{unconfirmed.length + unconfirmedGR.length} UNCONFIRMED</span>
           <div>
-            {unconfirmed.map(r => (
+            {unconfirmedGR.map(r => (
               <button
-                className="unconfirmed-reservation"
+                style={{
+                  background:
+                    reservation && reservation.id == r.id ? `var(--select)` : ""
+                }}
+                className="unconfirmed-reservation guest-reservation"
                 key={r.id}
                 onClick={() => {
                   setDay(r.date);
-
+                  setReservation(null);
                   setReservation(r);
-
                   setAddReservationUI(true);
                 }}
               >
                 {r.name}
               </button>
             ))}
-            {unconfirmedGR.map(r => (
+
+            {unconfirmed.map(r => (
               <button
-                className="unconfirmed-reservation guest-reservation"
+                style={{
+                  background:
+                    reservation && reservation.id == r.id ? `var(--select)` : ""
+                }}
+                className="unconfirmed-reservation"
                 key={r.id}
                 onClick={() => {
                   setDay(r.date);
+
+                  setReservation(null);
                   setReservation(r);
                   setAddReservationUI(true);
                 }}
@@ -329,6 +340,7 @@ export const Reservations = ({
         reservations={reservations}
         setAddReservationUI={setAddReservationUI}
         setReservation={setReservation}
+        reservation={reservation}
       />
 
       {!loading && reservations.length === 0 && (

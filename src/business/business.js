@@ -152,7 +152,7 @@ export const Business = ({ setBusiness, url, username }) => {
 
   const [topshelf, setTopshelf] = useState(false);
 
-  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${username}.png`;
+  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_100/v1587884625/reserve/${username}.png`;
 
   const load = useAnimation();
 

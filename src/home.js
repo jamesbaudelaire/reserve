@@ -31,9 +31,9 @@ const S = styled.div`
   }
 
   .rsrv {
-    width: calc(100% - 40px);
+    width: calc(100% - 80px);
     height: 300px;
-    margin: auto 20px;
+    margin: -20px 40px;
   }
 
   @media screen and (min-width: 1000px) {
@@ -47,7 +47,7 @@ const S = styled.div`
     .rsrv {
       position: absolute;
       bottom: 0;
-      margin: 20px;
+      margin: 40px;
     }
   }
 `;

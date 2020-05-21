@@ -229,7 +229,7 @@ export const Form = () => {
   const [day, setDay] = useState();
 
   let { business } = useParams();
-  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_500/v1587884625/reserve/${business}.png`;
+  let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_100/v1587884625/reserve/${business}.png`;
 
   const [listed, setListed] = useState(true);
   const [name, setName] = useState();

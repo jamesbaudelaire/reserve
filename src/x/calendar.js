@@ -72,8 +72,8 @@ const S = styled.div`
   }
   .selected {
     color: white;
+    box-shadow: var(--inset);
     background: var(--select);
-    box-shadow: var(--shadow);
   }
 
   .nav {
@@ -266,7 +266,6 @@ export const CalendarUI = ({ day, setDay }) => {
                 className="day"
                 id={`day-${day}`}
                 onClick={() => {
-    
                   if (day) {
                     setDay({
                       year,

@@ -59,7 +59,7 @@ input {
 button,.nav i,.add-reservation,.reservation{
   box-shadow: var(--inset);
 
-  &:hover {
+  &:active {
       box-shadow: none;
     }
     &:active{
@@ -129,7 +129,7 @@ transition:.7s;
   position: absolute;
   overflow:scroll;
   width: calc(100% - 400px);
-    height: calc(100% - 200px);
+    height: calc(100% - 240px);
     box-shadow: var(--shadow);
     border-radius: 5px;
     left: 0;
