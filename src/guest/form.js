@@ -258,7 +258,8 @@ export const Form = () => {
       input: "phone",
       icon: "phone",
       type: "text",
-      req: true
+      req: true,
+      limit: 10
     },
     {
       input: "name",
@@ -271,13 +272,15 @@ export const Form = () => {
       input: "people",
       type: "number",
       icon: "people",
-      req: true
+      req: true,
+      max: 99
     },
 
     {
       input: "email",
       icon: "email",
-      type: "email"
+      type: "email",
+      limit: 50
     }
   ];
 
@@ -355,6 +358,7 @@ export const Form = () => {
                   type={x.type}
                   maxLength={x.limit}
                   required={x.req}
+                  max={x.max}
                 />
               </div>
             ))}

@@ -83,11 +83,8 @@ const S = styled.div`
   }
 
   .loading-reservations {
-    position: fixed;
-    margin: 20px;
-    bottom: 0;
+    margin: 10px;
     left: 0;
-    top: unset;
   }
 
   .no-reservations {

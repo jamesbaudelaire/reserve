@@ -225,18 +225,22 @@ export const ReservationForm = ({
     {
       input: "people",
       type: "number",
+      limit: 2,
       icon: "people",
-      req: true
+      req: true,
+      max: 99
     },
     {
       input: "email",
       icon: "email",
-      type: "email"
+      type: "email",
+      limit: 50
     },
     {
       input: "phone",
       icon: "phone",
-      type: "text"
+      type: "text",
+      limit: 10
     },
     { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
@@ -331,6 +335,7 @@ export const ReservationForm = ({
                   id={x.input}
                   placeholder={x.input}
                   type={x.type}
+                  max={x.max}
                   maxLength={x.limit}
                   required={x.req}
                 />
