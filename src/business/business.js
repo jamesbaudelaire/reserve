@@ -114,6 +114,25 @@ export const Business = ({ setBusiness, url, username }) => {
   useEffect(() => {
     if (uid) {
       let detach = FB.firestore()
+        .collection("private")
+        .doc(url)
+        .collection("reservations")
+        .onSnapshot(q => {
+          let res = [];
+          q.forEach(d => {
+            let r = d.data();
+            res.push(r);
+          });
+          setUnconfirmedGR(res);
+        });
+
+      return () => detach();
+    }
+  }, [uid]);
+
+  useEffect(() => {
+    if (uid) {
+      let detach = FB.firestore()
         .collection("business")
         .doc(uid)
         .collection("reservations")
@@ -125,25 +144,6 @@ export const Business = ({ setBusiness, url, username }) => {
             res.push(r);
           });
           setUnconfirmed(res);
-        });
-
-      return () => detach();
-    }
-  }, [uid]);
-
-  useEffect(() => {
-    if (uid) {
-      let detach = FB.firestore()
-        .collection("private")
-        .doc(url)
-        .collection("reservations")
-        .onSnapshot(q => {
-          let res = [];
-          q.forEach(d => {
-            let r = d.data();
-            res.push(r);
-          });
-          setUnconfirmedGR(res);
         });
 
       return () => detach();

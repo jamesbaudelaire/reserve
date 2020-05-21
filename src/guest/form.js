@@ -14,7 +14,7 @@ import { ReactComponent as Contact } from "../assets/contact.svg";
 
 const S = styled.div`
   opacity: 0;
-  transition: 1s;
+  transition: 0.3s;
   &.loaded {
     opacity: 1;
   }
