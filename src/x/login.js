@@ -4,7 +4,7 @@ import { AUTH } from "./firebase";
 import styled from "styled-components";
 
 const S = styled.div`
-  margin: 10px;
+  margin: 0px auto;
   text-align: center;
 
   input {
@@ -16,11 +16,16 @@ const S = styled.div`
     margin: 0 10px;
   }
 
+  @media screen and (max-width: 1000px) {
+    max-width: 300px;
+  }
+
   @media screen and (min-width: 1000px) {
     position: fixed;
     top: 0;
     left: 0;
     text-align: left;
+
     input {
       margin: 10px;
     }

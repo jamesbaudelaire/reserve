@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { CalendarUI } from "../x/calendar";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { ReservationForm } from "./reservation-form";
 
@@ -82,11 +82,6 @@ const S = styled.div`
     background: #fea944;
   }
 
-  .loading-reservations {
-    margin: 10px;
-    left: 0;
-  }
-
   .no-reservations {
     margin: 0 20px;
     opacity: 0;
@@ -112,6 +107,9 @@ const S = styled.div`
         }
       }
     }
+    .loading-reservations {
+      left: 0;
+    }
   }
 
   @media screen and (min-width: 1000px) {
@@ -122,14 +120,18 @@ const S = styled.div`
     .calendar {
       position: absolute;
       right: 0;
-      top: 40px;
+      top: 0px;
       margin: 20px;
     }
 
     .today {
-      position: absolute;
-      right: 0;
+      position: fixed;
+      left: 0;
       top: 0px;
+    }
+    .loading-reservations {
+      top: unset;
+      bottom: 0;
     }
 
     .unconfirmed-reservations {
@@ -347,7 +349,7 @@ export const Reservations = ({
         </div>
       )}
 
-      {loading && (
+      {!LS.guest && loading && (
         <svg className="loader loading-reservations">
           <circle cx="25" cy="25" r="15" />
         </svg>
