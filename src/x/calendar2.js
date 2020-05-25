@@ -47,8 +47,9 @@ let cal = new CalendarFunctions();
 
 const S = styled.div`
   position: relative;
+  max-width: 300px;
   text-transform: uppercase;
-  font-size: 15px;
+  font-size: 16px;
   display: inline-block;
   box-shadow: var(--shadow);
   padding: 10px;
@@ -57,7 +58,7 @@ const S = styled.div`
   .top {
     display: flex;
     .today-button {
-      margin: 0;
+      margin: 10px;
     }
     .year-nav {
       align-items: center;
@@ -79,24 +80,27 @@ const S = styled.div`
       }
     }
   }
-  .bottom {
-    display: flex;
-    .months {
-      height: 215px;
-      overflow: scroll;
-      margin-top: 10px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      border-radius: 5px;
+
+  .months {
+    overflow: scroll;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 5px;
+    .month:last-child {
+      margin-right: 10px;
     }
-    .month {
-      margin: 10px;
-      padding: 5px;
-    }
-    .days {
-      text-align: center;
-      margin: 20px 0px 0 20px;
-    }
+  }
+
+  .month {
+    margin: 10px;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+  .days {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
   }
 
   .week {
@@ -106,10 +110,10 @@ const S = styled.div`
 
   .day {
     width: 20px;
-    padding: 3px;
+    padding: 4px 8px;
     height: 20px;
     line-height: 20px;
-    margin: 2px;
+    margin: 4px;
   }
 
   .day,
@@ -119,14 +123,14 @@ const S = styled.div`
     border-radius: 5px;
 
     &:hover {
-      box-shadow: var(--shadow);
+      box-shadow: var(--inset);
     }
   }
 
   .selected {
     background: var(--select);
     color: white;
-    box-shadow: var(--shadow);
+    box-shadow: var(--inset);
   }
 `;
 
@@ -189,7 +193,8 @@ export const Calendar = ({ day, setDay }) => {
     if (month) {
       document.getElementById(CalendarData.months[month]).scrollIntoView({
         behavior: "smooth",
-        block: "center"
+        inline: "center",
+        block: "end"
       });
     }
   }, [month]);
@@ -229,51 +234,49 @@ export const Calendar = ({ day, setDay }) => {
           </i>
         </div>
       </div>
-      <div className="bottom">
-        <div className="months">
-          {CalendarData.months.map((x, i) => (
-            <div
-              key={x}
-              id={x}
-              className={`month ${month == i ? "selected" : ""}`}
-              onClick={() => {
-                setMonth(i);
-              }}
-            >
-              {x}
+      <div className="months">
+        {CalendarData.months.map((x, i) => (
+          <div
+            key={x}
+            id={x}
+            className={`month ${month == i ? "selected" : ""}`}
+            onClick={() => {
+              setMonth(i);
+            }}
+          >
+            {x}
+          </div>
+        ))}
+      </div>
+      <div className="days">
+        <div className="week">
+          {CalendarData.days.map((d, i) => (
+            <div className="day" id={d} key={`day-${i}`}>
+              {d[0]}
             </div>
           ))}
         </div>
-        <div className="days">
-          <div className="week">
-            {CalendarData.days.map((d, i) => (
-              <div className="day" id={d} key={`day-${i}`}>
-                {d[0]}
+        {days(start, end).map((w, i) => (
+          <div className="week" key={`week-${i}`}>
+            {w.map((d, i) => (
+              <div
+                key={`day-${i}`}
+                className={`day ${dayNumber == d ? "selected" : ""}`}
+                onClick={() => {
+                  if (d) {
+                    setDay({
+                      year,
+                      month,
+                      day: d
+                    });
+                  }
+                }}
+              >
+                {d}
               </div>
             ))}
           </div>
-          {days(start, end).map((w, i) => (
-            <div className="week" key={`week-${i}`}>
-              {w.map((d, i) => (
-                <div
-                  key={`day-${i}`}
-                  className={`day ${dayNumber == d ? "selected" : ""}`}
-                  onClick={() => {
-                    if (d) {
-                      setDay({
-                        year,
-                        month,
-                        day: d
-                      });
-                    }
-                  }}
-                >
-                  {d}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        ))}
       </div>
     </S>
   );

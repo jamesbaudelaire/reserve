@@ -88,10 +88,9 @@ const S = styled.div`
   }
 
   .calendar {
-    margin: 20px auto;
+    margin: 20px;
     display: block;
-    width: min-content;
-    margin-top: 50px;
+    max-width: 400px;
   }
 
   .inputs {
@@ -173,9 +172,10 @@ const S = styled.div`
 
     .calendar {
       position: absolute;
-      top: 0;
       right: 0;
+      top: 0px;
       margin: 20px;
+      max-width: 300px;
     }
 
     .inputs {
