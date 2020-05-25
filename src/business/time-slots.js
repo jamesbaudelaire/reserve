@@ -168,6 +168,19 @@ export const TimeSlots = ({
     });
   });
 
+  useEffect(() => {
+    if (reservation && reservation.id) {
+      let el = document.getElementById(reservation.id);
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center"
+        });
+      }
+    }
+  }, [reservation, reservations]);
+
   return (
     <S>
       {hours.map(h => (

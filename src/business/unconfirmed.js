@@ -6,7 +6,7 @@ const S = styled.div`
   .unconfirmed-reservations {
     box-shadow: var(--shadow);
     margin: 20px;
-    padding: 10px 0px;
+    padding: 15px 0px;
     border-radius: 5px;
 
     div {

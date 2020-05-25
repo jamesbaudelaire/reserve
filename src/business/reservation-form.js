@@ -60,6 +60,7 @@ const S = styled.div`
         }
         &:checked + span:before {
           transform: translateX(20px);
+          background-color:white;
         }
       }
       span {

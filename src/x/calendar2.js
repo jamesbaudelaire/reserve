@@ -48,11 +48,11 @@ let cal = new CalendarFunctions();
 const S = styled.div`
   position: relative;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 15px;
   display: inline-block;
   box-shadow: var(--shadow);
-  padding: 20px;
-  padding-bottom: 0;
+  padding: 10px;
+  background: white;
   border-radius: 5px;
   .top {
     display: flex;
@@ -65,31 +65,37 @@ const S = styled.div`
       position: absolute;
       right: 0;
       top: 0;
-      margin: 10px;
-      font-size: 15px;
+      margin: 5px;
+      font-size: 20px;
       i {
         font-size: 30px;
-        background: var(--grey);
+        margin: 5px;
+        transition: 0.3s;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      span {
+        margin: 5px;
       }
     }
   }
   .bottom {
     display: flex;
     .months {
-      height: 200px;
+      height: 215px;
       overflow: scroll;
-      margin-top: 15px;
+      margin-top: 10px;
       text-align: center;
       box-shadow: var(--shadow);
       border-radius: 5px;
     }
     .month {
-      margin: 5px;
+      margin: 10px;
       padding: 5px;
     }
     .days {
       text-align: center;
-      margin: 10px;
+      margin: 15px 0 0px 30px;
     }
   }
 
@@ -179,6 +185,15 @@ export const Calendar = ({ day, setDay }) => {
     }
   }, [day]);
 
+  useEffect(() => {
+    if (month) {
+      document.getElementById(CalendarData.months[month]).scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+  }, [month]);
+
   let start = new Date(year, month, 1).getDay();
 
   let end = new Date(year, month + 1, 0).getDate();
@@ -219,6 +234,7 @@ export const Calendar = ({ day, setDay }) => {
           {CalendarData.months.map((x, i) => (
             <div
               key={x}
+              id={x}
               className={`month ${month == i ? "selected" : ""}`}
               onClick={() => {
                 setMonth(i);
