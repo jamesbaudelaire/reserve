@@ -66,7 +66,7 @@ const S = styled.div`
   }
 
   .calendar {
-    margin: auto;
+    margin: 20px auto;
     display: block;
     max-width: 300px;
   }
@@ -118,6 +118,7 @@ const S = styled.div`
       right: 0;
       top: 0px;
       margin: 20px;
+      max-width: 300px;
     }
   }
 `;
@@ -333,9 +334,6 @@ export const Business = ({ setBusiness, url, username }) => {
         unconfirmedGR={unconfirmedGR}
       />
 
-      <Calendar day={day} setDay={setDay} />
-      {/* <CalendarUI day={day} setDay={setDay} /> */}
-
       <Reservations
         day={day}
         setDay={setDay}
@@ -343,13 +341,14 @@ export const Business = ({ setBusiness, url, username }) => {
         setReservation={setReservation}
         reservations={reservations}
         setReservations={setReservations}
-        // unconfirmed={unconfirmed}
         addReservationUI={addReservationUI}
         setAddReservationUI={setAddReservationUI}
         setUnconfirmed={setUnconfirmed}
-        // unconfirmedGR={unconfirmedGR}
         url={url}
       />
+
+      {/* <Calendar day={day} setDay={setDay} /> */}
+      <CalendarUI day={day} setDay={setDay} />
     </S>
   );
 };

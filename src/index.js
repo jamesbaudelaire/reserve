@@ -56,7 +56,7 @@ input {
 
 
 
-button,.add-reservation,.reservation,.year-nav i{
+button,.add-reservation,.reservation{
   box-shadow: var(--inset);
   :hover{
     background:var(--select) !important;
@@ -74,7 +74,7 @@ body{
     display: block;
     height: 300px;
   }
-  background:rgb(250,250,250);
+  background:rgb(240,240,240);
   color:#3f3d56;
 }
 
@@ -130,6 +130,7 @@ transition:.7s;
     top: 0;
     bottom: 0;
     margin: auto;
+    background:white;
 }
 
 }

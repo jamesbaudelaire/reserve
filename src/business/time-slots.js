@@ -5,6 +5,7 @@ import { IO } from "../x/IO";
 
 const S = styled.div`
   margin: 20px;
+  background: white;
 
   .reservations {
     max-width: 200px;

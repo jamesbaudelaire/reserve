@@ -45,7 +45,7 @@ const S = styled.div`
 
   .svg-none {
     height: 160px;
-    margin: 20px;
+    margin: 0 20px;
     width: calc(100% - 40px);
   }
 
@@ -70,12 +70,11 @@ const S = styled.div`
       margin: 30px;
     }
     .svg-none {
-      z-index: -10;
       position: absolute;
-      bottom: 0;
-      left: 10px;
-      height: 180px;
-      width: 360px;
+      bottom: 10px;
+      left: 0px;
+      height: 160px;
+      width: 320px;
     }
   }
 `;
@@ -165,24 +164,22 @@ export const Reservations = ({
         />
       )}
 
-      <div className="reservations-container">
-        {reservations.length > 0 && (
-          <TimeSlots
-            loading={loading}
-            reservations={reservations}
-            setAddReservationUI={setAddReservationUI}
-            setReservation={setReservation}
-            reservation={reservation}
-          />
-        )}
+      {reservations.length > 0 && (
+        <TimeSlots
+          loading={loading}
+          reservations={reservations}
+          setAddReservationUI={setAddReservationUI}
+          setReservation={setReservation}
+          reservation={reservation}
+        />
+      )}
 
-        {!loading && reservations.length === 0 && (
-          <div className="no-reservations" {...load}>
-            <span>No reservations!</span>
-            <None className="svg-none" />
-          </div>
-        )}
-      </div>
+      {!loading && reservations.length === 0 && (
+        <div className="no-reservations" {...load}>
+          <span>No reservations!</span>
+          <None className="svg-none" />
+        </div>
+      )}
 
       {!LS.guest && loading && (
         <svg className="loader loading-reservations">
