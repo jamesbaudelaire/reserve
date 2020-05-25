@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { IO } from "../x/IO";
 
 const S = styled.div`
-  margin: 20px 0;
+  margin: 20px;
 
   .reservations {
     max-width: 200px;
@@ -12,8 +12,6 @@ const S = styled.div`
   }
 
   .reservation {
-    background: #3f3d56;
-    color: white;
     margin: 5px 10px;
     position: relative;
     transition: 0.3s;
@@ -23,6 +21,7 @@ const S = styled.div`
     cursor: pointer;
     width: fit-content;
     padding: 5px;
+
     i {
       font-size: 25px;
       vertical-align: middle;
@@ -31,6 +30,7 @@ const S = styled.div`
 
   .confirmed-reservation {
     background: var(--theme);
+    color: white;
   }
 
   .time-slot {
@@ -68,14 +68,14 @@ const S = styled.div`
     }
   }
 
-  .selected-reservation {
-    background: var(--select);
-    color: white;
-  }
-
   @media screen and (max-width: 1000px) {
     white-space: nowrap;
     overflow: scroll;
+
+    box-shadow: var(--shadow);
+    margin: 20px;
+    padding: 10px 0px;
+    border-radius: 5px;
 
     .reservations {
       display: grid;
@@ -168,6 +168,19 @@ export const TimeSlots = ({
     });
   });
 
+  useEffect(() => {
+    if (reservation && reservation.id) {
+      let el = document.getElementById(reservation.id);
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center"
+        });
+      }
+    }
+  }, [reservation, reservations]);
+
   return (
     <S>
       {hours.map(h => (
@@ -182,13 +195,11 @@ export const TimeSlots = ({
           <div className="reservations">
             {minutes(h).map(r => (
               <div
-                style={{
-                  background:
-                    reservation && reservation.id == r.id ? `var(--select)` : ""
-                }}
                 className={`reservation ${
                   r.confirmed ? "confirmed-reservation" : ""
-                }`}
+                }
+                ${reservation && reservation.id == r.id ? "selected" : ""}
+                `}
                 onClick={() => {
                   setReservation(reservations.find(x => x.id == r.id));
                   setAddReservationUI(true);

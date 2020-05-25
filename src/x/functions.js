@@ -1,4 +1,4 @@
-import { Calendar } from "./calendar";
+import { CalendarFunctions } from "./calendar2";
 
 export function ID() {
   return parseInt(
@@ -6,7 +6,7 @@ export function ID() {
   );
 }
 
-let cal = new Calendar();
+let cal = new CalendarFunctions();
 
 let sample = [
   {

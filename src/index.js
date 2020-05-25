@@ -36,12 +36,12 @@ button{
   cursor:pointer;
   text-transform:uppercase;
   transition:.3s;
-  margin: 0 20px 20px 0;
       padding: 5px 10px;
       border-radius: 5px;
       border: none;
-      color: white;
-  :focus {outline:0;}
+      background:white;
+  :focus {outline:0;};
+
 
 }
 
@@ -56,15 +56,12 @@ input {
 
 
 
-button,.nav i,.add-reservation,.reservation{
+button,.add-reservation,.reservation,.year-nav i{
   box-shadow: var(--inset);
-
-  &:active {
-      box-shadow: none;
-    }
-    &:active{
-      background: var(--select);
-    }
+  :hover{
+    background:var(--select) !important;
+    color:white !important;
+  }
 }
 
 body{
@@ -109,10 +106,6 @@ to {
   }
 }
 
-}
-
-button{
-background:#3f3d56;
 }
 
 #app{

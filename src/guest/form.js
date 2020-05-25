@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { CalendarUI } from "../x/calendar";
+import { Calendar } from "../x/calendar2";
+
 import { useParams } from "react-router-dom";
 import { FB } from "../x/firebase";
 import { ReactComponent as None } from "../assets/no-reservations.svg";
@@ -83,7 +84,6 @@ const S = styled.div`
     margin: 20px;
     height: 50px;
     width: 50px;
-    box-shadow: var(--shadow);
     border-radius: 5px;
   }
 
@@ -327,7 +327,7 @@ export const Form = () => {
           <div className="business-name">{name}</div>
           <img alt="logo" src={logo} className="logo" />
 
-          {submit && <CalendarUI day={day} setDay={setDay} />}
+          {submit && <Calendar day={day} setDay={setDay} />}
         </>
       )}
 
