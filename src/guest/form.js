@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Calendar } from "../x/calendar2";
+import { CalendarUI } from "../x/calendar";
 
 import { useParams } from "react-router-dom";
 import { FB } from "../x/firebase";
@@ -88,9 +88,9 @@ const S = styled.div`
   }
 
   .calendar {
-    margin: 20px;
+    margin: 20px auto;
     display: block;
-    max-width: 400px;
+    max-width: 300px;
   }
 
   .inputs {
@@ -175,7 +175,6 @@ const S = styled.div`
       right: 0;
       top: 0px;
       margin: 20px;
-      max-width: 300px;
     }
 
     .inputs {
@@ -327,7 +326,7 @@ export const Form = () => {
           <div className="business-name">{name}</div>
           <img alt="logo" src={logo} className="logo" />
 
-          {submit && <Calendar day={day} setDay={setDay} />}
+          {submit && <CalendarUI day={day} setDay={setDay} />}
         </>
       )}
 

@@ -66,9 +66,9 @@ const S = styled.div`
   }
 
   .calendar {
-    margin: 20px;
+    margin: 20px auto;
     display: block;
-    max-width: 400px;
+    max-width: 300px;
   }
 
   .today {
@@ -334,6 +334,9 @@ export const Business = ({ setBusiness, url, username }) => {
         unconfirmedGR={unconfirmedGR}
       />
 
+      {/* <Calendar day={day} setDay={setDay} /> */}
+      <CalendarUI day={day} setDay={setDay} />
+
       <Reservations
         day={day}
         setDay={setDay}
@@ -346,9 +349,6 @@ export const Business = ({ setBusiness, url, username }) => {
         setUnconfirmed={setUnconfirmed}
         url={url}
       />
-
-      <Calendar day={day} setDay={setDay} />
-      {/* <CalendarUI day={day} setDay={setDay} /> */}
     </S>
   );
 };

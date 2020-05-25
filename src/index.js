@@ -56,7 +56,7 @@ input {
 
 
 
-button,.add-reservation,.reservation,.year-nav i{
+button,.add-reservation,.reservation{
   box-shadow: var(--inset);
   :hover{
     background:var(--select) !important;

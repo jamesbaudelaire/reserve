@@ -87,12 +87,15 @@ const S = styled.div`
     width: 150px;
     i {
       font-size: 30px;
+      box-shadow: var(--inset);
       cursor: pointer;
       margin: 0 10px;
-      background: #3f3d56;
-      color: white;
       border-radius: 5px;
       transition: 0.3s;
+      :hover {
+        background: var(--select) !important;
+        color: white !important;
+      }
     }
   }
   .year {
@@ -108,6 +111,12 @@ const S = styled.div`
   .month {
     font-size: 25px;
     margin: 5px 10px;
+  }
+
+  .selected {
+    background: var(--select);
+    color: white;
+    box-shadow: var(--inset);
   }
 `;
 
@@ -137,36 +146,32 @@ let days = (start, end) => {
   return DS;
 };
 
-let clearSelected = () => {
-  document
-    .querySelectorAll(".day")
-    .forEach(day => day.classList.remove("selected"));
-};
+// let clearSelected = () => {
+//   document
+//     .querySelectorAll(".day")
+//     .forEach(day => day.classList.remove("selected"));
+// };
 
-let selectDay = day => {
-  clearSelected();
-  if (day) {
-    document.getElementById(`day-${day}`).classList.add("selected");
-  }
-};
+// let selectDay = day => {
+//   clearSelected();
+//   if (day) {
+//     document.getElementById(`day-${day}`).classList.add("selected");
+//   }
+// };
 
 export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
-  const [daynum, setDaynum] = useState(null);
-
+  const [daynum, setDaynum] = useState(0);
   useEffect(() => {
     if (day) {
       setYear(day.year);
       setMonth(day.month);
       setDaynum(day.day);
-      selectDay(day.day);
     }
   }, [day]);
 
   let Today = () => {
-    clearSelected();
-
     setYear(cal.year());
     setMonth(cal.monthNumber());
     setDaynum(cal.dayNumber());
@@ -184,12 +189,6 @@ export const CalendarUI = ({ day, setDay }) => {
     Today();
   }, []);
 
-  useLayoutEffect(() => {
-    if (daynum) {
-      selectDay(daynum);
-    }
-  }, [daynum]);
-
   let start = new Date(year, month, 1).getDay();
 
   let end = new Date(year, month + 1, 0).getDate();
@@ -206,10 +205,8 @@ export const CalendarUI = ({ day, setDay }) => {
   }, [month]);
 
   let nav = x => {
-    clearSelected();
-
     setMonth(month + x);
-    setDaynum(null);
+    setDaynum(0);
 
     start = new Date(year, month, 1).getDay();
 
@@ -235,7 +232,6 @@ export const CalendarUI = ({ day, setDay }) => {
           className="material-icons home"
           onClick={() => {
             Today();
-            selectDay(daynum);
           }}
         >
           expand_more
@@ -263,7 +259,7 @@ export const CalendarUI = ({ day, setDay }) => {
             {week.map((day, i) => (
               <div
                 key={`day-${i}`}
-                className="day"
+                className={`day ${daynum == day ? "selected" : ""}`}
                 id={`day-${day}`}
                 onClick={() => {
                   if (day) {
@@ -272,7 +268,6 @@ export const CalendarUI = ({ day, setDay }) => {
                       month,
                       day
                     });
-                    selectDay(day);
                   }
                 }}
               >
