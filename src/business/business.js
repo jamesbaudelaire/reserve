@@ -334,9 +334,6 @@ export const Business = ({ setBusiness, url, username }) => {
         unconfirmedGR={unconfirmedGR}
       />
 
-      {/* <Calendar day={day} setDay={setDay} /> */}
-      <CalendarUI day={day} setDay={setDay} />
-
       <Reservations
         day={day}
         setDay={setDay}
@@ -349,6 +346,9 @@ export const Business = ({ setBusiness, url, username }) => {
         setUnconfirmed={setUnconfirmed}
         url={url}
       />
+
+      {/* <Calendar day={day} setDay={setDay} /> */}
+      <CalendarUI day={day} setDay={setDay} />
     </S>
   );
 };

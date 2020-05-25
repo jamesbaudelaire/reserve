@@ -50,18 +50,19 @@ const S = styled.div`
   user-select: none;
   font-size: 20px;
   display: inline-block;
+
   .week {
     display: grid;
     grid-template-columns: repeat(7, min-content);
   }
   .day {
     transition: 0.3s;
-    width: 30px;
-    margin: 3px;
-    padding: 3px;
+    width: 20px;
+    margin: 4px;
+    padding: 4px 8px;
     cursor: pointer;
-    height: 30px;
-    line-height: 30px;
+    height: 20px;
+    line-height: 20px;
     border-radius: 5px;
     &:hover {
       box-shadow: var(--inset);
@@ -69,11 +70,9 @@ const S = styled.div`
   }
   .days {
     text-align: center;
-  }
-  .selected {
-    color: white;
-    box-shadow: var(--inset);
-    background: var(--select);
+    justify-content: center;
+    display: grid;
+    margin-top: 10px;
   }
 
   .nav {
