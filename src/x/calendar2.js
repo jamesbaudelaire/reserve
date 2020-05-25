@@ -95,7 +95,7 @@ const S = styled.div`
     }
     .days {
       text-align: center;
-      margin: 15px 0 0px 30px;
+      margin: 20px 0px 0 20px;
     }
   }
 
