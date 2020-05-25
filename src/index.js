@@ -41,10 +41,7 @@ button{
       border: none;
       background:white;
   :focus {outline:0;};
-  :hover{
-    background:var(--select);
-    color:white;
-  }
+
 
 }
 
@@ -59,9 +56,12 @@ input {
 
 
 
-button,.nav i,.add-reservation,.reservation{
+button,.add-reservation,.reservation{
   box-shadow: var(--inset);
-
+  :hover{
+    background:var(--select) !important;
+    color:white !important;
+  }
 }
 
 body{

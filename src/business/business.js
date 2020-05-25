@@ -7,11 +7,15 @@ import styled from "styled-components";
 
 import { Reservations } from "./reservations";
 
+import { Unconfirmed } from "./unconfirmed";
+
 import { FB, AUTH } from "../x/firebase";
 
 import { setuid } from "../redux/actions";
 
 import { useAnimation } from "../x/animation";
+
+import { Calendar } from "../x/calendar2";
 
 const S = styled.div`
   .topbar {
@@ -60,6 +64,10 @@ const S = styled.div`
     color: white;
   }
 
+  .calendar {
+    margin: 20px;
+  }
+
   @media screen and (min-width: 1000px) {
     .topbar {
       position: fixed;
@@ -80,6 +88,13 @@ const S = styled.div`
         display: block;
       }
     }
+
+    .calendar {
+      position: absolute;
+      right: 0;
+      top: 0px;
+      margin: 20px;
+    }
   }
 `;
 
@@ -87,8 +102,8 @@ export const Business = ({ setBusiness, url, username }) => {
   const [day, setDay] = useState(null);
   const [unconfirmed, setUnconfirmed] = useState([]);
   const [unconfirmedGR, setUnconfirmedGR] = useState([]);
-
-  console.log(unconfirmed);
+  const [reservation, setReservation] = useState(null);
+  const [addReservationUI, setAddReservationUI] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -253,12 +268,28 @@ export const Business = ({ setBusiness, url, username }) => {
         <div className="business-name">{username}</div>
       </div>
 
+      <Unconfirmed
+        setDay={setDay}
+        reservation={reservation}
+        setReservation={setReservation}
+        unconfirmed={unconfirmed}
+        setUnconfirmed={setUnconfirmed}
+        setAddReservationUI={setAddReservationUI}
+        unconfirmedGR={unconfirmedGR}
+      />
+
+      <Calendar day={day} setDay={setDay} />
+
       <Reservations
         day={day}
         setDay={setDay}
-        unconfirmed={unconfirmed}
+        reservation={reservation}
+        setReservation={setReservation}
+        // unconfirmed={unconfirmed}
+        addReservationUI={addReservationUI}
+        setAddReservationUI={setAddReservationUI}
         setUnconfirmed={setUnconfirmed}
-        unconfirmedGR={unconfirmedGR}
+        // unconfirmedGR={unconfirmedGR}
         url={url}
       />
     </S>

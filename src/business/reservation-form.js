@@ -70,7 +70,7 @@ const S = styled.div`
         right: 0;
         bottom: 0;
         box-shadow: var(--inset);
-
+        background: white;
         transition: 0.4s;
         border-radius: 5px;
         &:before {
@@ -80,7 +80,7 @@ const S = styled.div`
           width: 15px;
           left: 2.5px;
           bottom: 2.5px;
-          background-color: white;
+          background-color: var(--theme);
           transition: 0.4s;
           border-radius: 4px;
           box-shadow: var(--shadow);

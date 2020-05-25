@@ -78,7 +78,7 @@ const S = styled.div`
     .months {
       height: 200px;
       overflow: scroll;
-      margin-top: 10px;
+      margin-top: 15px;
       text-align: center;
       box-shadow: var(--shadow);
       border-radius: 5px;
@@ -174,6 +174,8 @@ export const Calendar = ({ day, setDay }) => {
       setYear(day.year);
       setMonth(day.month);
       setDaynumber(day.day);
+    } else {
+      today();
     }
   }, [day]);
 

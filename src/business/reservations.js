@@ -27,10 +27,6 @@ const S = styled.div`
     color: var(--theme);
   }
 
-  .calendar {
-    margin: 20px;
-  }
-
   .today {
     font-size: 25px;
     margin: 0 20px;
@@ -55,7 +51,7 @@ const S = styled.div`
     z-index: 100;
   }
 
-  .unconfirmed-reservations {
+  /* .unconfirmed-reservations {
     box-shadow: var(--shadow);
     margin: 20px;
     padding: 10px 0px;
@@ -80,11 +76,7 @@ const S = styled.div`
       display: block;
       margin: 0 0 10px 20px;
     }
-  }
-
-  .guest-reservation {
-    background: #fea944;
-  }
+  } */
 
   .no-reservations {
     margin: 20px;
@@ -104,13 +96,13 @@ const S = styled.div`
   }
 
   @media screen and (max-width: 1000px) {
-    .unconfirmed-reservations {
+    /* .unconfirmed-reservations {
       button {
         &:last-child {
           margin-right: 20px;
         }
       }
-    }
+    } */
     .loading-reservations {
       left: 0;
     }
@@ -120,12 +112,6 @@ const S = styled.div`
     .add-reservation {
       left: 0;
       right: unset;
-    }
-    .calendar {
-      position: absolute;
-      right: 0;
-      top: 0px;
-      margin: 20px;
     }
 
     .today {
@@ -138,7 +124,7 @@ const S = styled.div`
       bottom: 0;
     }
 
-    .unconfirmed-reservations {
+    /* .unconfirmed-reservations {
       position: fixed;
       right: 0;
       left: 0;
@@ -158,7 +144,7 @@ const S = styled.div`
       span {
         margin: 10px;
       }
-    }
+    } */
 
     .no-reservations {
       margin: 30px;
@@ -182,8 +168,12 @@ let getDayName = day => {
 export const Reservations = ({
   day,
   setDay,
-  unconfirmed,
-  unconfirmedGR,
+  reservation,
+  setReservation,
+  addReservationUI,
+  setAddReservationUI,
+  // unconfirmed,
+  // unconfirmedGR,
   setUnconfirmed,
   url
 }) => {
@@ -212,8 +202,8 @@ export const Reservations = ({
     setLoading(false);
   }, [reservations]);
 
-  const [addReservationUI, setAddReservationUI] = useState(false);
-  const [reservation, setReservation] = useState(null);
+  // const [addReservationUI, setAddReservationUI] = useState(false);
+  // const [reservation, setReservation] = useState(null);
 
   let getNumbers = status => {
     let n = 0;
@@ -288,7 +278,7 @@ export const Reservations = ({
         </span>
       </div>
 
-      {unconfirmed.length + unconfirmedGR.length > 0 && (
+      {/* {unconfirmed.length + unconfirmedGR.length > 0 && (
         <div className="unconfirmed-reservations">
           <span>{unconfirmed.length + unconfirmedGR.length} UNCONFIRMED</span>
           <div>
@@ -327,10 +317,11 @@ export const Reservations = ({
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* {<CalendarUI day={day} setDay={setDay} />} */}
-      <Calendar day={day} setDay={setDay} />
+
+      {/* <Calendar day={day} setDay={setDay} /> */}
 
       <div className="reservations-container">
         {reservations.length > 0 && (

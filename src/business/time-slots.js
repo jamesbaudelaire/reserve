@@ -30,6 +30,7 @@ const S = styled.div`
 
   .confirmed-reservation {
     background: var(--theme);
+    color: white;
   }
 
   .time-slot {
