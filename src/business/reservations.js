@@ -98,7 +98,7 @@ export const Reservations = ({
   useEffect(() => {
     setLoading(true);
     if (LS.guest) {
-      setUnconfirmed(reservationsData.filter(r => !r.confirmed));
+      // setUnconfirmed(reservationsData.filter(r => !r.confirmed));
 
       if (reservationsData && day) {
         let reservations = reservationsData.filter(r =>

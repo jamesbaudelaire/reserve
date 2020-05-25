@@ -41,6 +41,9 @@ export class Calendar {
   monthName() {
     return CalendarData.months[this.date.getMonth()];
   }
+  timestamp() {
+    return this.year() + this.monthNumber() + this.dayNumber();
+  }
 }
 let cal = new Calendar();
 
@@ -144,19 +147,6 @@ let days = (start, end) => {
 
   return DS;
 };
-
-// let clearSelected = () => {
-//   document
-//     .querySelectorAll(".day")
-//     .forEach(day => day.classList.remove("selected"));
-// };
-
-// let selectDay = day => {
-//   clearSelected();
-//   if (day) {
-//     document.getElementById(`day-${day}`).classList.add("selected");
-//   }
-// };
 
 export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
