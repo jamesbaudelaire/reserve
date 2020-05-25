@@ -34,7 +34,6 @@ const S = styled.div`
     top: 0;
     left: 0;
     margin: 20px;
-    box-shadow: var(--shadow);
   }
 
   .top-shelf {
@@ -54,6 +53,11 @@ const S = styled.div`
       margin: 20px;
       margin-right: 0;
     }
+  }
+
+  .selected {
+    background: var(--select);
+    color: white;
   }
 
   @media screen and (min-width: 1000px) {
@@ -83,6 +87,8 @@ export const Business = ({ setBusiness, url, username }) => {
   const [day, setDay] = useState(null);
   const [unconfirmed, setUnconfirmed] = useState([]);
   const [unconfirmedGR, setUnconfirmedGR] = useState([]);
+
+  console.log(unconfirmed);
 
   const dispatch = useDispatch();
 

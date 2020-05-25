@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
 
 import { CalendarUI } from "../x/calendar";
+
+import { Calendar } from "../x/calendar2";
 
 import { useSelector } from "react-redux";
 
@@ -26,9 +28,7 @@ const S = styled.div`
   }
 
   .calendar {
-    margin: 0px auto;
-    display: block;
-    width: min-content;
+    margin: 20px;
   }
 
   .today {
@@ -56,7 +56,11 @@ const S = styled.div`
   }
 
   .unconfirmed-reservations {
-    margin: 10px 0 20px 0;
+    box-shadow: var(--shadow);
+    margin: 20px;
+    padding: 10px 0px;
+    border-radius: 5px;
+
     div {
       overflow: auto;
       white-space: nowrap;
@@ -83,7 +87,7 @@ const S = styled.div`
   }
 
   .no-reservations {
-    margin: 0 20px;
+    margin: 20px;
     opacity: 0;
     font-size: 20px;
     transition: 0.3s;
@@ -139,10 +143,9 @@ const S = styled.div`
       right: 0;
       left: 0;
       top: 20px;
+      padding: unset;
       margin: auto;
       width: calc(100% - 400px);
-      box-shadow: var(--shadow);
-      border-radius: 5px;
 
       div {
         overflow: scroll;
@@ -187,7 +190,6 @@ export const Reservations = ({
   const [loading, setLoading] = useState();
 
   const [reservations, setReservations] = useState([]);
-
   const reservationsData = useSelector(s => s.reservations);
 
   useEffect(() => {
@@ -292,11 +294,9 @@ export const Reservations = ({
           <div>
             {unconfirmedGR.map(r => (
               <button
-                style={{
-                  background:
-                    reservation && reservation.id == r.id ? `var(--select)` : ""
-                }}
-                className="unconfirmed-reservation guest-reservation"
+                className={`unconfirmed-reservation guest-reservation
+                ${reservation && reservation.id == r.id ? "selected" : ""}
+                `}
                 key={r.id}
                 onClick={() => {
                   setDay(r.date);
@@ -311,15 +311,12 @@ export const Reservations = ({
 
             {unconfirmed.map(r => (
               <button
-                style={{
-                  background:
-                    reservation && reservation.id == r.id ? `var(--select)` : ""
-                }}
-                className="unconfirmed-reservation"
+                className={`unconfirmed-reservation
+                ${reservation && reservation.id == r.id ? "selected" : ""}
+                `}
                 key={r.id}
                 onClick={() => {
                   setDay(r.date);
-
                   setReservation(null);
                   setReservation(r);
                   setAddReservationUI(true);
@@ -332,22 +329,27 @@ export const Reservations = ({
         </div>
       )}
 
-      {<CalendarUI day={day} setDay={setDay} />}
+      {/* {<CalendarUI day={day} setDay={setDay} />} */}
+      <Calendar day={day} setDay={setDay} />
 
-      <TimeSlots
-        loading={loading}
-        reservations={reservations}
-        setAddReservationUI={setAddReservationUI}
-        setReservation={setReservation}
-        reservation={reservation}
-      />
+      <div className="reservations-container">
+        {reservations.length > 0 && (
+          <TimeSlots
+            loading={loading}
+            reservations={reservations}
+            setAddReservationUI={setAddReservationUI}
+            setReservation={setReservation}
+            reservation={reservation}
+          />
+        )}
 
-      {!loading && reservations.length === 0 && (
-        <div className="no-reservations" {...load}>
-          <span>No reservations!</span>
-          <None className="svg-none" />
-        </div>
-      )}
+        {!loading && reservations.length === 0 && (
+          <div className="no-reservations" {...load}>
+            <span>No reservations!</span>
+            <None className="svg-none" />
+          </div>
+        )}
+      </div>
 
       {!LS.guest && loading && (
         <svg className="loader loading-reservations">
