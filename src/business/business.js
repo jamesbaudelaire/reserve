@@ -15,8 +15,10 @@ import { setuid } from "../redux/actions";
 
 import { useAnimation } from "../x/animation";
 
-import { Calendar } from "../x/calendar2";
-import { CalendarUI } from "../x/calendar";
+// import { Calendar } from "../x/calendar2";
+import { Calendar, CalendarUI } from "../x/calendar";
+
+import { Note } from "./note";
 
 const S = styled.div`
   .topbar {
@@ -123,6 +125,13 @@ const S = styled.div`
   }
 `;
 
+let cal = new Calendar();
+let today = {
+  year: cal.year(),
+  month: cal.monthNumber(),
+  day: cal.dayNumber()
+};
+
 export const Business = ({ setBusiness, url, username }) => {
   const [day, setDay] = useState(null);
   const [unconfirmed, setUnconfirmed] = useState([]);
@@ -177,25 +186,25 @@ export const Business = ({ setBusiness, url, username }) => {
     }
   }, [uid]);
 
-  useEffect(() => {
-    if (uid) {
-      let detach = FB.firestore()
-        .collection("business")
-        .doc(uid)
-        .collection("reservations")
-        .where("confirmed", "==", false)
-        .onSnapshot(q => {
-          let res = [];
-          q.forEach(d => {
-            let r = d.data();
-            res.push(r);
-          });
-          setUnconfirmed(res);
-        });
+  // useEffect(() => {
+  //   if (uid) {
+  //     let detach = FB.firestore()
+  //       .collection("business")
+  //       .doc(uid)
+  //       .collection("reservations")
+  //       .where("confirmed", "==", false)
+  //       .onSnapshot(q => {
+  //         let res = [];
+  //         q.forEach(d => {
+  //           let r = d.data();
+  //           res.push(r);
+  //         });
+  //         setUnconfirmed(res);
+  //       });
 
-      return () => detach();
-    }
-  }, [uid]);
+  //     return () => detach();
+  //   }
+  // }, [uid]);
 
   const [topshelf, setTopshelf] = useState(false);
 
@@ -334,6 +343,11 @@ export const Business = ({ setBusiness, url, username }) => {
         unconfirmedGR={unconfirmedGR}
       />
 
+      {/* <Calendar day={day} setDay={setDay} /> */}
+      <CalendarUI day={day} setDay={setDay} />
+
+      {/* <Note/> */}
+
       <Reservations
         day={day}
         setDay={setDay}
@@ -346,9 +360,6 @@ export const Business = ({ setBusiness, url, username }) => {
         setUnconfirmed={setUnconfirmed}
         url={url}
       />
-
-      {/* <Calendar day={day} setDay={setDay} /> */}
-      <CalendarUI day={day} setDay={setDay} />
     </S>
   );
 };
