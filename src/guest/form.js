@@ -45,20 +45,6 @@ const S = styled.div`
       position: absolute;
       bottom: 0;
     }
-
-    i {
-      font-size: 40px;
-      color: var(--theme);
-      position: absolute;
-      top: 0;
-      right: 0%;
-      margin: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-      &:hover {
-        color: var(--select);
-      }
-    }
   }
   .inputs {
     input:required {
@@ -333,11 +319,6 @@ export const Form = () => {
         <div className="not-found">
           <p>Business not listed...</p>
           <None />
-          <Link to="/">
-            <i className="material-icons-round" onClick={() => {}}>
-              home
-            </i>
-          </Link>
         </div>
       )}
 

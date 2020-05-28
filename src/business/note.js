@@ -26,7 +26,7 @@ const S = styled.div`
 export const Note = ({ uid, day }) => {
   let timer;
 
-  // let saveToCLoud = x => {
+  // let saveTopCloud = x => {
   //   clearTimeout(timer);
   //   timer = setTimeout(() => {
   //     DB.note(uid, x);
