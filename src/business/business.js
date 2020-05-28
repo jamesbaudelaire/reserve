@@ -15,12 +15,11 @@ import { setuid } from "../redux/actions";
 
 import { useAnimation } from "../x/animation";
 
+import { Note } from "./note";
 // import { Calendar } from "../x/calendar2";
 import { Calendar, CalendarUI } from "../x/calendar";
 
 let cal = new Calendar();
-
-import { Note } from "./note";
 
 const S = styled.div`
   .topbar {
