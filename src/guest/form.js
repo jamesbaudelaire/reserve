@@ -300,6 +300,7 @@ export const Form = () => {
     r.confirmed = false;
 
     r.rsrv = true;
+    r.gr = true;
 
     r.id = ID();
 

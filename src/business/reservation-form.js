@@ -397,7 +397,7 @@ export const ReservationForm = ({
               onClick={() => {
                 let r = newReservation();
                 if (r.people > 0 && r.name && r.time) {
-                  if (reservation.rsrv) {
+                  if (reservation.gr) {
                     DB.deleteGR(url, reservation.id);
                   }
 
