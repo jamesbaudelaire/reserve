@@ -60,7 +60,7 @@ const S = styled.div`
         }
         &:checked + span:before {
           transform: translateX(20px);
-          background-color:white;
+          background-color: white;
         }
       }
       span {
@@ -289,6 +289,9 @@ export const ReservationForm = ({
 
     if (reservation) {
       r.id = reservation.id;
+      if (reservation.rsrv) {
+        r.rsrv = true;
+      }
     } else {
       r.id = ID();
     }
@@ -387,24 +390,17 @@ export const ReservationForm = ({
                 delete
               </button>
             ))}
-          {reservation && reservation.gr ? (
-            <button
-              id="add-button"
-              onClick={() => {
-                reservation.gr = false;
-                addFBReservation(reservation);
-                DB.deleteGR(url, reservation.id);
-                resetui();
-              }}
-            >
-              add
-            </button>
-          ) : (
+
+          {
             <button
               id="add-button"
               onClick={() => {
                 let r = newReservation();
                 if (r.people > 0 && r.name && r.time) {
+                  if (reservation.rsrv) {
+                    DB.deleteGR(url, reservation.id);
+                  }
+
                   dispatch(addReservation(r));
 
                   addFBReservation(r);
@@ -413,9 +409,9 @@ export const ReservationForm = ({
                 }
               }}
             >
-              {reservation ? "update" : "add"}
+              {reservation ? (reservation.gr ? "approve" : "update") : "add"}
             </button>
-          )}
+          }
         </div>
       </div>
     </S>

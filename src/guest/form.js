@@ -256,7 +256,7 @@ export const Form = () => {
     {
       input: "phone",
       icon: "phone",
-      type: "text",
+      type: "number",
       req: true,
       limit: 10
     },
@@ -298,8 +298,6 @@ export const Form = () => {
     };
 
     r.confirmed = false;
-
-    r.gr = true;
 
     r.rsrv = true;
 
