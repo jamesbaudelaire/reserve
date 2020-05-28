@@ -18,6 +18,9 @@ import { useAnimation } from "../x/animation";
 
 import { ReactComponent as None } from "../assets/no-reservations.svg";
 
+import { Calendar } from "../x/calendar";
+let cal = new Calendar();
+
 const S = styled.div`
   .add-reservation {
     cursor: pointer;
@@ -47,6 +50,7 @@ const S = styled.div`
     height: 160px;
     margin: 0 20px;
     width: calc(100% - 40px);
+    margin-top: 20px;
   }
 
   @media screen and (max-width: 1000px) {
@@ -98,7 +102,13 @@ export const Reservations = ({
   useEffect(() => {
     setLoading(true);
     if (LS.guest) {
-      // setUnconfirmed(reservationsData.filter(r => !r.confirmed));
+      setUnconfirmed(
+        reservationsData
+          .filter(r => !r.confirmed)
+          .filter(r =>
+            ["year", "month", "day"].every(x => r.date[x] >= cal.today()[x])
+          )
+      );
 
       if (reservationsData && day) {
         let reservations = reservationsData.filter(r =>
