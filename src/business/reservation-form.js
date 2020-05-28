@@ -131,12 +131,17 @@ const S = styled.div`
     }
 
     input:required {
-      border-left: 3px solid var(--theme);
+      border-left: 3px solid var(--red);
       box-sizing: border-box;
     }
     input:valid {
       border: none;
     }
+  }
+
+  .clickable {
+    color: var(--theme);
+    cursor: pointer;
   }
 
   @media screen and (min-width: 1000px) {
@@ -231,18 +236,18 @@ export const ReservationForm = ({
       req: true,
       max: 99
     },
-    {
-      input: "email",
-      icon: "email",
-      type: "email",
-      limit: 50
-    },
-    {
-      input: "phone",
-      icon: "phone",
-      type: "text",
-      limit: 10
-    },
+    // {
+    //   input: "email",
+    //   icon: "email",
+    //   type: "email",
+    //   limit: 50
+    // },
+    // {
+    //   input: "phone",
+    //   icon: "phone",
+    //   type: "text",
+    //   limit: 10
+    // },
     { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
 
@@ -252,10 +257,20 @@ export const ReservationForm = ({
         document.getElementById(x.input).value = reservation[x.input];
       });
 
+      ["phone", "email"].forEach(x => {
+        document.getElementById(x).value = reservation[x];
+      });
+
       document.getElementById("confirmed").checked = reservation.confirmed;
       document.getElementById("time").value = `${convertSingle(
         reservation.time.hour
       )}:${convertSingle(reservation.time.minutes)}`;
+
+      document.getElementById("phone-link").href = `tel:${reservation.phone}`;
+
+      document.getElementById("email-link").href = `mailto:${
+        reservation.email
+      }`;
     }
   }, [reservation]);
 
@@ -276,6 +291,9 @@ export const ReservationForm = ({
     let r = {};
     inputs.forEach(x => {
       r[x.input] = document.getElementById(x.input).value;
+    });
+    ["phone", "email"].forEach(x => {
+      r[x] = document.getElementById(x).value;
     });
 
     r.people = parseInt(r.people);
@@ -329,9 +347,42 @@ export const ReservationForm = ({
 
         <div className="inputs">
           <div className="text">
+            <div className="input">
+              <a id="phone-link" rel="noopener noreferrer" target="_blank">
+                <i className="material-icons clickable">phone</i>
+              </a>
+              <input
+                onClick={() => {
+                  scroll("phone");
+                }}
+                id="phone"
+                placeholder="phone"
+                type="text"
+                maxLength="10"
+                required={true}
+              />
+            </div>
+
+            <div className="input">
+              <a id="email-link" rel="noopener noreferrer" target="_blank">
+                <i className="material-icons clickable">email</i>
+              </a>
+              <input
+                onClick={() => {
+                  scroll("email");
+                }}
+                id="email"
+                placeholder="email"
+                type="email"
+                maxLength="50"
+              />
+            </div>
+          </div>
+
+          <div className="text">
             {inputs.map(x => (
               <div key={x.input} className="input">
-                <i className="material-icons back">{x.icon}</i>
+                <i className="material-icons">{x.icon}</i>
                 <input
                   onClick={() => {
                     scroll(x.input);

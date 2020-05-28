@@ -45,24 +45,10 @@ const S = styled.div`
       position: absolute;
       bottom: 0;
     }
-
-    i {
-      font-size: 40px;
-      color: var(--theme);
-      position: absolute;
-      top: 0;
-      right: 0%;
-      margin: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-      &:hover {
-        color: var(--select);
-      }
-    }
   }
   .inputs {
     input:required {
-      border-left: 5px solid var(--theme);
+      border-left: 5px solid var(--red);
       box-sizing: border-box;
     }
     input:valid {
@@ -256,7 +242,7 @@ export const Form = () => {
     {
       input: "phone",
       icon: "phone",
-      type: "number",
+      type: "text",
       req: true,
       limit: 10
     },
@@ -331,13 +317,8 @@ export const Form = () => {
 
       {!listed && (
         <div className="not-found">
-          <p>Business not listed!</p>
+          <p>Business not listed...</p>
           <None />
-          <Link to="/">
-            <i className="material-icons-round" onClick={() => {}}>
-              home
-            </i>
-          </Link>
         </div>
       )}
 

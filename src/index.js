@@ -21,6 +21,7 @@ const GS = createGlobalStyle`
 --theme:#6b63ff;
 --select:#3acc6c;
 --grey:rgb(200, 200, 200);
+--red:#d50000;
 
 }
 
