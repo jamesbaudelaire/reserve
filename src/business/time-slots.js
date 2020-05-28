@@ -4,9 +4,6 @@ import styled from "styled-components";
 import { IO } from "../x/IO";
 
 const S = styled.div`
-  margin: 20px;
-  background: white;
-
   .reservations {
     max-width: 200px;
     margin-left: 50px;
@@ -72,11 +69,6 @@ const S = styled.div`
   @media screen and (max-width: 1000px) {
     white-space: nowrap;
     overflow: scroll;
-
-    box-shadow: var(--shadow);
-    margin: 20px;
-    padding: 10px 0px;
-    border-radius: 5px;
 
     .reservations {
       display: grid;
