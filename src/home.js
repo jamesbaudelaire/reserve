@@ -81,7 +81,7 @@ export const Home = () => {
           .catch(error => {
             if (error) {
               setLoading(false);
-              alert("App is overloaded, try again later!");
+              alert("Error, try again later!");
             }
           });
       }

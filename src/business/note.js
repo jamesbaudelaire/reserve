@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+import { DB } from "../x/firebase";
+
 const S = styled.div`
   margin: 20px;
   box-shadow: var(--shadow);
@@ -11,18 +13,18 @@ const S = styled.div`
     margin: 10px;
   }
 `;
-export const Note = () => {
-  const [note, setNote] = useState();
-  console.log(note);
-
+export const Note = ({ uid }) => {
   let timer;
 
-  let text = x => {
+  let saveToCLoud = x => {
     clearTimeout(timer);
-
     timer = setTimeout(() => {
-      setNote(x);
+      DB.note(uid, x);
     }, 1000);
+  };
+
+  let saveLocal = x => {
+    console.log(x);
   };
 
   return (
@@ -31,7 +33,11 @@ export const Note = () => {
       <div
         contentEditable="true"
         onInput={e => {
-          text(e.currentTarget.textContent);
+          if (uid) {
+            saveToCLoud(e.currentTarget.textContent);
+          } else {
+            saveLocal(e.currentTarget.textContent);
+          }
         }}
       />
     </S>

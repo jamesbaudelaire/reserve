@@ -41,8 +41,12 @@ export class Calendar {
   monthName() {
     return CalendarData.months[this.date.getMonth()];
   }
-  timestamp() {
-    return this.year() + this.monthNumber() + this.dayNumber();
+  today() {
+    return {
+      year: this.year(),
+      month: this.monthNumber(),
+      day: this.dayNumber()
+    };
   }
 }
 let cal = new Calendar();
@@ -91,6 +95,7 @@ const S = styled.div`
       font-size: 30px;
       box-shadow: var(--inset);
       cursor: pointer;
+      background: white;
       margin: 0 10px;
       border-radius: 5px;
       transition: 0.3s;

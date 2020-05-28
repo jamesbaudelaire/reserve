@@ -64,6 +64,13 @@ export const DB = {
       .collection("reservations")
       .doc(`${id}`)
       .delete();
+  },
+
+  note(uid, note) {
+    store
+      .collection("business")
+      .doc(uid)
+      .update({ note: note });
   }
 };
 
