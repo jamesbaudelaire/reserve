@@ -62,7 +62,7 @@ const S = styled.div`
   }
   .inputs {
     input:required {
-      border-left: 5px solid var(--theme);
+      border-left: 5px solid var(--red);
       box-sizing: border-box;
     }
     input:valid {
@@ -256,7 +256,7 @@ export const Form = () => {
     {
       input: "phone",
       icon: "phone",
-      type: "number",
+      type: "text",
       req: true,
       limit: 10
     },
@@ -331,7 +331,7 @@ export const Form = () => {
 
       {!listed && (
         <div className="not-found">
-          <p>Business not listed!</p>
+          <p>Business not listed...</p>
           <None />
           <Link to="/">
             <i className="material-icons-round" onClick={() => {}}>

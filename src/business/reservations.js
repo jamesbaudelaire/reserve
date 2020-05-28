@@ -186,7 +186,7 @@ export const Reservations = ({
 
       {!loading && reservations.length === 0 && (
         <div className="no-reservations" {...load}>
-          <span>No reservations!</span>
+          <span>No reservations...</span>
           <None className="svg-none" />
         </div>
       )}

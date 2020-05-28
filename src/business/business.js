@@ -328,6 +328,8 @@ export const Business = ({ setBusiness, url, username }) => {
         </span>
       </div>
 
+      {/* <Note uid={uid} day={day} /> */}
+
       <Unconfirmed
         setDay={setDay}
         reservation={reservation}
@@ -337,8 +339,6 @@ export const Business = ({ setBusiness, url, username }) => {
         setAddReservationUI={setAddReservationUI}
         unconfirmedGR={unconfirmedGR}
       />
-
-      {/* <Note uid={uid} /> */}
 
       {/* <Calendar day={day} setDay={setDay} /> */}
       <CalendarUI day={day} setDay={setDay} />

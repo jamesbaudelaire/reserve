@@ -80,7 +80,7 @@ export const Login = ({ setLoading }) => {
         login
       </button>
       <a href="mailto:ronakmystery@gmail.com">
-        <button className="email">Request account</button>
+        <button className="email">sign up</button>
       </a>
     </S>
   );
