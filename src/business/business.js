@@ -9,15 +9,19 @@ import { Reservations } from "./reservations";
 
 import { Unconfirmed } from "./unconfirmed";
 
-import { FB, AUTH } from "../x/firebase";
+import { FB, DB, AUTH } from "../x/firebase";
 
 import { setuid } from "../redux/actions";
 
 import { useAnimation } from "../x/animation";
 
 import { Note } from "./note";
+
+import { ReservationForm } from "./reservation-form";
+
 // import { Calendar } from "../x/calendar2";
 import { Calendar, CalendarUI } from "../x/calendar";
+import { getEmails } from "../analytics/functions";
 
 let cal = new Calendar();
 
@@ -88,6 +92,19 @@ const S = styled.div`
     }
   }
 
+  .add-reservation {
+    cursor: pointer;
+    font-size: 40px;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    margin: 20px;
+    transition: 0.3s;
+    background: white;
+    border-radius: 5px;
+    z-index: 100;
+  }
+
   @media screen and (min-width: 1000px) {
     .topbar {
       position: fixed;
@@ -122,6 +139,11 @@ const S = styled.div`
       top: 0px;
       margin: 20px;
       max-width: 300px;
+    }
+
+    .add-reservation {
+      left: 0;
+      right: unset;
     }
   }
 `;
@@ -208,41 +230,6 @@ export const Business = ({ setBusiness, url, username }) => {
   const load = useAnimation();
 
   const state = useSelector(s => s);
-  let getEmails = () => {
-    if (uid) {
-      FB.firestore()
-        .collection("business")
-        .doc(uid)
-        .collection("reservations")
-        .where("email", ">", "")
-        .get()
-        .then(q => {
-          let res = [];
-          q.forEach(d => {
-            let r = d.data();
-            res.push(r.email);
-          });
-
-          let emails = [...new Set(res)].join(", ");
-
-          if (emails) {
-            prompt("Remember to set BCC for email privacy!", emails);
-          } else {
-            alert("No emails found!");
-          }
-        });
-    } else {
-      let emails = [
-        ...new Set(state.reservations.map(r => r.email).filter(e => e !== ""))
-      ].join(", ");
-
-      if (emails) {
-        prompt("Remember to set BCC for email privacy!", emails);
-      } else {
-        alert("No emails found!");
-      }
-    }
-  };
 
   let getDayName = day => {
     let string = `${day.month + 1}/${day.day}/${day.year}`;
@@ -263,6 +250,18 @@ export const Business = ({ setBusiness, url, username }) => {
       });
     }
     return n;
+  };
+
+  let addFBReservation = r => {
+    if (uid) {
+      DB.add(uid, r);
+    }
+  };
+
+  let deleteFBReservation = r => {
+    if (uid) {
+      DB.delete(uid, r);
+    }
   };
 
   return (
@@ -287,7 +286,7 @@ export const Business = ({ setBusiness, url, username }) => {
 
           <button
             onClick={() => {
-              getEmails();
+              getEmails(uid, state.reservations);
             }}
           >
             get emails
@@ -313,6 +312,7 @@ export const Business = ({ setBusiness, url, username }) => {
           src={logo}
           className="logo"
           onClick={() => {
+            window.scrollTo(0, 0);
             setTopshelf(!topshelf);
           }}
         />
@@ -328,7 +328,7 @@ export const Business = ({ setBusiness, url, username }) => {
         </span>
       </div>
 
-      {/* <Note uid={uid} day={day} /> */}
+      <Note uid={uid} day={day} />
 
       <Unconfirmed
         setDay={setDay}
@@ -350,11 +350,33 @@ export const Business = ({ setBusiness, url, username }) => {
         setReservation={setReservation}
         reservations={reservations}
         setReservations={setReservations}
-        addReservationUI={addReservationUI}
+        // addReservationUI={addReservationUI}
         setAddReservationUI={setAddReservationUI}
         setUnconfirmed={setUnconfirmed}
         url={url}
       />
+
+      {!addReservationUI ? (
+        <i
+          className="material-icons-round add-reservation"
+          onClick={() => {
+            setAddReservationUI(true);
+          }}
+        >
+          add
+        </i>
+      ) : (
+        <ReservationForm
+          day={day}
+          setui={setAddReservationUI}
+          ui={addReservationUI}
+          reservation={reservation}
+          setReservation={setReservation}
+          addFBReservation={addFBReservation}
+          deleteFBReservation={deleteFBReservation}
+          url={url}
+        />
+      )}
     </S>
   );
 };

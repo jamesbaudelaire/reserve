@@ -1,6 +1,24 @@
 import { createStore, combineReducers } from "redux";
 
 import { LS } from "../x/functions";
+import { notesLS } from "../x/notesLS";
+
+const notesReducer = (state = [], action) => {
+  switch (action.type) {
+    case "loadNotes":
+      return [...action.data];
+
+    case "saveNote":
+      let newState = state.filter(n => n.id !== action.data.id);
+      newState.push(action.data);
+      notesLS.save(newState);
+
+      return newState;
+
+    default:
+      return state;
+  }
+};
 
 const reservationsReducer = (state = [], action) => {
   switch (action.type) {
@@ -11,10 +29,15 @@ const reservationsReducer = (state = [], action) => {
       if (state.find(r => r.id === action.data.id)) {
         state = state.filter(r => r.id !== action.data.id);
       }
-      return [...state, action.data];
+      let stateAdd = [...state, action.data];
+      LS.saveReservations(stateAdd);
+      return stateAdd;
 
     case "deleteReservation":
-      return state.filter(r => r.id !== action.data);
+      let stateDelete = state.filter(r => r.id !== action.data);
+      LS.saveReservations(stateDelete);
+
+      return stateDelete;
 
     default:
       return state;
@@ -23,7 +46,7 @@ const reservationsReducer = (state = [], action) => {
 
 const appReducer = (state = { uid: null }, action) => {
   switch (action.type) {
-    case "set":
+    case "setUid":
       state.uid = action.data;
       return state;
     default:
@@ -33,11 +56,13 @@ const appReducer = (state = { uid: null }, action) => {
 
 export const Reducers = combineReducers({
   reservations: reservationsReducer,
-  app: appReducer
+  app: appReducer,
+  notes: notesReducer
 });
 
 export const store = createStore(Reducers);
 
 store.subscribe(() => {
-  LS.saveReservations(store.getState().reservations);
+  // console.log(store.getState().notes)
+  // LS.saveReservations(store.getState().reservations);
 });

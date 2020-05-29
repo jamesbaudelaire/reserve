@@ -4,11 +4,11 @@ import styled from "styled-components";
 
 import { useSelector } from "react-redux";
 
-import { ReservationForm } from "./reservation-form";
+// import { ReservationForm } from "./reservation-form";
 
 import { TimeSlots } from "./time-slots";
 
-import { DB } from "../x/firebase";
+// import { DB } from "../x/firebase";
 
 import { LS } from "../x/functions";
 
@@ -22,7 +22,7 @@ import { Calendar } from "../x/calendar";
 let cal = new Calendar();
 
 const S = styled.div`
-  .add-reservation {
+  /* .add-reservation {
     cursor: pointer;
     font-size: 40px;
     position: fixed;
@@ -33,7 +33,7 @@ const S = styled.div`
     background: white;
     border-radius: 5px;
     z-index: 100;
-  }
+  } */
 
   .no-reservations {
     margin: 20px;
@@ -60,10 +60,10 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
-    .add-reservation {
+    /* .add-reservation {
       left: 0;
       right: unset;
-    }
+    } */
 
     .loading-reservations {
       top: unset;
@@ -90,7 +90,7 @@ export const Reservations = ({
   reservations,
   setReservations,
   setReservation,
-  addReservationUI,
+  // addReservationUI,
   setAddReservationUI,
   setUnconfirmed,
   url
@@ -125,19 +125,19 @@ export const Reservations = ({
     setLoading(false);
   }, [reservations]);
 
-  const uid = useSelector(s => s.app.uid);
+  // const uid = useSelector(s => s.app.uid);
 
-  let addFBReservation = r => {
-    if (uid) {
-      DB.add(uid, r);
-    }
-  };
+  // let addFBReservation = r => {
+  //   if (uid) {
+  //     DB.add(uid, r);
+  //   }
+  // };
 
-  let deleteFBReservation = r => {
-    if (uid) {
-      DB.delete(uid, r);
-    }
-  };
+  // let deleteFBReservation = r => {
+  //   if (uid) {
+  //     DB.delete(uid, r);
+  //   }
+  // };
 
   useEffect(() => {
     let targets = document.querySelectorAll(".unconfirmed-reservation");
@@ -152,7 +152,7 @@ export const Reservations = ({
 
   return (
     <S>
-      {!addReservationUI ? (
+      {/* {!addReservationUI ? (
         <i
           className="material-icons-round add-reservation"
           onClick={() => {
@@ -172,7 +172,7 @@ export const Reservations = ({
           deleteFBReservation={deleteFBReservation}
           url={url}
         />
-      )}
+      )} */}
 
       {reservations.length > 0 && (
         <TimeSlots
