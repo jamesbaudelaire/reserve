@@ -66,11 +66,13 @@ export const DB = {
       .delete();
   },
 
-  note(uid, note) {
+  note(uid, note, id) {
     store
       .collection("business")
       .doc(uid)
-      .update({ note: note });
+      .collection("notes")
+      .doc(`${id}`)
+      .set({ text: note });
   }
 };
 

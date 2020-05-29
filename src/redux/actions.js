@@ -36,6 +36,6 @@ export const loadNotes = x => {
 export const saveNote = (note, id) => {
   return {
     type: "saveNote",
-    data: { note, id }
+    data: { text: note, id }
   };
 };

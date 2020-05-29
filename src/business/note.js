@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { DB } from "../x/firebase";
+import { FB, DB } from "../x/firebase";
 
 import { saveNote } from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,18 +12,30 @@ const S = styled.div`
   box-shadow: var(--shadow);
   padding: 10px;
   border-radius: 5px;
+  font-size: 12px;
+  background: white;
 
   .note {
+    font-size: 16px;
     outline: none;
     margin: 10px;
     margin-bottom: 25px;
+    max-height: 200px;
+    overflow: scroll;
+    -webkit-user-select: auto;
   }
 
   .date {
-    font-size: 13px;
     position: absolute;
     right: 10px;
     bottom: 10px;
+  }
+
+  @media screen and (min-width: 1000px) {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    width: 140px;
   }
 `;
 
@@ -36,12 +48,12 @@ export const Note = ({ uid, day }) => {
 
   let timer;
 
-  // let saveTopCloud = x => {
-  //   clearTimeout(timer);
-  //   timer = setTimeout(() => {
-  //     DB.note(uid, x);
-  //   }, 1000);
-  // };
+  let saveCloud = note => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      DB.note(uid, note, dayId(day));
+    }, 1000);
+  };
 
   const notes = useSelector(s => s.notes);
 
@@ -53,10 +65,25 @@ export const Note = ({ uid, day }) => {
     let input = document.getElementById("note");
     input.innerText = "";
     if (day) {
-      let dayId = `${day.year}-${day.month}-${day.day}`;
-      let note = notes.find(({ id }) => id === dayId);
-      if (note && note.note) {
-        input.innerText = note.note;
+      if (uid) {
+        let detach = FB.firestore()
+          .collection("business")
+          .doc(uid)
+          .collection("notes")
+          .doc(`${dayId(day)}`)
+          .onSnapshot(q => {
+            let note = q.data();
+            if (note) {
+              input.innerText = note.text;
+            }
+          });
+
+        return () => detach();
+      } else {
+        let note = notes.find(({ id }) => id === dayId(day));
+        if (note) {
+          input.innerText = note.text;
+        }
       }
     }
   }, [day]);
@@ -70,6 +97,7 @@ export const Note = ({ uid, day }) => {
         contentEditable={true}
         onInput={e => {
           if (uid) {
+            saveCloud(e.currentTarget.innerText);
           } else {
             saveLocal(e.currentTarget.innerText);
           }

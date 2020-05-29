@@ -29,6 +29,8 @@ const GS = createGlobalStyle`
 display: none;
 }
 
+
+
 body,input,button{
   font-family:var(--font);
 }

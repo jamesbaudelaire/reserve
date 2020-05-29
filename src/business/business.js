@@ -312,6 +312,7 @@ export const Business = ({ setBusiness, url, username }) => {
           src={logo}
           className="logo"
           onClick={() => {
+            window.scrollTo(0, 0);
             setTopshelf(!topshelf);
           }}
         />
