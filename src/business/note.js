@@ -3,6 +3,9 @@ import styled from "styled-components";
 
 import { DB } from "../x/firebase";
 
+import { saveNote } from "../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
+
 const S = styled.div`
   margin: 20px;
   position: relative;
@@ -23,7 +26,14 @@ const S = styled.div`
     bottom: 10px;
   }
 `;
+
+let dayId = day => {
+  return `${day.year}-${day.month}-${day.day}`;
+};
+
 export const Note = ({ uid, day }) => {
+  const dispatch = useDispatch();
+
   let timer;
 
   // let saveTopCloud = x => {
@@ -33,21 +43,35 @@ export const Note = ({ uid, day }) => {
   //   }, 1000);
   // };
 
-  let saveLocal = x => {
-    console.log(x);
+  const notes = useSelector(s => s.notes);
+
+  let saveLocal = note => {
+    dispatch(saveNote(note, dayId(day)));
   };
+
+  useEffect(() => {
+    let input = document.getElementById("note");
+    input.innerText = "";
+    if (day) {
+      let dayId = `${day.year}-${day.month}-${day.day}`;
+      let note = notes.find(({ id }) => id === dayId);
+      if (note && note.note) {
+        input.innerText = note.note;
+      }
+    }
+  }, [day]);
 
   return (
     <S>
       Note...
       <div
+        id="note"
         className="note"
-        contentEditable="true"
+        contentEditable={true}
         onInput={e => {
           if (uid) {
-            // saveToCLoud(e.currentTarget.textContent);
           } else {
-            saveLocal(e.currentTarget.textContent);
+            saveLocal(e.currentTarget.innerText);
           }
         }}
       />

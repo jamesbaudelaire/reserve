@@ -4,7 +4,7 @@ import { Business } from "./business/business";
 
 import { LS } from "./x/functions";
 import { useDispatch } from "react-redux";
-import { loadReservations } from "./redux/actions";
+import { loadReservations, loadNotes } from "./redux/actions";
 
 import { FB } from "./x/firebase";
 import { setuid } from "./redux/actions";
@@ -12,6 +12,8 @@ import { setuid } from "./redux/actions";
 import { Login } from "./x/login";
 
 import { ReactComponent as Rsrv } from "./assets/rsrv.svg";
+
+import { notesLS } from "./x/notesLS";
 
 const S = styled.div`
   .app-name {
@@ -107,7 +109,9 @@ export const Home = () => {
               setUsername("Guest");
               setBusiness(true);
               LS.init();
+              notesLS.init();
               dispatch(loadReservations(LS.data.reservations));
+              dispatch(loadNotes(notesLS.data));
             }}
           >
             try now

@@ -21,7 +21,21 @@ export const deleteReservation = x => {
 
 export const setuid = x => {
   return {
-    type: "set",
+    type: "setUid",
     data: x
+  };
+};
+
+export const loadNotes = x => {
+  return {
+    type: "loadNotes",
+    data: x
+  };
+};
+
+export const saveNote = (note, id) => {
+  return {
+    type: "saveNote",
+    data: { note, id }
   };
 };
