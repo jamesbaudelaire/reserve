@@ -52,7 +52,7 @@ const S = styled.div`
       top: 20px;
       padding: unset;
       margin: auto;
-      width: calc(100% - 400px);
+      width: calc(100% - 440px);
 
       div {
         overflow: scroll;

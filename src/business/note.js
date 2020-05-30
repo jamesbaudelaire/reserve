@@ -13,7 +13,6 @@ const S = styled.div`
   padding: 10px;
   border-radius: 5px;
   font-size: 12px;
-  /* background: white; */
 
   .note {
     font-size: 16px;
@@ -37,12 +36,12 @@ const S = styled.div`
     position: fixed;
     left: 0;
     top: 50px;
-    width: 140px;
+    width: 160px;
   }
 `;
 
 let dayId = day => {
-  return `${day.year}-${day.month+1}-${day.day}`;
+  return `${day.year}-${day.month}-${day.day}`;
 };
 
 export const Note = ({ uid, day }) => {
@@ -105,7 +104,9 @@ export const Note = ({ uid, day }) => {
           }
         }}
       />
-      <div className="date">{day && `${day.month}/${day.day}/${day.year}`}</div>
+      <div className="date">
+        {day && `${day.month + 1}/${day.day}/${day.year}`}
+      </div>
     </S>
   );
 };

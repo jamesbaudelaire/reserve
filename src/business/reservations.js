@@ -4,11 +4,7 @@ import styled from "styled-components";
 
 import { useSelector } from "react-redux";
 
-// import { ReservationForm } from "./reservation-form";
-
 import { TimeSlots } from "./time-slots";
-
-// import { DB } from "../x/firebase";
 
 import { LS } from "../x/functions";
 
@@ -22,19 +18,6 @@ import { Calendar } from "../x/calendar";
 let cal = new Calendar();
 
 const S = styled.div`
-  /* .add-reservation {
-    cursor: pointer;
-    font-size: 40px;
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    margin: 20px;
-    transition: 0.3s;
-    background: white;
-    border-radius: 5px;
-    z-index: 100;
-  } */
-
   .no-reservations {
     margin: 20px;
     opacity: 0;
@@ -60,11 +43,6 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
-    /* .add-reservation {
-      left: 0;
-      right: unset;
-    } */
-
     .loading-reservations {
       top: unset;
       bottom: 0;
@@ -79,21 +57,19 @@ const S = styled.div`
       left: 0px;
       height: 160px;
       width: 320px;
+      z-index: -10;
     }
   }
 `;
 
 export const Reservations = ({
   day,
-  setDay,
   reservation,
   reservations,
   setReservations,
   setReservation,
-  // addReservationUI,
   setAddReservationUI,
-  setUnconfirmed,
-  url
+  setUnconfirmed
 }) => {
   const [loading, setLoading] = useState();
 
@@ -125,20 +101,6 @@ export const Reservations = ({
     setLoading(false);
   }, [reservations]);
 
-  // const uid = useSelector(s => s.app.uid);
-
-  // let addFBReservation = r => {
-  //   if (uid) {
-  //     DB.add(uid, r);
-  //   }
-  // };
-
-  // let deleteFBReservation = r => {
-  //   if (uid) {
-  //     DB.delete(uid, r);
-  //   }
-  // };
-
   useEffect(() => {
     let targets = document.querySelectorAll(".unconfirmed-reservation");
     targets.forEach((x, i) => {
@@ -152,28 +114,6 @@ export const Reservations = ({
 
   return (
     <S>
-      {/* {!addReservationUI ? (
-        <i
-          className="material-icons-round add-reservation"
-          onClick={() => {
-            setAddReservationUI(true);
-          }}
-        >
-          add
-        </i>
-      ) : (
-        <ReservationForm
-          day={day}
-          setui={setAddReservationUI}
-          ui={addReservationUI}
-          reservation={reservation}
-          setReservation={setReservation}
-          addFBReservation={addFBReservation}
-          deleteFBReservation={deleteFBReservation}
-          url={url}
-        />
-      )} */}
-
       {reservations.length > 0 && (
         <TimeSlots
           loading={loading}

@@ -19,7 +19,6 @@ import { Note } from "./note";
 
 import { ReservationForm } from "./reservation-form";
 
-// import { Calendar } from "../x/calendar2";
 import { Calendar, CalendarUI } from "../x/calendar";
 import { getEmails } from "../analytics/functions";
 
@@ -38,7 +37,6 @@ const S = styled.div`
 
   .logo {
     cursor: pointer;
-    /* background-color: white; */
     background-size: cover;
     height: 50px;
     width: 50px;
@@ -46,7 +44,7 @@ const S = styled.div`
     top: 0;
     left: 0;
     margin: 20px;
-    box-shadow: var(--inset);
+    box-shadow: var(--shadow);
   }
 
   .top-shelf {
@@ -57,7 +55,6 @@ const S = styled.div`
     &.loaded {
       opacity: 1;
     }
-    /* background: rgb(200, 200, 200); */
     right: 0;
     top: 0;
     width: 100%;
@@ -329,7 +326,6 @@ export const Business = ({ setBusiness, url, username }) => {
         </span>
       </div>
 
-      {/* <Calendar day={day} setDay={setDay} /> */}
       <CalendarUI day={day} setDay={setDay} />
 
       <Note uid={uid} day={day} />

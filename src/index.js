@@ -20,7 +20,6 @@ const GS = createGlobalStyle`
 --inset:black 1px 1px 3px 0 inset;
 --theme:#6b63ff;
 --green:#3acc6c;
-/* --grey:rgb(200, 200, 200); */
 --red:#d50000;
 
 --dark:rgb(30,30,30);
@@ -83,7 +82,7 @@ body{
 
 }
 
-body,button,input,.reservation-form,#guest-form .inputs{
+body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
   background:var(--light);
   color:var(--dark);
   @media (prefers-color-scheme: dark) {
@@ -135,7 +134,7 @@ transition:.7s;
 #app{
   position: absolute;
   overflow:scroll;
-  width: calc(100% - 400px);
+  width: calc(100% - 440px);
     height: calc(100% - 240px);
     box-shadow: var(--shadow);
     border-radius: 5px;

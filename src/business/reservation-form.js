@@ -160,7 +160,7 @@ const S = styled.div`
         margin: 10px;
         position: unset;
         margin: 10px 0 0 20px;
-        display:block;
+        display: block;
         label {
           margin: 10px 0;
           display: block;
@@ -209,7 +209,6 @@ let convertSingle = x => {
 };
 
 export const ReservationForm = ({
-  ui,
   day,
   setui,
   reservation,
@@ -236,18 +235,7 @@ export const ReservationForm = ({
       req: true,
       max: 99
     },
-    // {
-    //   input: "email",
-    //   icon: "email",
-    //   type: "email",
-    //   limit: 50
-    // },
-    // {
-    //   input: "phone",
-    //   icon: "phone",
-    //   type: "text",
-    //   limit: 10
-    // },
+
     { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
 
