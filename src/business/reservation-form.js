@@ -13,8 +13,9 @@ import { DB } from "../x/firebase";
 
 const S = styled.div`
   .reservation-form {
+    box-shadow: var(--shadow);
     position: fixed;
-    background: rgb(200, 200, 200);
+    /* background: rgb(200, 200, 200); */
     bottom: 0;
     border-radius: 10px 10px 0 0;
     left: 0%;
@@ -71,7 +72,6 @@ const S = styled.div`
         right: 0;
         bottom: 0;
         box-shadow: var(--inset);
-        background: white;
         transition: 0.4s;
         border-radius: 5px;
         &:before {
@@ -400,7 +400,7 @@ export const ReservationForm = ({
 
           <div className="input time">
             <i className="material-icons">schedule</i>
-            <input type="time" id="time" required />
+            <input type="time" id="time" defaultValue="12:00" required />
           </div>
         </div>
 

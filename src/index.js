@@ -19,10 +19,12 @@ const GS = createGlobalStyle`
 --shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 --inset:black 1px 1px 3px 0 inset;
 --theme:#6b63ff;
---select:#3acc6c;
---grey:rgb(200, 200, 200);
+--green:#3acc6c;
+/* --grey:rgb(200, 200, 200); */
 --red:#d50000;
 
+--dark:rgb(30,30,30);
+--light:rgb(240,240,240);
 }
 
 ::-webkit-scrollbar {
@@ -42,7 +44,6 @@ button{
       padding: 5px 10px;
       border-radius: 5px;
       border: none;
-      background:white;
   :focus {outline:0;};
 
 
@@ -55,17 +56,19 @@ input {
       border-radius: 5px;
       padding: 5px 10px;
       outline: none;
+      -webkit-appearance: none;
     }
-
 
 
 button,.add-reservation,.reservation{
   box-shadow: var(--inset);
   :hover{
-    background:var(--select) !important;
+    background:var(--green) !important;
     color:white !important;
   }
 }
+
+
 
 body{
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -77,10 +80,18 @@ body{
     display: block;
     height: 300px;
   }
-  background:rgb(240,240,240);
-  color:#3f3d56;
+
 }
 
+body,button,input,.reservation-form,#guest-form .inputs{
+  background:var(--light);
+  color:var(--dark);
+  @media (prefers-color-scheme: dark) {
+  background:var(--dark);
+  color:var(--light)
+}
+
+}
 
 .loader{
   position:fixed;top:0;right:0;
@@ -91,7 +102,7 @@ animation: rotate 1s linear infinite;
 
 circle {
 fill: none;
-stroke: var(--theme);
+stroke: var(--green);
 stroke-width: 3;
 stroke-dasharray: 100;
 stroke-dashoffset: 200;
@@ -133,7 +144,6 @@ transition:.7s;
     top: 0;
     bottom: 0;
     margin: auto;
-    background:white;
 }
 
 }

@@ -28,7 +28,7 @@ const S = styled.div`
     color: var(--theme);
     transition: 0.3s;
     &:hover {
-      color: var(--select);
+      color: var(--green);
     }
   }
 
@@ -81,6 +81,7 @@ const S = styled.div`
 
   .inputs {
     border-radius: 10px 10px 0px 0px;
+    box-shadow: var(--shadow);
 
     i {
       font-size: 30px;
@@ -88,7 +89,6 @@ const S = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    background: rgb(200, 200, 200);
     .text {
       white-space: nowrap;
       width: 100vw;
@@ -164,7 +164,7 @@ const S = styled.div`
     }
 
     .inputs {
-      background: unset;
+      box-shadow: none;
       margin: 20px 30px;
       position: absolute;
       top: 0;
@@ -233,7 +233,7 @@ export const Form = () => {
           setListed(false);
         }
         setTimeout(() => {
-          document.getElementById("form").classList.add("loaded");
+          document.getElementById("guest-form").classList.add("loaded");
         }, 300);
       });
   }, []);
@@ -301,7 +301,7 @@ export const Form = () => {
   };
 
   return (
-    <S id="form">
+    <S id="guest-form">
       <Link to="/">
         <div className="app-name">RSRV</div>
       </Link>
@@ -345,7 +345,7 @@ export const Form = () => {
 
           <div className="input time">
             <i className="material-icons">schedule</i>
-            <input type="time" id="time" required />
+            <input type="time" id="time" required defaultValue="12:00" />
           </div>
 
           <button

@@ -13,7 +13,7 @@ const S = styled.div`
   padding: 10px;
   border-radius: 5px;
   font-size: 12px;
-  background: white;
+  /* background: white; */
 
   .note {
     font-size: 16px;
@@ -23,6 +23,9 @@ const S = styled.div`
     max-height: 200px;
     overflow: scroll;
     -webkit-user-select: auto;
+    box-shadow: var(--inset);
+    padding: 10px;
+    border-radius: 5px;
   }
 
   .date {

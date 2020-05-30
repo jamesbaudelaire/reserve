@@ -8,7 +8,6 @@ const S = styled.div`
     margin: 20px;
     padding: 15px 0px;
     border-radius: 5px;
-    background: white;
 
     div {
       overflow: auto;
