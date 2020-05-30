@@ -103,6 +103,7 @@ const S = styled.div`
   .inputs {
     .time {
       margin: 10px;
+      margin-top: 0;
     }
     .input {
       display: inline-block;
@@ -147,7 +148,6 @@ const S = styled.div`
     .reservation-form {
       margin: 20px;
       border-radius: 10px;
-      width: 200px;
       box-shadow: var(--shadow);
       padding-bottom: 0px;
       .text {
