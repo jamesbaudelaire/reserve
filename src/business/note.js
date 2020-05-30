@@ -18,8 +18,7 @@ const S = styled.div`
   .note {
     font-size: 16px;
     outline: none;
-    margin: 10px;
-    margin-bottom: 25px;
+    margin: 10px 0 25px 0px;
     max-height: 200px;
     overflow: scroll;
     -webkit-user-select: auto;
@@ -43,7 +42,7 @@ const S = styled.div`
 `;
 
 let dayId = day => {
-  return `${day.year}-${day.month}-${day.day}`;
+  return `${day.year}-${day.month+1}-${day.day}`;
 };
 
 export const Note = ({ uid, day }) => {

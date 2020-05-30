@@ -14,11 +14,7 @@ import { DB } from "../x/firebase";
 import { ReactComponent as Contact } from "../assets/contact.svg";
 
 const S = styled.div`
-  opacity: 0;
-  transition: 0.3s;
-  &.loaded {
-    opacity: 1;
-  }
+
 
   .app-name {
     display: inline-block;
@@ -212,6 +208,7 @@ let convertTime = x => {
 
 export const Form = () => {
   const [day, setDay] = useState();
+  const [loading,setLoading]=useState(true)
 
   let { business } = useParams();
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_100/v1587884625/reserve/${business}.png`;
@@ -232,9 +229,7 @@ export const Form = () => {
         } else {
           setListed(false);
         }
-        setTimeout(() => {
-          document.getElementById("guest-form").classList.add("loaded");
-        }, 300);
+        setLoading(false)
       });
   }, []);
 
@@ -302,6 +297,13 @@ export const Form = () => {
 
   return (
     <S id="guest-form">
+
+{loading && (
+        <svg className="loader">
+          <circle cx="25" cy="25" r="15" />
+        </svg>
+      )}
+
       <Link to="/">
         <div className="app-name">RSRV</div>
       </Link>
@@ -312,6 +314,7 @@ export const Form = () => {
           <img alt="logo" src={logo} className="logo" />
 
           {submit && <CalendarUI day={day} setDay={setDay} />}
+          
         </>
       )}
 
