@@ -15,7 +15,6 @@ const S = styled.div`
   .reservation-form {
     box-shadow: var(--shadow);
     position: fixed;
-    /* background: rgb(200, 200, 200); */
     bottom: 0;
     border-radius: 10px 10px 0 0;
     left: 0%;
@@ -45,7 +44,7 @@ const S = styled.div`
   .toggle {
     line-height: 20px;
     margin: 20px;
-    display: block;
+    display: flex;
     label {
       margin-left: 10px;
       position: relative;
@@ -104,6 +103,7 @@ const S = styled.div`
   .inputs {
     .time {
       margin: 10px;
+      margin-top: 0;
     }
     .input {
       display: inline-block;
@@ -148,7 +148,6 @@ const S = styled.div`
     .reservation-form {
       margin: 20px;
       border-radius: 10px;
-      width: 200px;
       box-shadow: var(--shadow);
       padding-bottom: 0px;
       .text {
@@ -161,6 +160,7 @@ const S = styled.div`
         margin: 10px;
         position: unset;
         margin: 10px 0 0 20px;
+        display: block;
         label {
           margin: 10px 0;
           display: block;
@@ -209,7 +209,6 @@ let convertSingle = x => {
 };
 
 export const ReservationForm = ({
-  ui,
   day,
   setui,
   reservation,
@@ -236,18 +235,7 @@ export const ReservationForm = ({
       req: true,
       max: 99
     },
-    // {
-    //   input: "email",
-    //   icon: "email",
-    //   type: "email",
-    //   limit: 50
-    // },
-    // {
-    //   input: "phone",
-    //   icon: "phone",
-    //   type: "text",
-    //   limit: 10
-    // },
+
     { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
 
@@ -348,7 +336,7 @@ export const ReservationForm = ({
         <div className="inputs">
           <div className="text">
             <div className="input">
-              <a id="phone-link" rel="noopener noreferrer" target="_blank">
+              <a id="phone-link" rel="noopener noreferrer">
                 <i className="material-icons clickable">phone</i>
               </a>
               <input

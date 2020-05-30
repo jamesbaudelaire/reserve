@@ -13,13 +13,11 @@ const S = styled.div`
   padding: 10px;
   border-radius: 5px;
   font-size: 12px;
-  /* background: white; */
 
   .note {
     font-size: 16px;
     outline: none;
-    margin: 10px;
-    margin-bottom: 25px;
+    margin: 10px 0 25px 0px;
     max-height: 200px;
     overflow: scroll;
     -webkit-user-select: auto;
@@ -38,7 +36,7 @@ const S = styled.div`
     position: fixed;
     left: 0;
     top: 50px;
-    width: 140px;
+    width: 160px;
   }
 `;
 
@@ -106,7 +104,9 @@ export const Note = ({ uid, day }) => {
           }
         }}
       />
-      <div className="date">{day && `${day.month}/${day.day}/${day.year}`}</div>
+      <div className="date">
+        {day && `${day.month + 1}/${day.day}/${day.year}`}
+      </div>
     </S>
   );
 };
