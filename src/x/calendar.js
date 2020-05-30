@@ -95,12 +95,11 @@ const S = styled.div`
       font-size: 30px;
       box-shadow: var(--inset);
       cursor: pointer;
-      background: white;
       margin: 0 10px;
       border-radius: 5px;
       transition: 0.3s;
       :hover {
-        background: var(--select) !important;
+        background: var(--green) !important;
         color: white !important;
       }
     }
@@ -121,7 +120,7 @@ const S = styled.div`
   }
 
   .selected {
-    background: var(--select);
+    background: var(--green);
     color: white;
     box-shadow: var(--inset);
   }

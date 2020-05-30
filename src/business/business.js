@@ -38,7 +38,7 @@ const S = styled.div`
 
   .logo {
     cursor: pointer;
-    background-color: white;
+    /* background-color: white; */
     background-size: cover;
     height: 50px;
     width: 50px;
@@ -46,16 +46,18 @@ const S = styled.div`
     top: 0;
     left: 0;
     margin: 20px;
+    box-shadow: var(--inset);
   }
 
   .top-shelf {
     opacity: 0;
     transition: 0.3s;
+    box-shadow: var(--inset);
 
     &.loaded {
       opacity: 1;
     }
-    background: rgb(200, 200, 200);
+    /* background: rgb(200, 200, 200); */
     right: 0;
     top: 0;
     width: 100%;
@@ -68,7 +70,7 @@ const S = styled.div`
   }
 
   .selected {
-    background: var(--select) !important;
+    background: var(--green) !important;
     color: white !important;
   }
 
@@ -100,7 +102,6 @@ const S = styled.div`
     right: 0px;
     margin: 20px;
     transition: 0.3s;
-    background: white;
     border-radius: 5px;
     z-index: 100;
   }
@@ -328,6 +329,9 @@ export const Business = ({ setBusiness, url, username }) => {
         </span>
       </div>
 
+      {/* <Calendar day={day} setDay={setDay} /> */}
+      <CalendarUI day={day} setDay={setDay} />
+
       <Note uid={uid} day={day} />
 
       <Unconfirmed
@@ -339,9 +343,6 @@ export const Business = ({ setBusiness, url, username }) => {
         setAddReservationUI={setAddReservationUI}
         unconfirmedGR={unconfirmedGR}
       />
-
-      {/* <Calendar day={day} setDay={setDay} /> */}
-      <CalendarUI day={day} setDay={setDay} />
 
       <Reservations
         day={day}
