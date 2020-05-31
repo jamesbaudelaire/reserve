@@ -36,18 +36,7 @@ const S = styled.div`
     margin-top: 20px;
   }
 
-  @media screen and (max-width: 1000px) {
-    .loading-reservations {
-      left: 0;
-    }
-  }
-
   @media screen and (min-width: 1000px) {
-    .loading-reservations {
-      top: unset;
-      bottom: 0;
-    }
-
     .no-reservations {
       margin: 30px;
     }
@@ -61,6 +50,10 @@ const S = styled.div`
     }
   }
 `;
+
+let timeStamp = day => {
+  return new Date(day).getTime();
+};
 
 export const Reservations = ({
   day,
@@ -81,14 +74,17 @@ export const Reservations = ({
       setUnconfirmed(
         reservationsData
           .filter(r => !r.confirmed)
-          .filter(r =>
-            ["year", "month", "day"].every(x => r.date[x] >= cal.today()[x])
-          )
+          .filter(r => {
+            if (r.timestamp >= cal.timeStamp()) {
+              return r;
+            }
+          })
       );
 
       if (reservationsData && day) {
-        let reservations = reservationsData.filter(r =>
-          ["year", "month", "day"].every(x => r.date[x] === day[x])
+        let reservations = reservationsData.filter(
+          r =>
+            r.timestamp == timeStamp(`${day.month + 1}/${day.day}/${day.year}`)
         );
         setReservations(reservations);
       }
@@ -132,9 +128,9 @@ export const Reservations = ({
       )}
 
       {!LS.guest && loading && (
-        <svg className="loader loading-reservations">
-          <circle cx="25" cy="25" r="15" />
-        </svg>
+        <div className="loading-line">
+          <div />
+        </div>
       )}
     </S>
   );

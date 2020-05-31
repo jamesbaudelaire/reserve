@@ -275,6 +275,10 @@ export const ReservationForm = ({
     return time;
   };
 
+  let timeStamp = day => {
+    return new Date(day).getTime();
+  };
+
   let newReservation = () => {
     let r = {};
     inputs.forEach(x => {
@@ -285,11 +289,18 @@ export const ReservationForm = ({
     });
 
     r.people = parseInt(r.people);
-    r.date = {
-      year: day.year,
-      month: day.month,
-      day: day.day
-    };
+
+    if (day) {
+      r.date = {
+        year: day.year,
+        month: day.month,
+        day: day.day
+      };
+    }
+
+    if (day) {
+      r.timestamp = timeStamp(`${day.month + 1}/${day.day}/${day.year}`);
+    }
 
     r.confirmed = document.getElementById("confirmed").checked;
 

@@ -146,6 +146,10 @@ const S = styled.div`
   }
 `;
 
+let timeStamp = day => {
+  return new Date(day).getTime();
+};
+
 export const Business = ({ setBusiness, url, username }) => {
   const [day, setDay] = useState(null);
   const [unconfirmed, setUnconfirmed] = useState([]);
@@ -164,16 +168,17 @@ export const Business = ({ setBusiness, url, username }) => {
         .collection("business")
         .doc(uid)
         .collection("reservations")
-        .where("date.year", "==", day.year)
-        .where("date.month", "==", day.month)
-        .where("date.day", "==", day.day)
+        .where(
+          "timestamp",
+          "==",
+          timeStamp(`${day.month + 1}/${day.day}/${day.year}`)
+        )
         .onSnapshot(q => {
           let res = [];
           q.forEach(d => {
             let r = d.data();
             res.push(r);
           });
-
           dispatch(loadReservations(res));
         });
 
@@ -187,6 +192,7 @@ export const Business = ({ setBusiness, url, username }) => {
         .collection("private")
         .doc(url)
         .collection("reservations")
+        .where("timestamp", ">=", cal.timeStamp())
         .onSnapshot(q => {
           let res = [];
           q.forEach(d => {
@@ -207,7 +213,7 @@ export const Business = ({ setBusiness, url, username }) => {
         .doc(uid)
         .collection("reservations")
         .where("confirmed", "==", false)
-        .where("date", ">=", cal.today())
+        .where("timestamp", ">=", cal.timeStamp())
         .onSnapshot(q => {
           let res = [];
           q.forEach(d => {
@@ -347,7 +353,6 @@ export const Business = ({ setBusiness, url, username }) => {
         setReservation={setReservation}
         reservations={reservations}
         setReservations={setReservations}
-        // addReservationUI={addReservationUI}
         setAddReservationUI={setAddReservationUI}
         setUnconfirmed={setUnconfirmed}
         url={url}

@@ -48,6 +48,11 @@ export class Calendar {
       day: this.dayNumber()
     };
   }
+  timeStamp() {
+    return new Date(
+      `${this.monthNumber() + 1}/${this.dayNumber()}/${this.year()}`
+    ).getTime();
+  }
 }
 let cal = new Calendar();
 
@@ -156,6 +161,7 @@ export const CalendarUI = ({ day, setDay }) => {
   const [year, setYear] = useState();
   const [month, setMonth] = useState();
   const [daynum, setDaynum] = useState(0);
+
   useEffect(() => {
     if (day) {
       setYear(day.year);
@@ -163,8 +169,6 @@ export const CalendarUI = ({ day, setDay }) => {
       setDaynum(day.day);
     }
   }, [day]);
-
-
 
   let Today = () => {
     setYear(cal.year());

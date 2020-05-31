@@ -59,6 +59,7 @@ const S = styled.div`
   }
   .logo {
     position: absolute;
+    background: white;
     top: 0;
     right: 0;
     margin: 20px;
@@ -263,6 +264,10 @@ export const Form = () => {
     }
   ];
 
+  let timeStamp = day => {
+    return new Date(day).getTime();
+  };
+
   let newReservation = () => {
     let r = {};
 
@@ -276,6 +281,9 @@ export const Form = () => {
       month: day.month,
       day: day.day
     };
+    if (day) {
+      r.timestamp = timeStamp(`${day.month + 1}/${day.day}/${day.year}`);
+    }
 
     r.confirmed = false;
 
@@ -297,9 +305,9 @@ export const Form = () => {
   return (
     <S id="guest-form">
       {loading && (
-        <svg className="loader">
-          <circle cx="25" cy="25" r="15" />
-        </svg>
+        <div className="loading-line">
+          <div />
+        </div>
       )}
 
       <Link to="/">
