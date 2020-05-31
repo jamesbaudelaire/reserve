@@ -36,18 +36,7 @@ const S = styled.div`
     margin-top: 20px;
   }
 
-  @media screen and (max-width: 1000px) {
-    .loading-reservations {
-      left: 0;
-    }
-  }
-
   @media screen and (min-width: 1000px) {
-    .loading-reservations {
-      top: unset;
-      bottom: 0;
-    }
-
     .no-reservations {
       margin: 30px;
     }
@@ -132,9 +121,9 @@ export const Reservations = ({
       )}
 
       {!LS.guest && loading && (
-        <svg className="loader loading-reservations">
-          <circle cx="25" cy="25" r="15" />
-        </svg>
+        <div className="loading-line">
+          <div />
+        </div>
       )}
     </S>
   );

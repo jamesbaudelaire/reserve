@@ -59,6 +59,7 @@ const S = styled.div`
   }
   .logo {
     position: absolute;
+    background: white;
     top: 0;
     right: 0;
     margin: 20px;
@@ -297,9 +298,9 @@ export const Form = () => {
   return (
     <S id="guest-form">
       {loading && (
-        <svg className="loader">
-          <circle cx="25" cy="25" r="15" />
-        </svg>
+        <div className="loading-line">
+          <div />
+        </div>
       )}
 
       <Link to="/">

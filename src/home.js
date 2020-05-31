@@ -93,9 +93,9 @@ export const Home = () => {
   return (
     <S>
       {loading && (
-        <svg className="loader">
-          <circle cx="25" cy="25" r="15" />
-        </svg>
+        <div className="loading-line">
+          <div />
+        </div>
       )}
 
       {!business && (
