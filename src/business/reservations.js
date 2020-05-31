@@ -83,7 +83,8 @@ export const Reservations = ({
 
       if (reservationsData && day) {
         let reservations = reservationsData.filter(
-          r => r.timestamp == cal.timeStamp()
+          r =>
+            r.timestamp == timeStamp(`${day.month + 1}/${day.day}/${day.year}`)
         );
         setReservations(reservations);
       }
