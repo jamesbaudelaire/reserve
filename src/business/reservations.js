@@ -51,6 +51,10 @@ const S = styled.div`
   }
 `;
 
+let timeStamp = day => {
+  return new Date(day).getTime();
+};
+
 export const Reservations = ({
   day,
   reservation,
@@ -70,14 +74,16 @@ export const Reservations = ({
       setUnconfirmed(
         reservationsData
           .filter(r => !r.confirmed)
-          .filter(r =>
-            ["year", "month", "day"].every(x => r.date[x] >= cal.today()[x])
-          )
+          .filter(r => {
+            if (r.timestamp >= cal.timeStamp()) {
+              return r;
+            }
+          })
       );
 
       if (reservationsData && day) {
-        let reservations = reservationsData.filter(r =>
-          ["year", "month", "day"].every(x => r.date[x] === day[x])
+        let reservations = reservationsData.filter(
+          r => r.timestamp == cal.timeStamp()
         );
         setReservations(reservations);
       }

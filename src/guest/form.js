@@ -264,6 +264,10 @@ export const Form = () => {
     }
   ];
 
+  let timeStamp = day => {
+    return new Date(day).getTime();
+  };
+
   let newReservation = () => {
     let r = {};
 
@@ -277,6 +281,9 @@ export const Form = () => {
       month: day.month,
       day: day.day
     };
+    if (day) {
+      r.timestamp = timeStamp(`${day.month + 1}/${day.day}/${day.year}`);
+    }
 
     r.confirmed = false;
 

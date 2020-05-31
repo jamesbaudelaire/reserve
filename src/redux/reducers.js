@@ -61,8 +61,3 @@ export const Reducers = combineReducers({
 });
 
 export const store = createStore(Reducers);
-
-store.subscribe(() => {
-  // console.log(store.getState().notes)
-  // LS.saveReservations(store.getState().reservations);
-});
