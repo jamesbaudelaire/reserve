@@ -18,7 +18,7 @@ const S = styled.div`
     font-size: 16px;
     outline: none;
     margin: 10px 0 25px 0px;
-    max-height: 200px;
+    max-height: 120px;
     overflow: scroll;
     -webkit-user-select: auto;
     box-shadow: var(--inset);

@@ -93,17 +93,11 @@ body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
 }
 
 .loading-line{
-  width:100vw;
-  position:fixed;
-  bottom:0;left:0;
-  height:0px;
-  opacity:0;
-  z-index:999;
+  height:7px;
   background:black;
-  animation: fade .7s ease-in forwards;
 
   div{
-    width:0vw;height:100%;
+    width:0;height:100%;
     background:var(--green);
     animation: loading 2s ease-out infinite;
     margin:auto;
@@ -117,51 +111,16 @@ body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
   }
   50%  {
         opacity:1;
-width:100vw;
+width:100%;
 
   }
   100% {
-width:100vw;
+width:100%;
     opacity:0;
   }
 
 }
 
-@keyframes fade{
-  100%{
-opacity:1;
-height:7px;
-  }
-}
-
-/* .loader{
-  position:fixed;top:0;right:0;
-  margin:10px;
-height:50px;
-width:50px;
-animation: rotate 1s linear infinite;
-
-circle {
-fill: none;
-stroke: var(--green);
-stroke-width: 3;
-stroke-dasharray: 100;
-stroke-dashoffset: 200;
-animation: loading 3s linear infinite;
-}
-
-@keyframes loading {
-to {
-  stroke-dashoffset: 0;
-}
-}
-@keyframes rotate{
-  to{
-       transform:rotate(360deg);
-  }
-}
-
-} */
 
 #app{
   opacity:0;

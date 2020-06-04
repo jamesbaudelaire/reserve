@@ -79,15 +79,15 @@ const S = styled.div`
 
   .today {
     font-size: 25px;
-    margin: 20px;
-    margin-top: -40px;
+    height: 50px;
+    margin: 0 20px;
     text-transform: uppercase;
     i {
       margin: 10px;
       font-size: 30px;
     }
-    .confirmed-total {
-      color: var(--theme);
+    .total-number {
+      margin: 10px;
     }
   }
 
@@ -113,7 +113,7 @@ const S = styled.div`
     .today {
       position: fixed;
       left: 0;
-      top: 40px;
+      top: 0px;
     }
 
     .top-shelf {
@@ -241,6 +241,16 @@ export const Business = ({ setBusiness, url, username }) => {
     return date.toLocaleDateString("locale", { weekday: "short" });
   };
 
+  let getTotal = () => {
+    let n = 0;
+
+    reservations.forEach(r => {
+      n += r.people;
+    });
+
+    return n;
+  };
+
   let getNumbers = status => {
     let n = 0;
     reservations.forEach(r => (n += r.people));
@@ -328,7 +338,9 @@ export const Business = ({ setBusiness, url, username }) => {
 
         <span className="confirmed-total">
           <i className="material-icons-round">people</i>
-          <span className="number">{getNumbers("confirmed")}</span>
+          <span className="number">
+            {getNumbers("confirmed")}/{getTotal()}
+          </span>
         </span>
       </div>
 
