@@ -136,6 +136,16 @@ let getConfirmedTotal = x => {
   return n;
 };
 
+let getTotal = x => {
+  let n = 0;
+
+  x.forEach(r => {
+    n += r.people;
+  });
+
+  return n;
+};
+
 export const TimeSlots = ({
   reservation,
   reservations,
@@ -182,7 +192,9 @@ export const TimeSlots = ({
 
           <span className="confirmed-total">
             <i className="material-icons-round">people</i>
-            <span className="number">{getConfirmedTotal(minutes(h))}</span>
+            <span className="number">
+              {getConfirmedTotal(minutes(h))}/{getTotal(minutes(h))}
+            </span>
           </span>
 
           <div className="reservations">
