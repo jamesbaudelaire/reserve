@@ -73,6 +73,10 @@ export const DB = {
       .collection("notes")
       .doc(`${id}`)
       .set({ text: note });
+  },
+
+  email(data){
+    store.collection('mail').add(data)
   }
 };
 

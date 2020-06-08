@@ -110,6 +110,12 @@ export const Reservations = ({
 
   return (
     <S>
+      {!LS.guest && loading && (
+        <div className="loading-line">
+          <div />
+        </div>
+      )}
+
       {reservations.length > 0 && (
         <TimeSlots
           loading={loading}
@@ -124,12 +130,6 @@ export const Reservations = ({
         <div className="no-reservations" {...load}>
           <span>No reservations...</span>
           <None className="svg-none" />
-        </div>
-      )}
-
-      {!LS.guest && loading && (
-        <div className="loading-line">
-          <div />
         </div>
       )}
     </S>

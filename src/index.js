@@ -93,7 +93,7 @@ body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
 }
 
 .loading-line{
-  height:7px;
+  height:10px;
   background:black;
 
   div{

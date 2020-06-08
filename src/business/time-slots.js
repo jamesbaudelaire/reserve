@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { IO } from "../x/IO";
 
 const S = styled.div`
+  margin-top: 10px;
+
   .reservations {
     max-width: 200px;
     margin-left: 50px;
@@ -193,7 +195,7 @@ export const TimeSlots = ({
           <span className="confirmed-total">
             <i className="material-icons-round">people</i>
             <span className="number">
-              {getConfirmedTotal(minutes(h))}/{getTotal(minutes(h))}
+              {getConfirmedTotal(minutes(h))} / {getTotal(minutes(h))}
             </span>
           </span>
 

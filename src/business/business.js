@@ -339,7 +339,7 @@ export const Business = ({ setBusiness, url, username }) => {
         <span className="confirmed-total">
           <i className="material-icons-round">people</i>
           <span className="number">
-            {getNumbers("confirmed")}/{getTotal()}
+            {getNumbers("confirmed")} / {getTotal()}
           </span>
         </span>
       </div>
