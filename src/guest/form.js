@@ -213,7 +213,7 @@ export const Form = () => {
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_100/v1587884625/reserve/${business}.png`;
 
   const [listed, setListed] = useState(true);
-  const [name, setName] = useState();
+  const [data, setData] = useState();
   const [submit, setSubmit] = useState(true);
 
   useEffect(() => {
@@ -224,7 +224,7 @@ export const Form = () => {
       .then(doc => {
         let data = doc.data();
         if (data) {
-          setName(data.name);
+          setData(data);
           setLoading(false);
         } else {
           setListed(false);
@@ -300,6 +300,13 @@ export const Form = () => {
 
   let addFBReservation = r => {
     DB.guest(business, r);
+    DB.email({
+      to:data.email,
+      message:{
+        subject:'New reservation!',
+        html:`<a href="https://rsrv.netlify.app/">RSRV</a>`
+      }
+    })
   };
 
   return (
@@ -314,9 +321,9 @@ export const Form = () => {
         <div className="app-name">RSRV</div>
       </Link>
 
-      {name && (
+      {data && (
         <>
-          <div className="business-name">{name}</div>
+          <div className="business-name">{data.name}</div>
           <img alt="logo" src={logo} className="logo" />
 
           {submit && <CalendarUI day={day} setDay={setDay} />}
@@ -330,7 +337,7 @@ export const Form = () => {
         </div>
       )}
 
-      {name && submit && (
+      {data && submit && (
         <div className="inputs">
           <div className="text">
             {inputs.map(x => (
