@@ -301,12 +301,15 @@ export const Form = () => {
   let addFBReservation = r => {
     DB.guest(business, r);
     DB.email({
-      to:data.email,
-      message:{
-        subject:'New reservation!',
-        html:`<a href="https://rsrv.netlify.app/">RSRV</a>`
+      to: data.email,
+      message: {
+        subject: "New reservation!",
+        html: `
+        <h3>${r.name} wants a reservation for ${r.people}</h3>
+        Open in app <a href="https://rsrv.netlify.app/">RSRV</a>
+        `
       }
-    })
+    });
   };
 
   return (
