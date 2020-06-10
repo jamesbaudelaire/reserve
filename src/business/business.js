@@ -20,7 +20,8 @@ import { Note } from "./note";
 import { ReservationForm } from "./reservation-form";
 
 import { Calendar, CalendarUI } from "../x/calendar";
-import { getEmails } from "../analytics/functions";
+// import { getEmails } from "../analytics/functions";
+import { Link } from "react-router-dom";
 
 let cal = new Calendar();
 
@@ -298,13 +299,13 @@ export const Business = ({ setBusiness, url, username }) => {
             </button>
           }
 
-          <button
+          {/* <button
             onClick={() => {
               getEmails(uid, state.reservations);
             }}
           >
             get emails
-          </button>
+          </button> */}
 
           {/* <button
             onClick={() => {
