@@ -124,6 +124,10 @@ const S = styled.div`
   }
 
   @media screen and (max-width: 1000px) {
+    .inputs {
+      box-shadow: var(--inset);
+    }
+
     .text {
       .input {
         &:first-child {
