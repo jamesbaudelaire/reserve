@@ -144,6 +144,12 @@ const S = styled.div`
     cursor: pointer;
   }
 
+  @media screen and (max-width: 1000px) {
+    .reservation-form {
+      box-shadow: var(--inset);
+    }
+  }
+
   @media screen and (min-width: 1000px) {
     .reservation-form {
       margin: 20px;
