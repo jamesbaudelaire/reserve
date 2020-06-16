@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from "react";
 
 import styled from "styled-components";
 
-const CalendarData = {
+export const CalendarData = {
   months: [
     "jan",
     "feb",
