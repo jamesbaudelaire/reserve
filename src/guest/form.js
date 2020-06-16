@@ -301,7 +301,6 @@ export const Form = () => {
     r.time = convertTime(document.getElementById("time").value);
     return r;
   };
-
   let addFBReservation = r => {
     DB.guest(business, r);
     DB.email({
@@ -310,7 +309,8 @@ export const Form = () => {
         subject: "New reservation!",
         html: `
         <h3>${r.name} wants a reservation for ${r.people}</h3>
-        Open in app <a href="https://rsrv.netlify.app/">RSRV</a>
+       <a href="https://rsrv.netlify.app/"><button>RSRV</button></a>
+        ${new Date().toLocaleString()}
         `
       }
     });
