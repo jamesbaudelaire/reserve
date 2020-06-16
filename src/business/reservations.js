@@ -74,11 +74,7 @@ export const Reservations = ({
       setUnconfirmed(
         reservationsData
           .filter(r => !r.confirmed)
-          .filter(r => {
-            if (r.timestamp >= cal.timeStamp()) {
-              return r;
-            }
-          })
+          .filter(r => r.timestamp >= cal.timeStamp())
       );
 
       if (reservationsData && day) {
