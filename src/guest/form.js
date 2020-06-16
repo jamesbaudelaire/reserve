@@ -310,7 +310,6 @@ export const Form = () => {
         html: `
         <h3>${r.name} wants a reservation for ${r.people}</h3>
        <a href="https://rsrv.netlify.app/"><button>RSRV</button></a>
-        ${new Date().toLocaleString()}
         `
       }
     });
