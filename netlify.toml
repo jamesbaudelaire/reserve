@@ -1,2 +1,2 @@
-[BUILD]
-CI= npm run build
+[BUILD.environment]
+CI=false
