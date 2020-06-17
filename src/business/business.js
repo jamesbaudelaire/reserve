@@ -20,7 +20,7 @@ import { Note } from "./note";
 import { ReservationForm } from "./reservation-form";
 
 import { Calendar, CalendarUI } from "../x/calendar";
-// import { getEmails } from "../analytics/functions";
+import { getEmails } from "../analytics/functions";
 
 let cal = new Calendar();
 
@@ -297,14 +297,14 @@ export const Business = ({ setBusiness, url, username }) => {
               logout
             </button>
           }
-          {/* 
+
           <button
             onClick={() => {
               getEmails(uid, state.reservations);
             }}
           >
             email list
-          </button> */}
+          </button>
         </div>
       )}
 
