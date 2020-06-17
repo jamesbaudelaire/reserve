@@ -18,7 +18,7 @@ export const getEmails = (uid, reservations) => {
         let emails = [...new Set(res)].join(", ");
 
         if (emails) {
-          prompt("Remember to set BCC for email privacy!", emails);
+          alert("Remember to set BCC for email privacy!", emails);
         } else {
           alert("No emails found!");
         }
@@ -29,7 +29,7 @@ export const getEmails = (uid, reservations) => {
     ].join(", ");
 
     if (emails) {
-      prompt("Remember to set BCC for email privacy!", emails);
+      alert("Remember to set BCC for email privacy!", emails);
     } else {
       alert("No emails found!");
     }
