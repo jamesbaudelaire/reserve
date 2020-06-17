@@ -131,7 +131,7 @@ const S = styled.div`
     }
 
     input:required {
-      border-left: 3px solid var(--red);
+      border-left: 5px solid var(--red);
       box-sizing: border-box;
     }
     input:valid {

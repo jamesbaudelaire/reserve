@@ -1,6 +1,6 @@
-import {FB} from "../x/firebase"
+import { FB } from "../x/firebase";
 
-export const getEmails = (uid,reservations) => {
+export const getEmails = (uid, reservations) => {
   if (uid) {
     FB.firestore()
       .collection("business")
