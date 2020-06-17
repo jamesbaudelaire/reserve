@@ -1,2 +1,2 @@
-[BUILD.environment]
-CI=false
+[build]
+command = "CI= npm run build"
