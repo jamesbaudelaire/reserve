@@ -298,13 +298,13 @@ export const Business = ({ setBusiness, url, username }) => {
             </button>
           }
 
-          <button
+          {/* <button
             onClick={() => {
               getEmails(uid, state.reservations);
             }}
           >
             email list
-          </button>
+          </button> */}
         </div>
       )}
 
