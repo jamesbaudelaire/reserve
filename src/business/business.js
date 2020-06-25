@@ -112,8 +112,9 @@ const S = styled.div`
 
     .today {
       position: fixed;
-      left: 0;
-      top: 0px;
+      right: 0;
+      bottom: 0;
+      margin: 15px 25px;
     }
 
     .top-shelf {
