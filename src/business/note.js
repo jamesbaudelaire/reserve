@@ -18,7 +18,7 @@ const S = styled.div`
     font-size: 16px;
     outline: none;
     margin: 10px 0 25px 0px;
-    max-height: 120px;
+    max-height: 200px;
     overflow: scroll;
     -webkit-user-select: auto;
     box-shadow: var(--inset);
@@ -35,7 +35,7 @@ const S = styled.div`
   @media screen and (min-width: 1000px) {
     position: fixed;
     left: 0;
-    top: 50px;
+    top: 0px;
     width: 160px;
   }
 `;
