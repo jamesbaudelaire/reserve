@@ -348,7 +348,7 @@ export const Form = () => {
           <div className="text">
             {inputs.map(x => (
               <div key={x.input} className="input">
-                <i className="material-icons back">{x.icon}</i>
+                <i className="material-icons-round back">{x.icon}</i>
                 <input
                   onClick={() => {
                     scroll(x.input);
@@ -365,7 +365,7 @@ export const Form = () => {
           </div>
 
           <div className="input time">
-            <i className="material-icons">schedule</i>
+            <i className="material-icons-round">schedule</i>
             <input type="time" id="time" required defaultValue="12:00" />
           </div>
 
