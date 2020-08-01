@@ -220,7 +220,7 @@ export const CalendarUI = ({ day, setDay }) => {
 
       <div className="nav">
         <i
-          className="material-icons back"
+          className="material-icons-round back"
           onClick={() => {
             nav(-1);
           }}
@@ -228,7 +228,7 @@ export const CalendarUI = ({ day, setDay }) => {
           chevron_left
         </i>
         <i
-          className="material-icons home"
+          className="material-icons-round home"
           onClick={() => {
             Today();
           }}
@@ -236,7 +236,7 @@ export const CalendarUI = ({ day, setDay }) => {
           expand_more
         </i>
         <i
-          className="material-icons forward"
+          className="material-icons-round forward"
           onClick={() => {
             nav(1);
           }}

@@ -301,16 +301,14 @@ export const Form = () => {
     r.time = convertTime(document.getElementById("time").value);
     return r;
   };
+
   let addFBReservation = r => {
     DB.guest(business, r);
     DB.email({
       to: data.email,
       message: {
         subject: "New reservation!",
-        html: `
-        <h3>${r.name} wants a reservation for ${r.people}</h3>
-       <a href="https://rsrv.netlify.app/"><button>RSRV</button></a>
-        `
+        html: ``
       }
     });
   };
@@ -348,7 +346,7 @@ export const Form = () => {
           <div className="text">
             {inputs.map(x => (
               <div key={x.input} className="input">
-                <i className="material-icons back">{x.icon}</i>
+                <i className="material-icons-round back">{x.icon}</i>
                 <input
                   onClick={() => {
                     scroll(x.input);
@@ -365,7 +363,7 @@ export const Form = () => {
           </div>
 
           <div className="input time">
-            <i className="material-icons">schedule</i>
+            <i className="material-icons-round">schedule</i>
             <input type="time" id="time" required defaultValue="12:00" />
           </div>
 

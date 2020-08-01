@@ -354,7 +354,7 @@ export const ReservationForm = ({
           <div className="text">
             <div className="input">
               <a id="phone-link" rel="noopener noreferrer">
-                <i className="material-icons clickable">phone</i>
+                <i className="material-icons-round clickable">phone</i>
               </a>
               <input
                 onClick={() => {
@@ -370,7 +370,7 @@ export const ReservationForm = ({
 
             <div className="input">
               <a id="email-link" rel="noopener noreferrer" target="_blank">
-                <i className="material-icons clickable">email</i>
+                <i className="material-icons-round clickable">email</i>
               </a>
               <input
                 onClick={() => {
@@ -387,7 +387,7 @@ export const ReservationForm = ({
           <div className="text">
             {inputs.map(x => (
               <div key={x.input} className="input">
-                <i className="material-icons">{x.icon}</i>
+                <i className="material-icons-round">{x.icon}</i>
                 <input
                   onClick={() => {
                     scroll(x.input);
@@ -404,7 +404,7 @@ export const ReservationForm = ({
           </div>
 
           <div className="input time">
-            <i className="material-icons">schedule</i>
+            <i className="material-icons-round">schedule</i>
             <input type="time" id="time" defaultValue="12:00" required />
           </div>
         </div>
