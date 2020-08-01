@@ -302,19 +302,13 @@ export const Form = () => {
     return r;
   };
 
-
-
   let addFBReservation = r => {
     DB.guest(business, r);
     DB.email({
       to: data.email,
       message: {
         subject: "New reservation!",
-        html: `
-        <h3>${r.name} wants a reservation for ${r.people} people!</h3>
-        
-        ${new Date().toLocaleString()}
-        `
+        html: ``
       }
     });
   };
