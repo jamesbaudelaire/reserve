@@ -136,7 +136,8 @@ const S = styled.div`
       position: absolute;
       right: 0;
       top: 0px;
-      margin: 20px;
+      transform: scale(.8);
+    transform-origin: 220px 0px;
       max-width: 300px;
     }
 

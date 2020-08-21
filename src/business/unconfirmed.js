@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const S = styled.div`
   .unconfirmed-reservations {
-    box-shadow: var(--shadow);
+    box-shadow: var(--inset);
     margin: 20px;
     border-radius: 5px;
 
