@@ -6,12 +6,17 @@ const S = styled.div`
   .unconfirmed-reservations {
     box-shadow: var(--shadow);
     margin: 20px;
-    padding: 15px 0px;
     border-radius: 5px;
 
     div {
       overflow: auto;
       white-space: nowrap;
+      padding: 15px 0 20px 0;
+      button {
+        &:last-child {
+          margin-right: 20px;
+        }
+      }
       .unconfirmed-reservation {
         margin: 0;
         margin-left: 20px;
@@ -25,8 +30,8 @@ const S = styled.div`
       }
     }
     span {
+      padding: 10px 0px 0 10px;
       display: block;
-      margin: 0 0 10px 20px;
     }
   }
 
@@ -34,7 +39,7 @@ const S = styled.div`
     background: #fea944;
   }
 
-  @media screen and (max-width: 1000px) {
+  /* @media screen and (max-width: 1000px) {
     .unconfirmed-reservations {
       button {
         &:last-child {
@@ -42,7 +47,7 @@ const S = styled.div`
         }
       }
     }
-  }
+  } */
 
   @media screen and (min-width: 1000px) {
     .unconfirmed-reservations {
@@ -56,14 +61,11 @@ const S = styled.div`
 
       div {
         overflow: scroll;
+        padding-top: 10px;
         display: block;
         .unconfirmed-reservation {
-          margin: 10px;
           margin-top: 0;
         }
-      }
-      span {
-        margin: 10px;
       }
     }
   }
@@ -83,7 +85,7 @@ export const Unconfirmed = ({
         <div className="unconfirmed-reservations">
           <span>{unconfirmed.length + unconfirmedGR.length} UNCONFIRMED</span>
           <div>
-            {unconfirmedGR.map(r => (
+            {unconfirmedGR.map((r) => (
               <button
                 className={`unconfirmed-reservation guest-reservation
                 ${reservation && reservation.id == r.id ? "selected" : ""}
@@ -100,7 +102,7 @@ export const Unconfirmed = ({
               </button>
             ))}
 
-            {unconfirmed.map(r => (
+            {unconfirmed.map((r) => (
               <button
                 className={`unconfirmed-reservation
                 ${reservation && reservation.id == r.id ? "selected" : ""}

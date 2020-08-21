@@ -56,7 +56,7 @@ input {
 
 
 button,.add-reservation,.reservation{
-  box-shadow: var(--inset);
+  box-shadow: var(--shadow);
   :hover{
     background:var(--green) !important;
     color:white !important;
@@ -92,14 +92,19 @@ body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
   position:fixed;
   bottom:0;left:0;
   width:100%;
-  height:7px;
+  height:0;
   background:black;
+  transition:.7s;
 
   div{
     width:0;height:100%;
     background:var(--green);
     animation: loading 2s ease-out infinite;
     margin:auto;
+  }
+
+  &.loaded{
+    height:7px;
   }
   
 }
@@ -135,7 +140,7 @@ transition:.7s;
   position: absolute;
   overflow:scroll;
   width: calc(100% - 440px);
-    height: calc(100% - 240px);
+    height: calc(100% - 250px);
     box-shadow: var(--shadow);
     border-radius: 5px;
     left: 0;

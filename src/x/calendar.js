@@ -77,7 +77,7 @@ const S = styled.div`
     line-height: 20px;
     border-radius: 5px;
     &:hover {
-      box-shadow: var(--inset);
+      box-shadow: var(--shadow);
     }
   }
   .days {
@@ -98,7 +98,7 @@ const S = styled.div`
     width: 150px;
     i {
       font-size: 30px;
-      box-shadow: var(--inset);
+      box-shadow: var(--shadow);
       cursor: pointer;
       margin: 0 10px;
       border-radius: 5px;
@@ -127,7 +127,7 @@ const S = styled.div`
   .selected {
     background: var(--green);
     color: white;
-    box-shadow: var(--inset);
+    box-shadow: var(--shadow);
   }
 `;
 
@@ -203,7 +203,7 @@ export const CalendarUI = ({ day, setDay }) => {
     }
   }, [month]);
 
-  let nav = x => {
+  let nav = (x) => {
     setMonth(month + x);
     setDaynum(0);
 
