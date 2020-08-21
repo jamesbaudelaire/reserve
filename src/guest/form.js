@@ -315,11 +315,10 @@ export const Form = () => {
 
   return (
     <S id="guest-form">
-      {loading && (
-        <div className="loading-line">
+     
+     <div className={`loading-line ${loading?'loaded':''}`}>
           <div />
         </div>
-      )}
 
       <Link to="/">
         <div className="app-name">RSRV</div>

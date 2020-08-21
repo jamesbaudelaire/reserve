@@ -43,6 +43,7 @@ const S = styled.div`
     }
     margin-left: 10px;
     transition: 0.3s;
+    padding-bottom: 10px;
     opacity: 0;
     transform: translatex(20px);
     &.io {
@@ -98,7 +99,7 @@ const S = styled.div`
   }
 `;
 
-let getHour = h => {
+let getHour = (h) => {
   if (h === 12 || h === 0) {
     return 12;
   }
@@ -110,7 +111,7 @@ let getHour = h => {
   }
 };
 
-let getHourType = h => {
+let getHourType = (h) => {
   if (h < 12) {
     return `AM`;
   } else {
@@ -118,7 +119,7 @@ let getHourType = h => {
   }
 };
 
-let getMinutes = m => {
+let getMinutes = (m) => {
   if (m > 9) {
     return m;
   } else {
@@ -126,10 +127,10 @@ let getMinutes = m => {
   }
 };
 
-let getConfirmedTotal = x => {
+let getConfirmedTotal = (x) => {
   let n = 0;
 
-  x.forEach(r => {
+  x.forEach((r) => {
     if (r.confirmed) {
       n += r.people;
     }
@@ -138,10 +139,10 @@ let getConfirmedTotal = x => {
   return n;
 };
 
-let getTotal = x => {
+let getTotal = (x) => {
   let n = 0;
 
-  x.forEach(r => {
+  x.forEach((r) => {
     n += r.people;
   });
 
@@ -154,13 +155,13 @@ export const TimeSlots = ({
   setReservation,
   setAddReservationUI
 }) => {
-  let hours = [...new Set(reservations.map(r => r.time.hour))].sort((a, b) =>
+  let hours = [...new Set(reservations.map((r) => r.time.hour))].sort((a, b) =>
     a > b ? 1 : -1
   );
 
-  let minutes = h => {
+  let minutes = (h) => {
     return reservations
-      .filter(r => r.time.hour === h)
+      .filter((r) => r.time.hour === h)
       .sort((a, b) => (a.time.minutes > b.time.minutes ? 1 : -1));
   };
 
@@ -188,7 +189,7 @@ export const TimeSlots = ({
 
   return (
     <S>
-      {hours.map(h => (
+      {hours.map((h) => (
         <div className="time-slot" key={h}>
           <span className="time">{`${getHour(h)}${getHourType(h)}`}</span>
 
@@ -200,7 +201,7 @@ export const TimeSlots = ({
           </span>
 
           <div className="reservations">
-            {minutes(h).map(r => (
+            {minutes(h).map((r) => (
               <div
                 className={`reservation ${
                   r.confirmed ? "confirmed-reservation" : ""
@@ -208,7 +209,7 @@ export const TimeSlots = ({
                 ${reservation && reservation.id == r.id ? "selected" : ""}
                 `}
                 onClick={() => {
-                  setReservation(reservations.find(x => x.id == r.id));
+                  setReservation(reservations.find((x) => x.id == r.id));
                   setAddReservationUI(true);
                 }}
                 key={r.id}

@@ -92,11 +92,10 @@ export const Home = () => {
 
   return (
     <S>
-      {loading && (
-        <div className="loading-line">
+       <div className={`loading-line ${loading?'loaded':''}`}>
           <div />
         </div>
-      )}
+    
 
       {!business && (
         <>
