@@ -155,6 +155,7 @@ const S = styled.div`
       margin: 20px;
       border-radius: 10px;
       box-shadow: var(--shadow);
+      width:220px;
       padding-bottom: 0px;
       .text {
         width: unset;

@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { IO } from "../x/IO";
 
 const S = styled.div`
-  margin-top: 10px;
+  box-shadow: var(--inset);
+    border-radius: 5px;
+    padding: 10px 0;
+    margin: 20px;
 
   .reservations {
     max-width: 200px;
@@ -86,15 +89,18 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
+   
     position: absolute;
-    left: 0px;
+    padding: 0;
     width: 300px;
     top: 0px;
-    margin: 0px;
-    height: 100%;
-    overflow: scroll;
+    left: 0;
+    margin: 10px;
+    height: calc(100% - 20px);
+    overflow-y: scroll;
+
     .time-slot {
-      margin: 20px;
+      margin: 10px;
     }
   }
 `;
