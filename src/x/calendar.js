@@ -69,9 +69,9 @@ const S = styled.div`
   }
   .day {
     transition: 0.3s;
-    width: 20px;
-    margin: 4px;
-    padding: 4px 8px;
+    width: 22px;
+    margin: 2px;
+    padding: 6px 8px;
     cursor: pointer;
     height: 20px;
     line-height: 20px;

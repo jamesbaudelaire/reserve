@@ -136,8 +136,8 @@ const S = styled.div`
       position: absolute;
       right: 0;
       top: 0px;
-      transform: scale(.8);
-    transform-origin: 220px 0px;
+      transform: scale(0.8);
+      transform-origin: 220px 0px;
       max-width: 300px;
     }
 
@@ -148,7 +148,7 @@ const S = styled.div`
   }
 `;
 
-let timeStamp = day => {
+let timeStamp = (day) => {
   return new Date(day).getTime();
 };
 
@@ -162,7 +162,7 @@ export const Business = ({ setBusiness, url, username }) => {
 
   const dispatch = useDispatch();
 
-  const uid = useSelector(s => s.app.uid);
+  const uid = useSelector((s) => s.app.uid);
 
   useEffect(() => {
     if (uid && day) {
@@ -175,9 +175,9 @@ export const Business = ({ setBusiness, url, username }) => {
           "==",
           timeStamp(`${day.month + 1}/${day.day}/${day.year}`)
         )
-        .onSnapshot(q => {
+        .onSnapshot((q) => {
           let res = [];
-          q.forEach(d => {
+          q.forEach((d) => {
             let r = d.data();
             res.push(r);
           });
@@ -195,9 +195,9 @@ export const Business = ({ setBusiness, url, username }) => {
         .doc(url)
         .collection("reservations")
         .where("timestamp", ">=", cal.timeStamp())
-        .onSnapshot(q => {
+        .onSnapshot((q) => {
           let res = [];
-          q.forEach(d => {
+          q.forEach((d) => {
             let r = d.data();
             res.push(r);
           });
@@ -216,9 +216,9 @@ export const Business = ({ setBusiness, url, username }) => {
         .collection("reservations")
         .where("confirmed", "==", false)
         .where("timestamp", ">=", cal.timeStamp())
-        .onSnapshot(q => {
+        .onSnapshot((q) => {
           let res = [];
-          q.forEach(d => {
+          q.forEach((d) => {
             let r = d.data();
             res.push(r);
           });
@@ -235,9 +235,9 @@ export const Business = ({ setBusiness, url, username }) => {
 
   const load = useAnimation();
 
-  const state = useSelector(s => s);
+  const state = useSelector((s) => s);
 
-  let getDayName = day => {
+  let getDayName = (day) => {
     let string = `${day.month + 1}/${day.day}/${day.year}`;
     var date = new Date(string);
     return date.toLocaleDateString("locale", { weekday: "short" });
@@ -246,20 +246,20 @@ export const Business = ({ setBusiness, url, username }) => {
   let getTotal = () => {
     let n = 0;
 
-    reservations.forEach(r => {
+    reservations.forEach((r) => {
       n += r.people;
     });
 
     return n;
   };
 
-  let getNumbers = status => {
+  let getNumbers = (status) => {
     let n = 0;
-    reservations.forEach(r => (n += r.people));
+    reservations.forEach((r) => (n += r.people));
 
     if (status === "confirmed") {
       n = 0;
-      reservations.forEach(r => {
+      reservations.forEach((r) => {
         if (r.confirmed) {
           n += r.people;
         }
@@ -268,13 +268,13 @@ export const Business = ({ setBusiness, url, username }) => {
     return n;
   };
 
-  let addFBReservation = r => {
+  let addFBReservation = (r) => {
     if (uid) {
       DB.add(uid, r);
     }
   };
 
-  let deleteFBReservation = r => {
+  let deleteFBReservation = (r) => {
     if (uid) {
       DB.delete(uid, r);
     }
