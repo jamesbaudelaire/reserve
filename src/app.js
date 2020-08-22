@@ -94,7 +94,7 @@ body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
   width:100%;
   height:0;
   background:black;
-  transition:.7s;
+  transition:.3s;
 
   div{
     width:0;height:100%;

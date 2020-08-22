@@ -123,6 +123,13 @@ const S = styled.div`
     height: 200px;
   }
 
+  .notice {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+  }
+
   @media screen and (max-width: 1000px) {
     .inputs {
       box-shadow: var(--inset);
@@ -159,8 +166,8 @@ const S = styled.div`
       position: absolute;
       right: 0;
       top: 0px;
-      transform: scale(.8);
-    transform-origin: 220px 0px;
+      transform: scale(0.8);
+      transform-origin: 220px 0px;
       max-width: 300px;
     }
 
@@ -187,10 +194,15 @@ const S = styled.div`
       position: unset;
       margin: 10px 0;
     }
+    .notice {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
   }
 `;
 
-let scroll = id => {
+let scroll = (id) => {
   document.getElementById(id).scrollIntoView({
     behavior: "smooth",
     block: "center",
@@ -198,7 +210,7 @@ let scroll = id => {
   });
 };
 
-let convertTime = x => {
+let convertTime = (x) => {
   if (x === "") {
     return null;
   }
@@ -227,7 +239,7 @@ export const Form = () => {
       .collection("public")
       .doc(business)
       .get()
-      .then(doc => {
+      .then((doc) => {
         let data = doc.data();
         if (data) {
           setData(data);
@@ -270,14 +282,14 @@ export const Form = () => {
     }
   ];
 
-  let timeStamp = day => {
+  let timeStamp = (day) => {
     return new Date(day).getTime();
   };
 
   let newReservation = () => {
     let r = {};
 
-    inputs.forEach(x => {
+    inputs.forEach((x) => {
       r[x.input] = document.getElementById(x.input).value;
     });
 
@@ -304,23 +316,30 @@ export const Form = () => {
     return r;
   };
 
-  let addFBReservation = r => {
+  let addFBReservation = (r) => {
+    let today = new Date();
+    let time = today.toLocaleTimeString();
+    let date = today.toLocaleDateString();
+
+    let message = {
+      subject: "New reservation!",
+      html: `
+  ${r.name} ${r.people} people
+  Submitted ${time} ${date}`
+    };
+
     DB.guest(business, r);
     DB.email({
       to: data.email,
-      message: {
-        subject: "New reservation!",
-        html: ``
-      }
+      message
     });
   };
 
   return (
     <S id="guest-form">
-     
-     <div className={`loading-line ${loading?'loaded':''}`}>
-          <div />
-        </div>
+      <div className={`loading-line ${loading ? "loaded" : ""}`}>
+        <div />
+      </div>
 
       <Link to="/">
         <div className="app-name">RSRV</div>
@@ -332,6 +351,12 @@ export const Form = () => {
           <img alt="logo" src={logo} className="logo" />
 
           {submit && <CalendarUI day={day} setDay={setDay} />}
+          {submit && (
+            <div className="notice">
+              Note that reservations are based upon availability and have to be
+              confirmed.
+            </div>
+          )}
         </>
       )}
 
@@ -345,7 +370,7 @@ export const Form = () => {
       {data && submit && (
         <div className="inputs">
           <div className="text">
-            {inputs.map(x => (
+            {inputs.map((x) => (
               <div key={x.input} className="input">
                 <i className="material-icons-round back">{x.icon}</i>
                 <input
