@@ -223,6 +223,11 @@ let convertTime = (x) => {
   return time;
 };
 
+let getTime=(x)=>{
+return `${x.hour>12?x.hour-12:x.hour}:${x.minutes>9?x.minutes:`0${x.minutes}`}${x.hour<12||x.hour===24?'am':'pm'}`
+}
+
+
 export const Form = () => {
   const [day, setDay] = useState();
   const [loading, setLoading] = useState(true);
@@ -324,10 +329,9 @@ export const Form = () => {
     let message = {
       subject: "New reservation!",
       html: `
-  ${r.name} ${r.people} people
-  Submitted ${time} ${date}`
+  ${r.name} ${r.people} people at ${getTime({hour:r.time.hour,minutes:r.time.minutes})} on ${r.date.month+1}/${r.date.day}/${r.date.year}
+  `
     };
-
     DB.guest(business, r);
     DB.email({
       to: data.email,
