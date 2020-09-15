@@ -92,11 +92,6 @@ export const Settings = ({ url }) => {
         let data = doc.data();
         Object.keys(data).forEach((d) => {
           document.getElementById(`${d}-status`).checked = data[d];
-          if (data[d]) {
-            document.getElementById(d).classList.add("open");
-          } else {
-            document.getElementById(d).classList.add("closed");
-          }
         });
       });
   }, []);
