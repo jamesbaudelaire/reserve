@@ -75,8 +75,17 @@ export const DB = {
       .set({ text: note });
   },
 
-  email(data){
-    store.collection('mail').add(data)
+  days(days, business) {
+    store
+      .collection("public")
+      .doc(business)
+      .collection("settings")
+      .doc("days")
+      .set(days);
+  },
+
+  email(data) {
+    store.collection("mail").add(data);
   }
 };
 
