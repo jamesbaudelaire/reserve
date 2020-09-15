@@ -21,6 +21,9 @@ import { ReservationForm } from "./reservation-form";
 
 import { Calendar, CalendarUI } from "../x/calendar";
 import { getEmails } from "../analytics/functions";
+import { Link } from "react-router-dom";
+
+import { Settings } from "./settings";
 
 let cal = new Calendar();
 
@@ -359,6 +362,8 @@ export const Business = ({ setBusiness, url, username }) => {
         setUnconfirmed={setUnconfirmed}
         url={url}
       />
+
+      {uid && <Settings url={url} />}
 
       {!addReservationUI ? (
         <i

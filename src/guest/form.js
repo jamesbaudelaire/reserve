@@ -125,7 +125,7 @@ const S = styled.div`
 
   .notice {
     text-align: center;
-    padding: 20px;
+    padding: 20px 0;
     background: rgba(0, 0, 0, 0.1);
     font-size: 14px;
   }
@@ -254,6 +254,25 @@ export const Form = () => {
           setListed(false);
           setLoading(false);
         }
+      });
+  }, []);
+
+  useEffect(() => {
+    FB.firestore()
+      .collection("public")
+      .doc(business)
+      .collection("settings")
+      .doc("days")
+      .get()
+      .then((doc) => {
+        let data = doc.data();
+        Object.keys(data).forEach((d) => {
+          if (data[d]) {
+            document.getElementById(d).classList.add("open");
+          } else {
+            document.getElementById(d).classList.add("closed");
+          }
+        });
       });
   }, []);
 
