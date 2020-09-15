@@ -80,6 +80,12 @@ const S = styled.div`
       box-shadow: var(--shadow);
     }
   }
+  .open{
+    color:var(--green)
+  }
+  .closed{
+    color:var(--red)
+  }
   .days {
     text-align: center;
     justify-content: center;

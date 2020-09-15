@@ -44,6 +44,10 @@ button{
 
 }
 
+a{
+  text-decoration:none;
+}
+
 input {
       margin: 10px;
       border: none;
@@ -78,7 +82,7 @@ body{
 
 }
 
-body,button,input,.add-reservation,.reservation-form,#guest-form .inputs{
+body,button,input,.add-reservation,.reservation-form,#guest-form .inputs,.top-shelf{
   background:var(--light);
   color:var(--dark);
   @media (prefers-color-scheme: dark) {
