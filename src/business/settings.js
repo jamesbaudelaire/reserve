@@ -5,21 +5,21 @@ import styled from "styled-components";
 const S = styled.div`
   #days {
     text-transform: uppercase;
-    margin: 0 20px;
+    margin: 20px;
+    margin-top: 0;
     border-radius: 5px;
     display: inline-block;
     box-shadow: var(--shadow);
-    @media screen and (min-width: 1000px) {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-    }
   }
 
   .toggle {
     line-height: 20px;
     margin: 20px;
     display: flex;
+    .text {
+      text-align: right;
+      width: 40px;
+    }
     label {
       margin-left: 10px;
       position: relative;
@@ -101,7 +101,7 @@ export const Settings = ({ url }) => {
       <div id="days">
         {days.map((d) => (
           <div className="toggle" key={d}>
-            {d}
+            <span className="text">{d}</span>
             <label>
               <input type="checkbox" id={`${d}-status`} />
               <span />

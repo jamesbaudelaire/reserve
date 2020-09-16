@@ -67,6 +67,9 @@ const S = styled.div`
     display: grid;
     grid-template-columns: repeat(7, min-content);
   }
+  .weekdays {
+    font-weight: bold;
+  }
   .day {
     transition: 0.3s;
     width: 22px;
@@ -76,15 +79,15 @@ const S = styled.div`
     height: 20px;
     line-height: 20px;
     border-radius: 5px;
-    &:hover {
+    &:active {
       box-shadow: var(--shadow);
     }
   }
-  .open{
-    color:var(--green)
+  .open {
+    color: var(--green);
   }
-  .closed{
-    color:var(--red)
+  .closed {
+    color: var(--red);
   }
   .days {
     text-align: center;
@@ -109,7 +112,7 @@ const S = styled.div`
       margin: 0 10px;
       border-radius: 5px;
       transition: 0.3s;
-      :hover {
+      &:active {
         background: var(--green) !important;
         color: white !important;
       }
@@ -134,6 +137,16 @@ const S = styled.div`
     background: var(--green);
     color: white;
     box-shadow: var(--shadow);
+  }
+
+  @media screen and (min-width: 1000px) {
+    .nav i,
+    .day {
+      &:hover {
+        background: var(--green) !important;
+        color: white !important;
+      }
+    }
   }
 `;
 
@@ -252,7 +265,7 @@ export const CalendarUI = ({ day, setDay }) => {
       </div>
 
       <div className="days">
-        <div className="week">
+        <div className="week weekdays">
           {CalendarData.days.map((day, i) => (
             <div className="day" id={day} key={`day-${i}`}>
               {day[0]}
