@@ -124,13 +124,13 @@ const S = styled.div`
       box-shadow: var(--shadow);
       position: fixed;
       z-index: 100;
-      width: 120px;
+      width: auto;
       height: auto;
       top: 80px;
       right: 20px;
       border-radius: 5px;
       button {
-        margin: 20px auto;
+        margin: 20px;
         display: block;
       }
     }
@@ -162,6 +162,7 @@ export const Business = ({ setBusiness, url, username }) => {
   const [reservation, setReservation] = useState(null);
   const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservations, setReservations] = useState([]);
+  const [settings, setSettings] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -310,6 +311,17 @@ export const Business = ({ setBusiness, url, username }) => {
           >
             email list
           </button> */}
+          {uid && (
+            <button
+              className={`${settings ? "selected" : ""}`}
+              onClick={() => {
+                setSettings(!settings);
+              }}
+            >
+              settings
+            </button>
+          )}
+          {settings && <div id="settings">{uid && <Settings url={url} />}</div>}
         </div>
       )}
 
@@ -362,8 +374,6 @@ export const Business = ({ setBusiness, url, username }) => {
         setUnconfirmed={setUnconfirmed}
         url={url}
       />
-
-      {uid && <Settings url={url} />}
 
       {!addReservationUI ? (
         <i

@@ -61,7 +61,7 @@ input {
 
 button,.add-reservation,.reservation{
   box-shadow: var(--shadow);
-  :hover{
+  &:active{
     background:var(--green) !important;
     color:white !important;
   }
@@ -152,6 +152,13 @@ transition:.7s;
     top: 0;
     bottom: 0;
     margin: auto;
+}
+
+button{
+  &:hover{
+    background:var(--green) !important;
+    color:white !important;
+  }
 }
 
 .loading-line{

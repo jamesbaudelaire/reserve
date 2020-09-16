@@ -125,7 +125,8 @@ const S = styled.div`
 
   .notice {
     text-align: center;
-    padding: 20px 0;
+    padding: 20px;
+    box-sizing: border-box;
     background: rgba(0, 0, 0, 0.1);
     font-size: 14px;
   }
@@ -269,8 +270,6 @@ export const Form = () => {
         Object.keys(data).forEach((d) => {
           if (data[d]) {
             document.getElementById(d).classList.add("open");
-          } else {
-            document.getElementById(d).classList.add("closed");
           }
         });
       });
