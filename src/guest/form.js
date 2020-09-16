@@ -11,7 +11,7 @@ import { ID } from "../x/functions";
 
 import { DB } from "../x/firebase";
 
-import { ReactComponent as Contact } from "../assets/contact.svg";
+import { ReactComponent as Confirmed } from "../assets/confirmed.svg";
 
 const S = styled.div`
   .app-name {
@@ -113,14 +113,17 @@ const S = styled.div`
   .submitted {
     font-size: 20px;
     margin: 20px auto;
-    margin-top: 100px;
+    margin-top: 60px;
     text-align: center;
     max-width: 400px;
+    #reservation {
+      padding: 20px;
+    }
   }
 
-  #contact-svg {
+  #confirmed-svg {
     width: 100%;
-    height: 200px;
+    height: 150px;
   }
 
   .notice {
@@ -233,6 +236,8 @@ let getTime = (x) => {
 export const Form = () => {
   const [day, setDay] = useState();
   const [loading, setLoading] = useState(true);
+
+  const [reservation, setReservation] = useState();
 
   let { business } = useParams();
   let logo = `https://res.cloudinary.com/baudelaire/image/upload/w_100/v1587884625/reserve/${business}.png`;
@@ -354,6 +359,8 @@ export const Form = () => {
       })} on ${r.date.month + 1}/${r.date.day}/${r.date.year}
   `
     };
+
+    setReservation(message.html);
     DB.guest(business, r);
     DB.email({
       to: data.email,
@@ -441,8 +448,10 @@ export const Form = () => {
 
       {!submit && (
         <div className="submitted">
-          <Contact id="contact-svg" />
+          <Confirmed id="confirmed-svg" />
           <h2>Thank You!</h2>
+
+          <div id="reservation">{reservation}</div>
         </div>
       )}
     </S>
