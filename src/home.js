@@ -64,14 +64,14 @@ export const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    FB.auth().onAuthStateChanged(user => {
+    FB.auth().onAuthStateChanged((user) => {
       if (user) {
         setLoading(true);
         FB.firestore()
           .collection("business")
           .doc(user.uid)
           .get()
-          .then(doc => {
+          .then((doc) => {
             LS.guest = false;
             let data = doc.data();
             setUrl(data.url);
@@ -80,7 +80,7 @@ export const Home = () => {
             setLoading(false);
             setBusiness(true);
           })
-          .catch(error => {
+          .catch((error) => {
             if (error) {
               setLoading(false);
               alert("Error, try again later!");
@@ -92,16 +92,15 @@ export const Home = () => {
 
   return (
     <S>
-       <div className={`loading-line ${loading?'loaded':''}`}>
-          <div />
-        </div>
-    
+      <div className={`loading-line ${loading ? "loaded" : ""}`}>
+        <div />
+      </div>
 
       {!business && (
         <>
           <div className="app-name">RSRV</div>
 
-          <div className="app-slogan">Never lose a reservation again!</div>
+          <div className="app-slogan">Never lose a reservation again...</div>
           <button
             className="guest-mode-button"
             onClick={() => {
