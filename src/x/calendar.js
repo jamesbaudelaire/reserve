@@ -67,6 +67,9 @@ const S = styled.div`
     display: grid;
     grid-template-columns: repeat(7, min-content);
   }
+  .weekdays {
+    font-weight: bold;
+  }
   .day {
     transition: 0.3s;
     width: 22px;
@@ -262,7 +265,7 @@ export const CalendarUI = ({ day, setDay }) => {
       </div>
 
       <div className="days">
-        <div className="week">
+        <div className="week weekdays">
           {CalendarData.days.map((day, i) => (
             <div className="day" id={day} key={`day-${i}`}>
               {day[0]}
