@@ -272,12 +272,15 @@ export const Form = () => {
       .get()
       .then((doc) => {
         let data = doc.data();
+        if(data){
         Object.keys(data).forEach((d) => {
           if (data[d]) {
             document.getElementById(d).classList.add("open");
           }
         });
+      }
       });
+      
   }, []);
 
   let inputs = [
