@@ -108,7 +108,7 @@ const S = styled.div`
     margin: 20px;
     border-radius: 10px;
 
-    height: 300px;
+    height: 200px;
 
     overflow: scroll;
     .input {

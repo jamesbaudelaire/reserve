@@ -55,7 +55,7 @@ const S = styled.div`
     z-index: 100;
     width: auto;
     height: auto;
-    top: 80px;
+    top: 60px;
     right: 20px;
     border-radius: 5px;
 
@@ -66,6 +66,8 @@ const S = styled.div`
 
     &.loaded {
       opacity: 1;
+      top: 80px;
+      right: 20px;
     }
   }
 
@@ -76,6 +78,7 @@ const S = styled.div`
 
   .calendar {
     margin: 20px auto;
+    margin-top: 40px;
     display: block;
     max-width: 300px;
   }
@@ -124,6 +127,7 @@ const S = styled.div`
       position: absolute;
       right: 0;
       top: 0px;
+      margin-top: 20px;
       transform: scale(0.8);
       transform-origin: 220px 0px;
       max-width: 300px;
