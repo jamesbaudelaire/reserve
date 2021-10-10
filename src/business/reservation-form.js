@@ -15,10 +15,15 @@ const S = styled.div`
   .reservation-form {
     box-shadow: var(--shadow);
     position: fixed;
-    bottom: 0;
-    border-radius: 10px 10px 0 0;
-    left: 0%;
+    top: 20%;
+    border-radius: 10px;
+    left: 50%;
     z-index: 100;
+    width:300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 
     .buttons {
       #close-button {
@@ -34,10 +39,9 @@ const S = styled.div`
 
     opacity: 0;
     transition: 0.3s;
-    transform: translatey(20px);
     &.loaded {
       opacity: 1;
-      transform: translatey(0px);
+ 
     }
   }
 
@@ -96,21 +100,20 @@ const S = styled.div`
     margin: 20px;
   }
 
-  textarea {
-    resize: none;
-  }
+
+
 
   .inputs {
-    .time {
-      margin: 10px;
-      margin-top: 0;
-    }
+    box-shadow: var(--inset);
+    margin:20px;
+    border-radius:10px;
+
+    height:200px;
+    overflow:scroll;
     .input {
-      display: inline-block;
-      input {
-        width: 120px;
-      }
-      display: inline-block;
+          width: 90%;
+
+      margin:10px;
       i {
         font-size: 30px;
         margin-left: 10px;
@@ -120,14 +123,7 @@ const S = styled.div`
     .text {
       white-space: nowrap;
       overflow: scroll;
-      width: 100vw;
 
-      .input:first-child {
-        margin-left: 10px;
-      }
-      .input:last-child {
-        margin-right: 10px;
-      }
     }
 
     input:required {
@@ -139,23 +135,32 @@ const S = styled.div`
     }
   }
 
+  .reservation-note{
+    margin:10px;
+
+    i{
+      font-size: 30px;
+        margin-left: 10px;
+      display:block;
+    }
+    textarea {
+    resize: none; 
+    margin:10px;
+  }
+  }
+
   .clickable {
     color: var(--theme);
     cursor: pointer;
   }
 
-  @media screen and (max-width: 1000px) {
-    .reservation-form {
-      box-shadow: var(--inset);
-    }
-  }
+
 
   @media screen and (min-width: 1000px) {
-    .reservation-form {
+    /* .reservation-form {
       margin: 20px;
       border-radius: 10px;
       box-shadow: var(--shadow);
-      width:220px;
       padding-bottom: 0px;
       .text {
         width: unset;
@@ -174,21 +179,7 @@ const S = styled.div`
         }
       }
 
-      .inputs {
-        margin: 0px;
-        .input {
-          display: flex;
-          align-items: center;
-        }
-        .text {
-          .input:first-child {
-            margin-left: 0px;
-          }
-        }
-        .time {
-          margin: 0;
-        }
-      }
+  
 
       .buttons {
         #close-button {
@@ -199,11 +190,11 @@ const S = styled.div`
           margin: 10px 0px 10px 10px;
         }
       }
-    }
-    #add-button {
+    } */
+    /* #add-button {
       position: unset;
       margin: 10px;
-    }
+    } */
   }
 `;
 
@@ -243,7 +234,7 @@ export const ReservationForm = ({
       max: 99
     },
 
-    { input: "notes", type: "text", icon: "note", limit: 15 }
+    // { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
 
   useEffect(() => {
@@ -251,6 +242,9 @@ export const ReservationForm = ({
       inputs.forEach(x => {
         document.getElementById(x.input).value = reservation[x.input];
       });
+
+      document.getElementById('notes').value = reservation['notes'];
+
 
       ["phone", "email"].forEach(x => {
         document.getElementById(x).value = reservation[x];
@@ -291,6 +285,9 @@ export const ReservationForm = ({
     inputs.forEach(x => {
       r[x.input] = document.getElementById(x.input).value;
     });
+
+    r['notes']=document.getElementById('notes').value;
+
     ["phone", "email"].forEach(x => {
       r[x] = document.getElementById(x).value;
     });
@@ -404,11 +401,43 @@ export const ReservationForm = ({
             ))}
           </div>
 
+
+
+            
+            {/* {inputs.map(x => (
+              <div key={x.input} className="input">
+                <i className="material-icons-round">{x.icon}</i>
+                <input
+                  onClick={() => {
+                    scroll(x.input);
+                  }}
+                  id={x.input}
+                  placeholder={x.input}
+                  type={x.type}
+                  max={x.max}
+                  maxLength={x.limit}
+                  required={x.req}
+                />
+              </div>
+            ))} */}
+          
+
           <div className="input time">
             <i className="material-icons-round">schedule</i>
             <input type="time" id="time" defaultValue="12:00" required />
           </div>
         </div>
+
+
+{
+  <div className="reservation-note">
+    <i className="material-icons-round">note</i>
+  <textarea className="note" id="notes" rows="3"
+                    placeholder={inputs.notes}
+  >
+  </textarea>
+  </div>
+  }
 
         <div className="buttons">
           <button
