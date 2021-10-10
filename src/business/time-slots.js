@@ -225,7 +225,7 @@ export const TimeSlots = ({
                   <span className="people">{r.people}</span>
                   <span className="time">{`${getHour(h)}:${getMinutes(
                     r.time.minutes
-                  )}`}</span>
+                  )}${getHourType(h)}`}</span>
                 </div>
 
                 {r.notes && (

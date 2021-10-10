@@ -22,9 +22,9 @@ const GS = createGlobalStyle`
 --light:rgb(240,240,240);
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
 display: none;
-} */
+}
 
 
 
@@ -51,7 +51,7 @@ a{
 input {
       margin: 10px;
       border: none;
-      box-shadow: var(--inset);
+      /* box-shadow: var(--inset); */
       border-radius: 5px;
       padding: 5px 10px;
       /* outline: none; */

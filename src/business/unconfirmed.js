@@ -11,15 +11,14 @@ const S = styled.div`
     div {
       overflow: auto;
       white-space: nowrap;
-      padding: 15px 0 20px 0;
-      button {
-        &:last-child {
-          margin-right: 20px;
-        }
-      }
+
       .unconfirmed-reservation {
-        margin: 0;
-        margin-left: 20px;
+        margin: 20px;
+        margin-right: 0;
+
+        &:last-child {
+          margin-right: 0px;
+        }
         transition: 0.3s;
         opacity: 0;
         transform: translatex(20px);

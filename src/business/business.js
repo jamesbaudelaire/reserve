@@ -28,24 +28,21 @@ import { Settings } from "./settings";
 let cal = new Calendar();
 
 const S = styled.div`
-  .topbar {
+  /* .topbar {
     display: flex;
     position: relative;
     flex-flow: row-reverse;
-  }
-  .business-name {
-    font-size: 30px;
-    margin: 20px 0;
-  }
+  } */
 
   .logo {
+    position: absolute;
+    right: 0;
+    top: 0;
     cursor: pointer;
     background-size: cover;
     height: 50px;
     width: 50px;
     border-radius: 5px;
-    top: 0;
-    left: 0;
     margin: 20px;
     box-shadow: var(--shadow);
   }
@@ -53,19 +50,24 @@ const S = styled.div`
   .top-shelf {
     opacity: 0;
     transition: 0.3s;
-    box-shadow: var(--inset);
-
-    &.loaded {
-      opacity: 1;
-    }
-    right: 0;
-    top: 0;
-    width: 100%;
+    box-shadow: var(--shadow);
+    position: fixed;
     z-index: 100;
+    width: auto;
+    height: auto;
+    top: 60px;
+    right: 20px;
+    border-radius: 5px;
 
     button {
       margin: 20px;
-      margin-right: 0;
+      display: block;
+    }
+
+    &.loaded {
+      opacity: 1;
+      top: 80px;
+      right: 20px;
     }
   }
 
@@ -76,6 +78,7 @@ const S = styled.div`
 
   .calendar {
     margin: 20px auto;
+    margin-top: 40px;
     display: block;
     max-width: 300px;
   }
@@ -120,33 +123,14 @@ const S = styled.div`
       width: 160px;
     }
 
-    .top-shelf {
-      box-shadow: var(--shadow);
-      position: fixed;
-      z-index: 100;
-      width: auto;
-      height: auto;
-      top: 80px;
-      right: 20px;
-      border-radius: 5px;
-      button {
-        margin: 20px;
-        display: block;
-      }
-    }
-
     .calendar {
       position: absolute;
       right: 0;
       top: 0px;
+      margin-top: 20px;
       transform: scale(0.8);
       transform-origin: 220px 0px;
       max-width: 300px;
-    }
-
-    .add-reservation {
-      left: 0;
-      right: unset;
     }
   }
 `;
@@ -162,7 +146,7 @@ export const Business = ({ setBusiness, url, username }) => {
   const [reservation, setReservation] = useState(null);
   const [addReservationUI, setAddReservationUI] = useState(false);
   const [reservations, setReservations] = useState([]);
-  const [settings, setSettings] = useState(false);
+  // const [settings, setSettings] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -335,7 +319,6 @@ export const Business = ({ setBusiness, url, username }) => {
             setTopshelf(!topshelf);
           }}
         />
-        <div className="business-name">{username}</div>
       </div>
 
       <div className="today">
