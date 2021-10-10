@@ -81,7 +81,7 @@ const S = styled.div`
   }
 
   .today {
-    font-size: 25px;
+    font-size: 20px;
     height: 50px;
     margin: 0 20px;
     text-transform: uppercase;
@@ -114,11 +114,10 @@ const S = styled.div`
     }
 
     .today {
-  
-        position: fixed;
-    left: 0;
-    top: 0px;
-    width: 160px;
+      position: fixed;
+      left: 0;
+      top: 0px;
+      width: 160px;
     }
 
     .top-shelf {
@@ -312,7 +311,7 @@ export const Business = ({ setBusiness, url, username }) => {
           >
             email list
           </button> */}
-          {uid && (
+          {/* {uid && (
             <button
               className={`${settings ? "selected" : ""}`}
               onClick={() => {
@@ -322,7 +321,7 @@ export const Business = ({ setBusiness, url, username }) => {
               settings
             </button>
           )}
-          {settings && <div id="settings">{uid && <Settings url={url} />}</div>}
+          {settings && <div id="settings">{uid && <Settings url={url} />}</div>} */}
         </div>
       )}
 
