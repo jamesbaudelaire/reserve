@@ -34,13 +34,13 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     position: fixed;
-    left: 0;
-    top: 0px;
+    right: 0;
+    bottom: 0;
     width: 160px;
   }
 `;
 
-let dayId = day => {
+let dayId = (day) => {
   return `${day.year}-${day.month}-${day.day}`;
 };
 
@@ -49,16 +49,16 @@ export const Note = ({ uid, day }) => {
 
   let timer;
 
-  let saveCloud = note => {
+  let saveCloud = (note) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       DB.note(uid, note, dayId(day));
     }, 1000);
   };
 
-  const notes = useSelector(s => s.notes);
+  const notes = useSelector((s) => s.notes);
 
-  let saveLocal = note => {
+  let saveLocal = (note) => {
     dispatch(saveNote(note, dayId(day)));
   };
 
@@ -72,7 +72,7 @@ export const Note = ({ uid, day }) => {
           .doc(uid)
           .collection("notes")
           .doc(`${dayId(day)}`)
-          .onSnapshot(q => {
+          .onSnapshot((q) => {
             let note = q.data();
             if (note) {
               input.innerText = note.text;
@@ -96,7 +96,7 @@ export const Note = ({ uid, day }) => {
         id="note"
         className="note"
         contentEditable={true}
-        onInput={e => {
+        onInput={(e) => {
           if (uid) {
             saveCloud(e.currentTarget.innerText);
           } else {

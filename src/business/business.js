@@ -114,10 +114,11 @@ const S = styled.div`
     }
 
     .today {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      margin: 15px 25px;
+  
+        position: fixed;
+    left: 0;
+    top: 0px;
+    width: 160px;
     }
 
     .top-shelf {

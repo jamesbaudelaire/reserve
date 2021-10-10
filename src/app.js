@@ -6,7 +6,7 @@ import { Home } from "./home";
 import { createGlobalStyle } from "styled-components";
 
 import { useAnimation } from "./x/animation";
-import { Form } from "./guest/form";
+// import { Form } from "./guest/form";
 
 const GS = createGlobalStyle`
 
@@ -85,10 +85,11 @@ body{
 body,button,input,.add-reservation,.reservation-form,#guest-form .inputs,.top-shelf{
   background:var(--light);
   color:var(--dark);
-  @media (prefers-color-scheme: dark) {
+
+  /* @media (prefers-color-scheme: dark) {
   background:var(--dark);
   color:var(--light)
-}
+} */
 
 }
 
@@ -175,7 +176,7 @@ const Pages = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/:business" component={Form} />
+      {/* <Route path="/:business" component={Form} /> */}
     </Switch>
   );
 };
