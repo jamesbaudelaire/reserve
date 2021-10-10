@@ -5,9 +5,9 @@ import { IO } from "../x/IO";
 
 const S = styled.div`
   box-shadow: var(--inset);
-    border-radius: 5px;
-    padding: 10px 0;
-    margin: 20px;
+  border-radius: 5px;
+  padding: 10px 0;
+  margin: 20px;
 
   .reservations {
     max-width: 200px;
@@ -89,7 +89,6 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
-   
     position: absolute;
     padding: 0;
     width: 300px;
@@ -222,7 +221,7 @@ export const TimeSlots = ({
                 id={r.id}
               >
                 <div className="info">
-                  <span className="name">{r.name}</span>
+                  <span className="name">{r.name.slice(0, 10)}</span>
                   <span className="people">{r.people}</span>
                   <span className="time">{`${getHour(h)}:${getMinutes(
                     r.time.minutes
@@ -231,7 +230,7 @@ export const TimeSlots = ({
 
                 {r.notes && (
                   <div className="notes">
-                    <span>{r.notes}</span>
+                    <span>{r.notes.slice(0, 3) + "..."}</span>
                   </div>
                 )}
               </div>

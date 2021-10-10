@@ -115,7 +115,7 @@ export const Unconfirmed = ({
                   setAddReservationUI(true);
                 }}
               >
-                {r.name}
+                {r.name.slice(0, 10)}
               </button>
             ))}
           </div>
