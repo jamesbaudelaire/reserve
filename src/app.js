@@ -22,9 +22,9 @@ const GS = createGlobalStyle`
 --light:rgb(240,240,240);
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
 display: none;
-} */
+}
 
 
 

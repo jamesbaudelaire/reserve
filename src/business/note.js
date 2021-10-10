@@ -15,7 +15,7 @@ const S = styled.div`
   font-size: 12px;
 
   .note {
-    font-size: 16px;
+    font-size: 12px;
     outline: none;
     margin: 10px 0 25px 0px;
     max-height: 200px;
@@ -34,7 +34,7 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     position: fixed;
-    right: 0;
+    left: 0;
     bottom: 0;
     width: 160px;
   }

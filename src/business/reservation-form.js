@@ -16,14 +16,12 @@ const S = styled.div`
     padding-bottom: 40px;
     box-shadow: var(--shadow);
     position: fixed;
-    top: 20%;
     border-radius: 10px;
-    left: 50%;
     z-index: 100;
     width: 320px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+    bottom: 0px;
+    right: 0px;
 
     .buttons {
       #delete-button {
@@ -45,6 +43,8 @@ const S = styled.div`
     transition: 0.3s;
     &.loaded {
       opacity: 1;
+      bottom: 20px;
+      right: 20px;
     }
   }
 
@@ -108,7 +108,8 @@ const S = styled.div`
     margin: 20px;
     border-radius: 10px;
 
-    height: 200px;
+    height: 300px;
+
     overflow: scroll;
     .input {
       width: 90%;
@@ -435,7 +436,7 @@ export const ReservationForm = ({
               resetui();
             }}
           >
-            close
+            <i className="material-icons-round">minimize</i>
           </button>
 
           {reservation &&
