@@ -13,19 +13,23 @@ import { DB } from "../x/firebase";
 
 const S = styled.div`
   .reservation-form {
+    padding-bottom: 40px;
     box-shadow: var(--shadow);
     position: fixed;
     top: 20%;
     border-radius: 10px;
     left: 50%;
     z-index: 100;
-    width:300px;
+    width: 320px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-
     .buttons {
+      #delete-button {
+        position: absolute;
+        bottom: 0;
+      }
       #close-button {
         position: absolute;
         top: 0px;
@@ -41,7 +45,6 @@ const S = styled.div`
     transition: 0.3s;
     &.loaded {
       opacity: 1;
- 
     }
   }
 
@@ -100,20 +103,17 @@ const S = styled.div`
     margin: 20px;
   }
 
-
-
-
   .inputs {
     box-shadow: var(--inset);
-    margin:20px;
-    border-radius:10px;
+    margin: 20px;
+    border-radius: 10px;
 
-    height:200px;
-    overflow:scroll;
+    height: 200px;
+    overflow: scroll;
     .input {
-          width: 90%;
+      width: 90%;
 
-      margin:10px;
+      margin: 10px;
       i {
         font-size: 30px;
         margin-left: 10px;
@@ -123,7 +123,6 @@ const S = styled.div`
     .text {
       white-space: nowrap;
       overflow: scroll;
-
     }
 
     input:required {
@@ -135,26 +134,28 @@ const S = styled.div`
     }
   }
 
-  .reservation-note{
-    margin:10px;
+  .reservation-note {
+    margin: 10px;
 
-    i{
+    i {
       font-size: 30px;
-        margin-left: 10px;
-      display:block;
+      margin-left: 10px;
+      display: block;
     }
     textarea {
-    resize: none; 
-    margin:10px;
-  }
+      resize: none;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: var(--inset);
+      padding: 5px 10px;
+    }
   }
 
   .clickable {
     color: var(--theme);
     cursor: pointer;
   }
-
-
 
   @media screen and (min-width: 1000px) {
     /* .reservation-form {
@@ -198,7 +199,7 @@ const S = styled.div`
   }
 `;
 
-let convertSingle = x => {
+let convertSingle = (x) => {
   if (x < 10) {
     return `0${x}`;
   } else {
@@ -221,7 +222,7 @@ export const ReservationForm = ({
     {
       input: "name",
       type: "text",
-      limit: 10,
+      limit: 15,
       icon: "face",
       req: true
     },
@@ -232,21 +233,20 @@ export const ReservationForm = ({
       icon: "people",
       req: true,
       max: 99
-    },
+    }
 
     // { input: "notes", type: "text", icon: "note", limit: 15 }
   ];
 
   useEffect(() => {
     if (reservation) {
-      inputs.forEach(x => {
+      inputs.forEach((x) => {
         document.getElementById(x.input).value = reservation[x.input];
       });
 
-      document.getElementById('notes').value = reservation['notes'];
+      document.getElementById("notes").value = reservation["notes"];
 
-
-      ["phone", "email"].forEach(x => {
+      ["phone", "email"].forEach((x) => {
         document.getElementById(x).value = reservation[x];
       });
 
@@ -257,13 +257,13 @@ export const ReservationForm = ({
 
       document.getElementById("phone-link").href = `tel:${reservation.phone}`;
 
-      document.getElementById("email-link").href = `mailto:${
-        reservation.email
-      }`;
+      document.getElementById(
+        "email-link"
+      ).href = `mailto:${reservation.email}`;
     }
   }, [reservation]);
 
-  let convertTime = x => {
+  let convertTime = (x) => {
     if (x === "") {
       return null;
     }
@@ -276,19 +276,19 @@ export const ReservationForm = ({
     return time;
   };
 
-  let timeStamp = day => {
+  let timeStamp = (day) => {
     return new Date(day).getTime();
   };
 
   let newReservation = () => {
     let r = {};
-    inputs.forEach(x => {
+    inputs.forEach((x) => {
       r[x.input] = document.getElementById(x.input).value;
     });
 
-    r['notes']=document.getElementById('notes').value;
+    r["notes"] = document.getElementById("notes").value;
 
-    ["phone", "email"].forEach(x => {
+    ["phone", "email"].forEach((x) => {
       r[x] = document.getElementById(x).value;
     });
 
@@ -329,7 +329,7 @@ export const ReservationForm = ({
 
   const load = useAnimation();
 
-  let scroll = id => {
+  let scroll = (id) => {
     document.getElementById(id).scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -355,9 +355,6 @@ export const ReservationForm = ({
                 <i className="material-icons-round clickable">phone</i>
               </a>
               <input
-                onClick={() => {
-                  scroll("phone");
-                }}
                 id="phone"
                 placeholder="phone"
                 type="text"
@@ -371,9 +368,6 @@ export const ReservationForm = ({
                 <i className="material-icons-round clickable">email</i>
               </a>
               <input
-                onClick={() => {
-                  scroll("email");
-                }}
                 id="email"
                 placeholder="email"
                 type="email"
@@ -383,13 +377,10 @@ export const ReservationForm = ({
           </div>
 
           <div className="text">
-            {inputs.map(x => (
+            {inputs.map((x) => (
               <div key={x.input} className="input">
                 <i className="material-icons-round">{x.icon}</i>
                 <input
-                  onClick={() => {
-                    scroll(x.input);
-                  }}
                   id={x.input}
                   placeholder={x.input}
                   type={x.type}
@@ -401,10 +392,7 @@ export const ReservationForm = ({
             ))}
           </div>
 
-
-
-            
-            {/* {inputs.map(x => (
+          {/* {inputs.map(x => (
               <div key={x.input} className="input">
                 <i className="material-icons-round">{x.icon}</i>
                 <input
@@ -420,24 +408,25 @@ export const ReservationForm = ({
                 />
               </div>
             ))} */}
-          
 
           <div className="input time">
             <i className="material-icons-round">schedule</i>
             <input type="time" id="time" defaultValue="12:00" required />
           </div>
+
+          {
+            <div className="reservation-note">
+              <i className="material-icons-round">note</i>
+              <textarea
+                className="note"
+                id="notes"
+                rows="3"
+                maxLength="50"
+                placeholder={inputs.notes}
+              ></textarea>
+            </div>
+          }
         </div>
-
-
-{
-  <div className="reservation-note">
-    <i className="material-icons-round">note</i>
-  <textarea className="note" id="notes" rows="3"
-                    placeholder={inputs.notes}
-  >
-  </textarea>
-  </div>
-  }
 
         <div className="buttons">
           <button
