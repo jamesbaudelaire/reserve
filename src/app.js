@@ -51,11 +51,11 @@ a{
 input {
       margin: 10px;
       border: none;
-      /* box-shadow: var(--inset); */
+      box-shadow: var(--inset);
       border-radius: 5px;
       padding: 5px 10px;
       /* outline: none; */
-      /* -webkit-appearance: none; */
+      -webkit-appearance: none;
     }
 
 
