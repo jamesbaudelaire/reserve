@@ -132,11 +132,6 @@ const S = styled.div`
       transform-origin: 220px 0px;
       max-width: 300px;
     }
-
-    .add-reservation {
-      top: 70px;
-      bottom: unset;
-    }
   }
 `;
 
