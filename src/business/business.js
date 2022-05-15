@@ -52,7 +52,7 @@ const S = styled.div`
     transition: 0.3s;
     box-shadow: var(--shadow);
     position: fixed;
-    z-index: 100;
+    z-index: 200;
     width: auto;
     height: auto;
     top: 60px;
@@ -131,6 +131,11 @@ const S = styled.div`
       transform: scale(0.8);
       transform-origin: 220px 0px;
       max-width: 300px;
+    }
+
+    .add-reservation {
+      top: 70px;
+      bottom: unset;
     }
   }
 `;

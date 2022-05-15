@@ -230,7 +230,7 @@ export const TimeSlots = ({
 
                 {r.notes && (
                   <div className="notes">
-                    <span>{r.notes.slice(0, 3) + "..."}</span>
+                    <span>{r.notes.slice(0, 15)}</span>
                   </div>
                 )}
               </div>
