@@ -159,6 +159,13 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
+
+    .reservation-form {
+    &.loaded {
+      top:90px;
+      bottom: unset;
+    }
+
     /* .reservation-form {
       margin: 20px;
       border-radius: 10px;
@@ -351,6 +358,27 @@ export const ReservationForm = ({
 
         <div className="inputs">
           <div className="text">
+            {inputs.map((x) => (
+              <div key={x.input} className="input">
+                <i className="material-icons-round">{x.icon}</i>
+                <input
+                  id={x.input}
+                  placeholder={x.input}
+                  type={x.type}
+                  max={x.max}
+                  maxLength={x.limit}
+                  required={x.req}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="input time">
+            <i className="material-icons-round">schedule</i>
+            <input type="time" id="time" defaultValue="12:00" required />
+          </div>
+
+          <div className="text">
             <div className="input">
               <a id="phone-link" rel="noopener noreferrer">
                 <i className="material-icons-round clickable">phone</i>
@@ -377,22 +405,6 @@ export const ReservationForm = ({
             </div>
           </div>
 
-          <div className="text">
-            {inputs.map((x) => (
-              <div key={x.input} className="input">
-                <i className="material-icons-round">{x.icon}</i>
-                <input
-                  id={x.input}
-                  placeholder={x.input}
-                  type={x.type}
-                  max={x.max}
-                  maxLength={x.limit}
-                  required={x.req}
-                />
-              </div>
-            ))}
-          </div>
-
           {/* {inputs.map(x => (
               <div key={x.input} className="input">
                 <i className="material-icons-round">{x.icon}</i>
@@ -409,11 +421,6 @@ export const ReservationForm = ({
                 />
               </div>
             ))} */}
-
-          <div className="input time">
-            <i className="material-icons-round">schedule</i>
-            <input type="time" id="time" defaultValue="12:00" required />
-          </div>
 
           {
             <div className="reservation-note">

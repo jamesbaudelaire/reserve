@@ -13,8 +13,11 @@ const S = styled.div`
   padding: 10px;
   border-radius: 5px;
   font-size: 12px;
+  background: #fbc02d;
 
   .note {
+    background: white;
+
     font-size: 12px;
     outline: none;
     margin: 10px 0 25px 0px;
@@ -35,7 +38,7 @@ const S = styled.div`
   @media screen and (min-width: 1000px) {
     position: fixed;
     left: 0;
-    bottom: 0;
+    top: 40px;
     width: 160px;
   }
 `;
@@ -53,7 +56,7 @@ export const Note = ({ uid, day }) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
       DB.note(uid, note, dayId(day));
-    }, 1000);
+    }, 2000);
   };
 
   const notes = useSelector((s) => s.notes);
@@ -91,7 +94,7 @@ export const Note = ({ uid, day }) => {
 
   return (
     <S>
-      Note...
+      Daily Note...
       <div
         id="note"
         className="note"
