@@ -165,7 +165,7 @@ const S = styled.div`
         left: 20px;
       }
       .inputs {
-        height: 380px;
+        height: unset;
       }
     }
     /* .reservation-form {
