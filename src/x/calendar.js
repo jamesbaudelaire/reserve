@@ -58,6 +58,8 @@ let cal = new Calendar();
 
 const S = styled.div`
   text-transform: uppercase;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
   position: relative;
   user-select: none;
   font-size: 20px;
@@ -100,7 +102,7 @@ const S = styled.div`
     left: 0;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 10px;
     margin: 5px auto;
     line-height: 0px;
     border-radius: 5px;
@@ -121,8 +123,8 @@ const S = styled.div`
   .year {
     display: inline-block;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
   }
   .month {
     display: inline-block;

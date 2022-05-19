@@ -92,10 +92,10 @@ const S = styled.div`
     position: absolute;
     padding: 0;
     width: 300px;
-    top: 0px;
+    bottom: 0px;
     left: 0;
     margin: 10px;
-    height: calc(100% - 20px);
+    height: calc(100% - 70px);
     overflow-y: scroll;
 
     .time-slot {

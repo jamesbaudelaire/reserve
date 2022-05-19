@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 import { Reservations } from "./reservations";
 
-import { Unconfirmed } from "./unconfirmed";
+// import { Unconfirmed } from "./unconfirmed";
 
 import { FB, DB, AUTH } from "../x/firebase";
 
@@ -81,6 +81,7 @@ const S = styled.div`
     margin-top: 40px;
     display: block;
     max-width: 300px;
+    padding: 10px;
   }
 
   .today {
@@ -110,6 +111,11 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
+    .add-reservation {
+      left: 0;
+      right: unset;
+    }
+
     .topbar {
       position: fixed;
       top: 0;
@@ -118,14 +124,14 @@ const S = styled.div`
 
     .today {
       position: fixed;
-      left: 0;
-      top: 0px;
-      width: 160px;
+      left: 360px;
+      top: 90px;
+      width: 180px;
     }
 
     .calendar {
-      position: absolute;
-      right: 0;
+      position: fixed;
+      left: -20px;
       top: 0px;
       margin-top: 20px;
       transform: scale(0.8);
@@ -336,7 +342,7 @@ export const Business = ({ setBusiness, url, username }) => {
 
       <Note uid={uid} day={day} />
 
-      <Unconfirmed
+      {/* <Unconfirmed
         setDay={setDay}
         reservation={reservation}
         setReservation={setReservation}
@@ -344,7 +350,7 @@ export const Business = ({ setBusiness, url, username }) => {
         setUnconfirmed={setUnconfirmed}
         setAddReservationUI={setAddReservationUI}
         unconfirmedGR={unconfirmedGR}
-      />
+      /> */}
 
       <Reservations
         day={day}
