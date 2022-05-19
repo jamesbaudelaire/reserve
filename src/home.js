@@ -16,6 +16,20 @@ import { ReactComponent as Rsrv } from "./assets/rsrv.svg";
 import { notesLS } from "./x/notesLS";
 
 const S = styled.div`
+  /* #landing{
+   position: absolute;
+  overflow:scroll;
+  width: calc(100% - 440px);
+    height: calc(100% - 250px);
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+} */
+
   .app-name {
     font-size: 40px;
     margin: 10px 20px;
@@ -97,7 +111,7 @@ export const Home = () => {
       </div>
 
       {!business && (
-        <>
+        <div id="landing">
           <div className="app-name">RSRV</div>
 
           <div className="app-slogan">Never lose a reservation again...</div>
@@ -118,11 +132,16 @@ export const Home = () => {
           <Rsrv className="rsrv" />
 
           <Login setLoading={setLoading} />
-        </>
+        </div>
       )}
 
       {business && (
-        <Business setBusiness={setBusiness} username={username} url={url} />
+        <Business
+          id="main"
+          setBusiness={setBusiness}
+          username={username}
+          url={url}
+        />
       )}
     </S>
   );

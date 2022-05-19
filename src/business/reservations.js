@@ -38,7 +38,7 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     .no-reservations {
-      margin: 30px;
+      margin: 60px;
     }
     .svg-none {
       position: absolute;
@@ -51,7 +51,7 @@ const S = styled.div`
   }
 `;
 
-let timeStamp = day => {
+let timeStamp = (day) => {
   return new Date(day).getTime();
 };
 
@@ -66,20 +66,20 @@ export const Reservations = ({
 }) => {
   const [loading, setLoading] = useState();
 
-  const reservationsData = useSelector(s => s.reservations);
+  const reservationsData = useSelector((s) => s.reservations);
 
   useEffect(() => {
     setLoading(true);
     if (LS.guest) {
       setUnconfirmed(
         reservationsData
-          .filter(r => !r.confirmed)
-          .filter(r => r.timestamp >= cal.timeStamp())
+          .filter((r) => !r.confirmed)
+          .filter((r) => r.timestamp >= cal.timeStamp())
       );
 
       if (reservationsData && day) {
         let reservations = reservationsData.filter(
-          r =>
+          (r) =>
             r.timestamp == timeStamp(`${day.month + 1}/${day.day}/${day.year}`)
         );
         setReservations(reservations);

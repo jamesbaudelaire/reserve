@@ -20,8 +20,8 @@ const S = styled.div`
     z-index: 100;
     width: 320px;
 
-    bottom: 20px;
-    right: 20px;
+    bottom: 0px;
+    right: 0px;
 
     .buttons {
       #delete-button {
@@ -43,8 +43,8 @@ const S = styled.div`
     transition: 0.3s;
     &.loaded {
       opacity: 1;
-      bottom: 40px;
-      right: 40px;
+      bottom: 20px;
+      right: 20px;
     }
   }
 
@@ -107,7 +107,6 @@ const S = styled.div`
     box-shadow: var(--inset);
     margin: 20px;
     border-radius: 10px;
-
     height: 200px;
 
     overflow: scroll;
@@ -159,6 +158,16 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
+    .reservation-form {
+      right: unset;
+      left: 0px;
+      &.loaded {
+        left: 20px;
+      }
+      .inputs {
+        height: 380px;
+      }
+    }
     /* .reservation-form {
     &.loaded {
       top:90px;
@@ -377,6 +386,19 @@ export const ReservationForm = ({
             <input type="time" id="time" defaultValue="12:00" required />
           </div>
 
+          {
+            <div className="reservation-note">
+              <i className="material-icons-round">note</i>
+              <textarea
+                className="note"
+                id="notes"
+                rows="3"
+                maxLength="50"
+                placeholder={inputs.notes}
+              ></textarea>
+            </div>
+          }
+
           <div className="text">
             <div className="input">
               <a id="phone-link" rel="noopener noreferrer">
@@ -419,19 +441,6 @@ export const ReservationForm = ({
                 />
               </div>
             ))} */}
-
-          {
-            <div className="reservation-note">
-              <i className="material-icons-round">note</i>
-              <textarea
-                className="note"
-                id="notes"
-                rows="3"
-                maxLength="50"
-                placeholder={inputs.notes}
-              ></textarea>
-            </div>
-          }
         </div>
 
         <div className="buttons">

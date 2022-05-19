@@ -143,17 +143,16 @@ transition:.7s;
 
 #app{
   position: absolute;
-  overflow:scroll;
-  width: calc(100% - 440px);
-    height: calc(100% - 250px);
+    overflow: scroll;
+    width: calc(100% - 380px);
+    height: calc(100% - 110px);
     box-shadow: var(--shadow);
     border-radius: 5px;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    right: 20px;
+    bottom: 20px;
     margin: auto;
 }
+
 
 button{
   &:hover{
@@ -175,7 +174,7 @@ button{
 const Pages = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route path="/" component={Home} />
       {/* <Route path="/:business" component={Form} /> */}
     </Switch>
   );
