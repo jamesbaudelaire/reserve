@@ -21,13 +21,8 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    text-align: left;
-
     input {
-      margin: 10px;
+      margin: 20px;
     }
   }
 `;
@@ -46,12 +41,12 @@ export const Login = ({ setLoading }) => {
 
   let getInputs = () => {
     let login = {};
-    inputs.forEach(x => {
+    inputs.forEach((x) => {
       login[x.input] = document.getElementById(x.input).value;
     });
 
     AUTH.signInWithEmailAndPassword(login.email, login.password).catch(
-      error => {
+      (error) => {
         setLoading(false);
         alert(error.message);
       }
@@ -60,7 +55,7 @@ export const Login = ({ setLoading }) => {
   return (
     <S>
       <div className="inputs">
-        {inputs.map(x => (
+        {inputs.map((x) => (
           <input
             id={x.input}
             key={x.input}

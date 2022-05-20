@@ -20,8 +20,8 @@ const S = styled.div`
     z-index: 100;
     width: 320px;
 
-    bottom: 0px;
-    right: 0px;
+    bottom: 20px;
+    right: 20px;
 
     .buttons {
       #delete-button {
@@ -43,8 +43,8 @@ const S = styled.div`
     transition: 0.3s;
     &.loaded {
       opacity: 1;
-      bottom: 20px;
-      right: 20px;
+      bottom: 40px;
+      right: 40px;
     }
   }
 
@@ -160,10 +160,7 @@ const S = styled.div`
   @media screen and (min-width: 1000px) {
     .reservation-form {
       right: unset;
-      left: 0px;
-      &.loaded {
-        left: 20px;
-      }
+
       .inputs {
         height: unset;
       }

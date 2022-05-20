@@ -37,9 +37,9 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     position: fixed;
-    right: 20px;
-    top: 90px;
-    width: 200px;
+    left: 4px;
+    top: 280px;
+    width: 230px;
   }
 `;
 

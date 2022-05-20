@@ -111,10 +111,15 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
-    .add-reservation {
-      left: 0;
-      right: unset;
-    }
+    position: absolute;
+    overflow: scroll;
+    width: calc(100% - 390px);
+    height: calc(100% - 40px);
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    right: 90px;
+    bottom: 20px;
+    margin: auto;
 
     .topbar {
       position: fixed;
@@ -124,8 +129,8 @@ const S = styled.div`
 
     .today {
       position: fixed;
-      left: 360px;
-      top: 90px;
+      left: 300px;
+      top: 20px;
       width: 180px;
     }
 

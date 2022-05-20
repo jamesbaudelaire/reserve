@@ -19,7 +19,7 @@ let cal = new Calendar();
 
 const S = styled.div`
   .no-reservations {
-    margin: 20px;
+    margin: 20px 40px;
     opacity: 0;
     font-size: 20px;
     transition: 0.3s;
@@ -38,14 +38,14 @@ const S = styled.div`
 
   @media screen and (min-width: 1000px) {
     .no-reservations {
-      margin: 60px;
+      margin: 60px 40px;
     }
     .svg-none {
       position: absolute;
-      bottom: 10px;
-      left: 0px;
+      bottom: 40px;
+      left: 0;
       height: 160px;
-      width: 320px;
+      width: 400px;
       z-index: -10;
     }
   }
