@@ -141,17 +141,6 @@ transition:.7s;
 
 @media screen and (min-width: 1000px) {
 
-#app{
-  position: absolute;
-    overflow: scroll;
-    width: calc(100% - 380px);
-    height: calc(100% - 110px);
-    box-shadow: var(--shadow);
-    border-radius: 5px;
-    right: 20px;
-    bottom: 20px;
-    margin: auto;
-}
 
 
 button{

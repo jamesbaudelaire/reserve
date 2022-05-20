@@ -16,20 +16,6 @@ import { ReactComponent as Rsrv } from "./assets/rsrv.svg";
 import { notesLS } from "./x/notesLS";
 
 const S = styled.div`
-  /* #landing{
-   position: absolute;
-  overflow:scroll;
-  width: calc(100% - 440px);
-    height: calc(100% - 250px);
-    box-shadow: var(--shadow);
-    border-radius: 5px;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-} */
-
   .app-name {
     font-size: 40px;
     margin: 10px 20px;
@@ -48,24 +34,20 @@ const S = styled.div`
 
   .rsrv {
     width: calc(100% - 40px);
-    height: 200px;
+    position: fixed;
+    bottom: -220px;
+    z-index: -10;
     margin: 20px;
-    margin-top: -20px;
   }
 
   @media screen and (min-width: 1000px) {
     .guest-mode-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 20px;
+      margin: 10px auto;
+      display: block;
     }
 
     .rsrv {
-      position: absolute;
       bottom: 0;
-      margin: 40px;
-      height: 300px;
     }
   }
 `;
