@@ -37,12 +37,6 @@ const S = styled.div`
 
   #draw {
     display: none;
-    button {
-      margin: 20px;
-      position: absolute;
-      right: -20px;
-      top: 20px;
-    }
   }
 
   .logo {
@@ -127,9 +121,16 @@ const S = styled.div`
       div {
         position: absolute;
         margin: 20px;
-        right: 0;
+        right: 65px;
         border-radius: 10px;
         box-shadow: var(--inset);
+      }
+
+      .erase {
+        margin: 20px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
       }
     }
 
@@ -376,12 +377,20 @@ export const Business = ({ setBusiness, url, username }) => {
           ref={canvas}
           hideGrid={true}
           canvasWidth={500}
-          canvasHeight={940}
-          brushRadius={3}
+          hideInterface={true}
+          canvasHeight={500}
+          brushRadius={1}
           enablePanAndZoom={true}
           lazyRadius={0}
         />
-        <button onClick={() => canvas.current.clear()}>
+        <button
+          className="erase"
+          onClick={() => {
+            if (window.confirm("Clear canvas?")) {
+              canvas.current.eraseAll();
+            }
+          }}
+        >
           <i className="material-icons-round">clear</i>
         </button>
       </div>
