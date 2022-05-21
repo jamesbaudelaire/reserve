@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { loadReservations } from "../redux/actions";
@@ -24,6 +24,7 @@ import { getEmails } from "../analytics/functions";
 import { Link } from "react-router-dom";
 
 import { Settings } from "./settings";
+import CanvasDraw from "react-canvas-draw";
 
 let cal = new Calendar();
 
@@ -33,6 +34,10 @@ const S = styled.div`
     position: relative;
     flex-flow: row-reverse;
   } */
+
+  #draw {
+    display: none;
+  }
 
   .logo {
     position: absolute;
@@ -111,6 +116,24 @@ const S = styled.div`
   }
 
   @media screen and (min-width: 1000px) {
+    #draw {
+      display: block;
+      div {
+        position: absolute;
+        margin: 20px;
+        right: 65px;
+        border-radius: 10px;
+        box-shadow: var(--inset);
+      }
+
+      .erase {
+        margin: 20px;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+      }
+    }
+
     position: absolute;
     overflow: scroll;
     width: calc(100% - 390px);
@@ -162,6 +185,8 @@ export const Business = ({ setBusiness, url, username }) => {
   const dispatch = useDispatch();
 
   const uid = useSelector((s) => s.app.uid);
+
+  const canvas = useRef();
 
   useEffect(() => {
     if (uid && day) {
@@ -346,6 +371,29 @@ export const Business = ({ setBusiness, url, username }) => {
       <CalendarUI day={day} setDay={setDay} />
 
       <Note uid={uid} day={day} />
+
+      <div id="draw">
+        <CanvasDraw
+          ref={canvas}
+          hideGrid={true}
+          canvasWidth={500}
+          hideInterface={true}
+          canvasHeight={500}
+          brushRadius={1}
+          enablePanAndZoom={true}
+          lazyRadius={0}
+        />
+        <button
+          className="erase"
+          onClick={() => {
+            if (window.confirm("Clear canvas?")) {
+              canvas.current.eraseAll();
+            }
+          }}
+        >
+          <i className="material-icons-round">clear</i>
+        </button>
+      </div>
 
       {/* <Unconfirmed
         setDay={setDay}

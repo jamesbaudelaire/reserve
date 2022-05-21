@@ -48,6 +48,7 @@ const S = styled.div`
 
     .rsrv {
       bottom: 0;
+      height: 600px;
     }
   }
 `;
